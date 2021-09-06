@@ -1,4 +1,5 @@
 {
+  "homepage": "http://ChrisP1108.github.io/product-feedback-app",
   "name": "product-feedback-app",
   "version": "0.1.0",
   "private": true,
@@ -9,7 +10,9 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "gh-pages": "^3.2.3",
+    "vue": "^3.0.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
