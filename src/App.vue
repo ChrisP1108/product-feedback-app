@@ -14,9 +14,9 @@ export default {
 
 
 <style>
-/* * {
-  border: 1px red solid;
-} */
+* {
+  /* border: 1px red solid; */
+}
   /* Font */
 
   /* font-family: 'Jost', sans-serif; */
@@ -39,12 +39,16 @@ export default {
       --k: #E84D70;
       --l: #A337F6;
       --m: #28A7ED;
+      --halfTrans: #00000083;
     }
   body {
     margin: 0;
     font-family: 'Jost', sans-serif!important;
     width: 100%!important;
     height: 100%!important;
+  }
+  #nav {
+    height: 0%;
   }
   h1, h2 {
     margin: 0!important;
