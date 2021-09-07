@@ -1,0 +1,67 @@
+<template>
+    <div class="header-container">
+        <div @click="reload()" class="headings pointer">
+            <h1>Frontend Mentor</h1>
+            <h2>Feedback Board</h2>
+        </div>
+        <div @click="mobileMenuToggle()"
+            :class="[this.$store.state.toggleMobileMenu ? 
+            'mobile-menu-active' : 'mobile-menu-inactive', 'pointer mobile-trans']">
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'Header',
+    methods: {
+        mobileMenuToggle() {
+            this.$store.commit('toggleMobileMenu');
+        },
+        reload() {
+            window.location.reload();
+        }
+    }
+}
+</script>
+
+<style scoped>
+    .header-container {
+        color: var(--d);
+        height: 4.5rem;
+        background-image: linear-gradient(15deg, var(--m), var(--l), var(--k));
+        padding: 1.25rem 1.5rem 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative
+    }
+    .headings {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 2.375rem;
+    }
+    h1 {
+        font-size: 0.9375rem;
+        font-weight: 700;
+    }
+    h2 {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        opacity: .8;
+    }
+    .mobile-trans {
+        transition: 0.25s!important;
+    }
+    .mobile-menu-inactive {
+        background-image: url('../assets/shared/mobile/icon-hamburger.svg');
+        width: 1.25rem;
+        height: 1.0625rem;
+    }
+    .mobile-menu-active {
+        background-image: url('../assets/shared/mobile/icon-close.svg');
+        width: 1.125rem;
+        height: 1.0625rem;
+    }
+</style>

@@ -1,26 +1,60 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="nav">
+    <router-link to="/"></router-link>
+    <router-link to="/about"></router-link>
+  </div>
+  <router-view/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
 }
 </script>
 
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+/* * {
+  border: 1px red solid;
+} */
+  /* Font */
+
+  /* font-family: 'Jost', sans-serif; */
+
+    @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+  /* Colors */
+    :root {
+      --a: #AD1FEA;
+      --b: #4661E6;
+      --c: #373F68;
+      --d: #FFFFFF;
+      --e: #F2F4FF;
+      --f: #F7F8FD;
+      --g: #3A4374;
+      --h: #647196;
+      --i: #F49F85;
+      --j: #62BCFA;
+      --k: #E84D70;
+      --l: #A337F6;
+      --m: #28A7ED;
+    }
+  body {
+    margin: 0;
+    font-family: 'Jost', sans-serif!important;
+    width: 100%!important;
+    height: 100%!important;
+  }
+  h1, h2 {
+    margin: 0!important;
+    padding: 0!important;
+  }
+  .pointer {
+    cursor: pointer!important;
+  }
+  .ns {
+    margin: 0!important;
+    padding: 0!important;
+  }
 </style>
