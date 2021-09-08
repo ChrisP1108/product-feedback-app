@@ -1,12 +1,14 @@
 <template>
-    <div class="header-container">
-        <div @click="reload()" class="headings pointer">
-            <h1>Frontend Mentor</h1>
-            <h2>Feedback Board</h2>
-        </div>
-        <div @click="mobileMenuToggle()"
-            :class="[this.$store.state.toggleMobileMenu ? 
-            'mobile-menu-active' : 'mobile-menu-inactive', 'pointer mobile-trans']">
+    <div id="header">
+        <div class="header-container">
+            <div @click="reload()" class="headings pointer">
+                <h1>Frontend Mentor</h1>
+                <h2>Feedback Board</h2>
+            </div>
+            <div @click="mobileMenuToggle()"
+                :class="[this.$store.state.toggleMobileMenu ? 
+                'mobile-menu-active' : 'mobile-menu-inactive', 'pointer mobile-trans']">
+            </div>
         </div>
     </div>
 </template>
@@ -26,10 +28,13 @@ export default {
 </script>
 
 <style scoped>
+    #header {
+        background-image: linear-gradient(12deg, var(--m), var(--l), var(--k));
+    }
     .header-container {
         color: var(--d);
         height: 4.5rem;
-        background-image: linear-gradient(15deg, var(--m), var(--l), var(--k));
+        background-image: linear-gradient(to right, var(--n) 5%, transparent, var(--o) 99%);
         padding: 1.25rem 1.5rem 1.25rem;
         display: flex;
         justify-content: space-between;

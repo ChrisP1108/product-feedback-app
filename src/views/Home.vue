@@ -1,10 +1,12 @@
 <template>
   <div class="home">
     <Header />
-    <div v-if="this.$store.state.toggleMobileMenu" class="menuMain"> 
-      <div class="trans-background"></div>
-      <MenuMain />
-    </div>
+      <div :class="[this.$store.state.toggleMobileMenu 
+        ? 'trans-background' : 'reg-background'
+        , 'background']"> 
+        <h1>Info Testing 1 2 3</h1>
+      </div>
+    <MenuMain />
   </div>
 </template>
 
@@ -25,17 +27,21 @@ export default {
   .home {
     margin: 0;
     position: relative;
+    height: 40rem;
+    overflow: hidden;
+  }
+  .background {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: 0.25s;
+    z-index: 0;
+  }
+  .reg-background {
+    background-color: var(--f);
   }
   .trans-background {
     background-color: var(--halfTrans);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    transition: 0.25s;
-    z-index: 1;
-  }
-  .menuMain {
-    height: 37.1875rem;
-    transition: 0.5s;
+    position: absolute; 
   }
 </style>

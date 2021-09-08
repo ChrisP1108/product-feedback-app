@@ -39,6 +39,8 @@ export default {
       --k: #E84D70;
       --l: #A337F6;
       --m: #28A7ED;
+      --n: #79d8fb80;
+      --o: #fbb47980;
       --halfTrans: #00000083;
     }
   body {
