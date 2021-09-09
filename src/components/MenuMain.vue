@@ -1,6 +1,6 @@
 <template>
     <div :class="[this.$store.state.toggleMobileMenu ? 
-            '' : 'menu-on', 'menuMain']">
+            'menu-on' : 'menu-off', 'menuMain']">
         <MenuCategorySort />
         <MenuRoadmap />
     </div>
@@ -25,16 +25,19 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        position: relative;
+        position: absolute;
+        top: 4.5rem;
         background-color: var(--f);
         left: 15%;
         width: 85%;
         height: 37.1875rem;
-        transition: .25s;
+        transition: .25s!important;
+    }
+    .menu-off {
+        transform: translateX(100%);
     }
     .menu-on {
-        transform: translateX(100%);
-        transition: 0.25s;
+        transform: translateX(0%);
     }
     .menu-section-container {
         display: flex;
@@ -44,8 +47,7 @@ export default {
         margin-top: 1.5rem!important;
         width: 82.28%;
         padding: 1.5rem 1.5rem 2.25rem;
-        /* background: var(--d);  */
-        background: rgb(212, 212, 212);
+        background: var(--d); 
         border-radius: 0.625rem;
         position: relative;
     }
