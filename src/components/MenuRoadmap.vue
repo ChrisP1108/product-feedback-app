@@ -1,5 +1,5 @@
 <template>
-    <div class="menu-section-container">
+    <div class="menu-section-container container-padding">
         <div class="roadmap-header">
             <h1>Roadmap</h1>
             <h2>View</h2>
@@ -78,7 +78,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 4.75rem;
+        height: 4.875rem;
     }
     .roadmap-item-row {
         display: flex;
@@ -104,5 +104,8 @@ export default {
     }
     .dot-live {
         background-color: var(--j);
+    }
+    .container-padding {
+        padding: 1.5rem 1.5rem 1.875rem;
     }
 </style>

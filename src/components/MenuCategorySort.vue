@@ -1,5 +1,5 @@
 <template>
-    <div class="menu-section-container">
+    <div class="menu-section-container container-padding">
         <div class="menu-sort-row w-100">
             <div @click="setSortCategory('All')" 
                 :class="[sortEval('All') ? 'active' : 'inactive', 
@@ -85,5 +85,8 @@ export default {
     .menu-sort-row {
         display: flex;
         justify-content: space-between;
+    }
+    .container-padding {
+        padding: 1.5rem 1.5rem 2.25rem;
     }
 </style>

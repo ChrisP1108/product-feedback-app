@@ -46,7 +46,6 @@ export default {
         height: 11.125rem;
         margin-top: 1.5rem!important;
         width: 82.28%;
-        padding: 1.5rem 1.5rem 2.25rem;
         background: var(--d); 
         border-radius: 0.625rem;
         position: relative;
