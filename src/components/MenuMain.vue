@@ -2,20 +2,19 @@
     <div :class="[this.$store.state.toggleMobileMenu ? 
             '' : 'menu-on', 'menuMain']">
         <MenuCategorySort />
-        <div class="menu-section-container"></div>
+        <MenuRoadmap />
     </div>
 </template>
 
 <script>
 import MenuCategorySort from './MenuCategorySort'
+import MenuRoadmap from './MenuRoadmap'
 
 export default {
     name: 'MenuMain',
     components: {
-        MenuCategorySort
-    },
-    methods: {
-
+        MenuCategorySort,
+        MenuRoadmap
     }
 }
 </script>
@@ -28,8 +27,8 @@ export default {
         align-items: center;
         position: relative;
         background-color: var(--f);
-        left: 28%;
-        width: 72%;
+        left: 15%;
+        width: 85%;
         height: 37.1875rem;
         transition: .25s;
     }
@@ -45,9 +44,20 @@ export default {
         margin-top: 1.5rem!important;
         width: 82.28%;
         padding: 1.5rem 1.5rem 2.25rem;
-        /* background: var(--d); */
-        background: gray;
+        /* background: var(--d);  */
+        background: rgb(212, 212, 212);
         border-radius: 0.625rem;
         position: relative;
     }
+    .menu-sort-row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+@media(min-width: 375px) {
+    .menuMain {
+        left: 28%;
+        width: 72%;
+    }
+}
 </style>

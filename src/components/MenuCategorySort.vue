@@ -43,7 +43,7 @@
 <script>
 
 export default {
-    name: 'MenuMain',
+    name: 'MenuCategorySort',
     components: {
 
     },
@@ -59,30 +59,12 @@ export default {
 </script>
 
 <style scoped>
-    .menu-section-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 11.125rem;
-        margin-top: 1.5rem!important;
-        width: 82.28%;
-        padding: 1.5rem 1.5rem 2.25rem;
-        /* background: var(--d); */
-        background: gray;
-        border-radius: 0.625rem;
-        position: relative;
-    }
-    .menu-sort-row {
-        display: flex;
-        justify-content: space-between;
-    }
     .button {
         display: flex;
         justify-content: center;
         border-radius: 0.625rem;
         align-items: center;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding: 0 1rem 0;
         height: 1.875rem;
         cursor: pointer;
         margin-right: 0.5rem;
@@ -99,5 +81,9 @@ export default {
     .active {
         background: var(--b);
         color: var(--d);
+    }
+    .menu-sort-row {
+        display: flex;
+        justify-content: space-between;
     }
 </style>
