@@ -57,6 +57,9 @@
         cursor: pointer;
         height: 100%;
     }
+    .sortby-select-container:hover h1 {
+        opacity: 0.75;
+    }
     .sortby-arrow-icon {
         background-image: url('../assets/shared/icon-arrow-down.svg');
         width: 0.625rem;
@@ -89,9 +92,6 @@
     }
     h1 span {
         font-weight: 700;
-    }
-    h1:hover {
-        opacity: 0.75;
     }
     h2 {
         font-size: 0.8125rem;

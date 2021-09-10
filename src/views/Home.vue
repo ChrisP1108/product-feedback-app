@@ -6,8 +6,8 @@
       , 'background']"> 
     </div>
     <MenuSortByAddFeedback />
-    <div class="home-body-container">
-
+    <div class="home-list-container">
+      <FeedBackItem />
     </div>
     <MenuMain />
   </div>
@@ -16,14 +16,16 @@
 <script>
 import Header from '../components/Header';
 import MenuMain from '../components/MenuMain';
-import MenuSortByAddFeedback from '../components/MenuSortByAddFeedback'
+import MenuSortByAddFeedback from '../components/MenuSortByAddFeedback';
+import FeedBackItem from '../components/FeedBackItem';
 
 export default {
   name: 'Home',
   components: {
     Header,
     MenuMain,
-    MenuSortByAddFeedback
+    MenuSortByAddFeedback,
+    FeedBackItem
   }
 }
 </script>
@@ -35,8 +37,9 @@ export default {
     height: 40rem;
     overflow: hidden;
   }
-  .home-body-container {
+  .home-list-container {
     z-index: 1;
+    margin: 2rem 1.5rem 2.4375rem;
   }
   .background {
     width: 100%;
