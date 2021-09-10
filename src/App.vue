@@ -43,6 +43,7 @@ export default {
       --o: #fbb47980;
       --p: #F2F4FE;
       --q: #C75AF6;
+      --r: #F2F2F2;
       --halfTrans: #00000083;
     }
   body {
