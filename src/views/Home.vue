@@ -5,8 +5,9 @@
       ? 'trans-background' : 'reg-background'
       , 'background']"> 
     </div>
+    <MenuSortByAddFeedback />
     <div class="home-body-container">
-        <h1>Info Testing 1 2 3</h1>
+
     </div>
     <MenuMain />
   </div>
@@ -15,12 +16,14 @@
 <script>
 import Header from '../components/Header';
 import MenuMain from '../components/MenuMain';
+import MenuSortByAddFeedback from '../components/MenuSortByAddFeedback'
 
 export default {
   name: 'Home',
   components: {
     Header,
-    MenuMain
+    MenuMain,
+    MenuSortByAddFeedback
   }
 }
 </script>
@@ -40,7 +43,7 @@ export default {
     height: 100%;
     position: relative;
     transition: 0.25s;
-    z-index: 0;
+    z-index: 1;
     background-color: var(--f);
   }
   .reg-background {

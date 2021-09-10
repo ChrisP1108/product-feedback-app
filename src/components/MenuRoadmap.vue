@@ -46,7 +46,7 @@ export default {
     h1 {
         font-size: 1.125rem;
         color: var(--g);
-        font-weight: 800;
+        font-weight: 700;
         letter-spacing: -0.0156rem;
     }
     h2 {

@@ -44,9 +44,6 @@
 
 export default {
     name: 'MenuCategorySort',
-    components: {
-
-    },
     methods: {
         sortEval(value) {
             return this.$store.state.sortCategory === value ? true : false;
