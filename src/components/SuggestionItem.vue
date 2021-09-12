@@ -33,6 +33,10 @@
         background: var(--d);
         border-radius: 0.625rem;
         margin-bottom: 1rem;
+        cursor: pointer;
+    }
+    .suggestion-item-container:hover h1 {
+        color: var(--b);
     }
     h1 {
         font-size: 0.8125rem;
@@ -40,6 +44,7 @@
         font-weight: 700;
         letter-spacing: -0.0112rem;
         margin: 0;
+        transition: 0.25s;
     }
     h2 {
         font-size: 0.8125rem;
@@ -81,6 +86,10 @@
         transition: 0.25s;
         background: var(--e);
         width: 4.3125rem;
+        cursor: pointer;
+    }
+    .votes-amount-container:hover {
+        background: var(--s);
     }
     .comments-container {
         display: flex;

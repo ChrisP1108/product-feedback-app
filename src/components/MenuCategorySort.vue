@@ -67,6 +67,9 @@ export default {
         margin-right: 0.5rem;
         transition: 0.25s;
     }
+    .button:hover {
+        background: var(--s);
+    }
     .button h1 {
         font-size: 0.8125rem;
         font-weight: 600;
@@ -78,6 +81,9 @@ export default {
     .active {
         background: var(--b);
         color: var(--d);
+    }
+    .active:hover {
+        background: var(--b)!important;
     }
     .menu-sort-row {
         display: flex;

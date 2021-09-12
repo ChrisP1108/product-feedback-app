@@ -55,6 +55,11 @@ export default {
         color: var(--b);
         text-decoration: underline;
         cursor: pointer;
+        transition: 0.25s;
+        position: relative;
+    }
+    h2:hover {
+        color: var(--t);
     }
     h3 {
         margin: 0;

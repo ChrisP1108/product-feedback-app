@@ -29,7 +29,7 @@
         },
         methods: {
             toggleAddFeedback() {
-                console.log('Add Feedback Toggled');
+                console.log('Add Feedback Clicked');
             },
             toggleSortByModal() {
                 this.$store.commit('toggleSortByModal');
