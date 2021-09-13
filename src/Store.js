@@ -48,7 +48,8 @@ export const store = new Vuex.Store({
         sortCategory: 'all',
         sortBy: 'Most Upvotes',
         data: ['loading'],
-        list: []
+        list: [],
+        feedbackSelect: []
     },
     mutations: {
         toggleMobileMenu (state) {
@@ -68,6 +69,9 @@ export const store = new Vuex.Store({
         },
         setList (state) {
             state.list = outputList()
+        },
+        setFeedbackSelect (state, value) {
+            state.feedbackSelect = value
         }
     }
 });

@@ -1,18 +1,20 @@
 <template>
-    <div :key="item.id" v-for="item in this.$store.state.list" 
-        class="suggestion-item-container">
-        <h1>{{item.title}}</h1>
-        <p>{{item.description}}</p>
-        <h2>{{item.category.charAt(0).toUpperCase() + item.category.slice(1)}}</h2>
-        <div class="votes-comments-container">
-            <div class="votes-amount-container">
+    <h1 :style="[route !== '/' && 'color: var(--g)']">
+        {{item.title}}
+    </h1>
+    <p>{{item.description}}</p>
+    <h2>
+        {{item.category.charAt(0).toUpperCase() + item.category.slice(1)}}
+    </h2>
+    <div class="votes-comments-container">
+        <div :style="[route !== '/' && 'background: var(--e)']" 
+            class="votes-amount-container">
                 <div class="up-arrow-icon"></div>
                 <h3>{{item.upvotes}}</h3>
-            </div>
-            <div class="comments-container">
-                <div class="comments-icon"></div>
-                <h3>{{commentCounter(item.comments)}}</h3>
-            </div>
+        </div>
+        <div class="comments-container">
+            <div class="comments-icon"></div>
+            <h3>{{commentCounter(item.comments)}}</h3>
         </div>
     </div>
 </template>
@@ -20,6 +22,9 @@
 <script>
     export default {
         name: 'SuggestionItem',
+        props: {
+            item: Object
+        },
         methods: {
             commentCounter(comment) {
                 let tally = 0;
@@ -36,18 +41,16 @@
                 });
                 return tally;
             }
+        },
+        computed: {
+            route() {
+                return this.$router.currentRoute.value.fullPath
+            }
         }
     }
 </script>
 
 <style scoped>
-    .suggestion-item-container {
-        padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
-        background: var(--d);
-        border-radius: 0.625rem;
-        margin-bottom: 1rem;
-        cursor: pointer;
-    }
     .suggestion-item-container:hover h1 {
         color: var(--b);
     }

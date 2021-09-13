@@ -50,6 +50,7 @@
         padding: 0 1.5rem 0;
         background: var(--c);
         z-index: 0;
+        margin-top: 4.5rem;
     }
     .sortby-select-container {
         display: flex;

@@ -51,6 +51,7 @@ export default {
         setSortCategory(value) {
             this.$store.commit('setSortCategory', value);
             this.$store.commit('setList');
+            this.$store.commit('toggleMobileMenu')
         }
     }
 }

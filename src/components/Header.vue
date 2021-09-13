@@ -19,6 +19,11 @@ export default {
     methods: {
         mobileMenuToggle() {
             this.$store.commit('toggleMobileMenu');
+            window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'instant'
+            });  
         },
         reload() {
             window.location.reload();
@@ -30,6 +35,9 @@ export default {
 <style scoped>
     #header {
         background-image: linear-gradient(12deg, var(--m), var(--l), var(--k));
+        position: fixed;
+        width: 100%;
+        z-index: 10;
     }
     .header-container {
         color: var(--d);

@@ -7,41 +7,58 @@
     </div>
     <MenuSortByAddFeedback />
     <div class="suggestion-list-container">
-        <SuggestionItem />
+      <div @click="selectFeedback(item)"
+        :key="item.id" v-for="item in this.$store.state.list" 
+        class="suggestion-item-container">
+          <SuggestionItem :item="item" />
+      </div>
     </div>
     <MenuMain />
   </div>
 </template>
 
 <script>
-import Header from '../components/Header';
-import MenuMain from '../components/MenuMain';
-import MenuSortByAddFeedback from '../components/MenuSortByAddFeedback';
-import SuggestionItem from '../components/SuggestionItem';
+  import Header from '../components/Header';
+  import MenuMain from '../components/MenuMain';
+  import MenuSortByAddFeedback from '../components/MenuSortByAddFeedback';
+  import SuggestionItem from '../components/SuggestionItem';
 
-export default {
-  name: 'Home',
-  components: {
-    Header,
-    MenuMain,
-    MenuSortByAddFeedback,
-    SuggestionItem
+  export default {
+    name: 'Home',
+    components: {
+      Header,
+      MenuMain,
+      MenuSortByAddFeedback,
+      SuggestionItem
+    },
+    methods: {
+      selectFeedback(feedback) {
+        this.$store.commit('setFeedbackSelect', feedback);
+        this.$router.push(`/feedback/details/${this.$store.state.feedbackSelect.id}`);
+      }
+    }
   }
-}
 </script>
 
 <style scoped>
   .home {
     margin: 0;
     position: relative;
-    min-height: 41.6875rem;
     height: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
+    min-height: 41.6875rem;
   }
   .suggestion-list-container {
     z-index: 1;
     margin: 2rem 1.5rem 2.4375rem;
+  }
+  .suggestion-item-container {
+    padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
+    background: var(--d);
+    border-radius: 0.625rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
   }
   .background {
     width: 100%;
