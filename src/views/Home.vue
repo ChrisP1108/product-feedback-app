@@ -7,7 +7,7 @@
     </div>
     <MenuSortByAddFeedback />
     <div class="suggestion-list-container">
-      <SuggestionItem />
+        <SuggestionItem />
     </div>
     <MenuMain />
   </div>
@@ -34,8 +34,10 @@ export default {
   .home {
     margin: 0;
     position: relative;
-    height: 40rem;
-    overflow: hidden;
+    min-height: 41.6875rem;
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
   .suggestion-list-container {
     z-index: 1;

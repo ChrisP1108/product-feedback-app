@@ -33,6 +33,7 @@
             },
             toggleSortByModal() {
                 this.$store.commit('toggleSortByModal');
+                this.$store.commit('setList');
             }
         }
     }

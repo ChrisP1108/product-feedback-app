@@ -14,13 +14,14 @@ export default {
   async created() { // Data Fetch Request
     const res = await fetch(Url)
     .catch((err) => console.log(err));
-    if (res === undefined) {
+    if (!res) {
       this.$store.commit('setData', ['error']);
-      console.log(this.$store.state.data[0]);
     } else {
       const data = await res.json();
-      this.$store.commit('setData', data.productRequests);
-      console.log(this.$store.state.data);
+      this.$store.commit('setData', data);
+      setTimeout(() => {
+        this.$store.commit('setList');
+      }, 2000)
     }
   }
 }

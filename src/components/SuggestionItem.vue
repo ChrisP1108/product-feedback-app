@@ -1,19 +1,17 @@
 <template>
-    <div class="suggestion-item-container">
-        <h1>Add tags for solutions</h1>
-        <p>Easier to search for solutions based on 
-        a specific stack.</p>
-        <div class="sortby-container">
-            <h2>Enhancement</h2>
-        </div>
+    <div :key="item.id" v-for="item in this.$store.state.list" 
+        class="suggestion-item-container">
+        <h1>{{item.title}}</h1>
+        <p>{{item.description}}</p>
+        <h2>{{item.category.charAt(0).toUpperCase() + item.category.slice(1)}}</h2>
         <div class="votes-comments-container">
             <div class="votes-amount-container">
                 <div class="up-arrow-icon"></div>
-                <h3>112</h3>
+                <h3>{{item.upvotes}}</h3>
             </div>
             <div class="comments-container">
                 <div class="comments-icon"></div>
-                <h3>2</h3>
+                <h3>{{commentCounter(item.comments)}}</h3>
             </div>
         </div>
     </div>
@@ -21,15 +19,30 @@
 
 <script>
     export default {
-        name: 'SuggestionItem'
+        name: 'SuggestionItem',
+        methods: {
+            commentCounter(comment) {
+                let tally = 0;
+                if (!comment) {
+                    return 0;
+                }
+                comment.forEach((item) => {
+                    tally++;
+                    if ('replies' in item) {
+                        item.replies.forEach(() => {
+                            tally++;
+                        });
+                    }
+                });
+                return tally;
+            }
+        }
     }
-
 </script>
 
 <style scoped>
     .suggestion-item-container {
         padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
-        width: 100%;
         background: var(--d);
         border-radius: 0.625rem;
         margin-bottom: 1rem;
@@ -47,11 +60,17 @@
         transition: 0.25s;
     }
     h2 {
+        display: inline-flex;
         font-size: 0.8125rem;
         color: var(--b);
+        height: 1.875rem;
+        padding: 0 1rem 0!important;
         font-weight: 700;
+        border-radius: 0.625rem;
         letter-spacing: 0rem;
         margin: 0;
+        background: var(--e); 
+        align-items: center;
     }
     h3 {
         font-size: 0.8125rem;
@@ -64,17 +83,6 @@
         font-size: 0.8125rem;
         margin: 1rem 0 0.75rem 0;
         color: var(--h);
-    }
-    .sortby-container {
-        display: flex;
-        justify-content: center;
-        border-radius: 0.625rem;
-        align-items: center;
-        padding: 0 1rem 0;
-        height: 1.875rem;
-        transition: 0.25s;
-        background: var(--e);
-        width: 6.9375rem;
     }
     .votes-amount-container {
         display: flex;

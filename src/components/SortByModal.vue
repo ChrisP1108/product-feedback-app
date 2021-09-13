@@ -37,7 +37,6 @@
             },
             setSortBy(value) {
                 this.$store.commit('setSortBy', value);
-                console.log(this.$store.state.sortBy)
             }
         }
     }
