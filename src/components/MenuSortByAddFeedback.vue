@@ -29,10 +29,11 @@
         },
         methods: {
             toggleAddFeedback() {
-                console.log('Add Feedback Toggled');
+                console.log('Add Feedback Clicked');
             },
             toggleSortByModal() {
                 this.$store.commit('toggleSortByModal');
+                this.$store.commit('setList');
             }
         }
     }
@@ -61,7 +62,7 @@
         opacity: 0.75;
     }
     .sortby-arrow-icon {
-        background-image: url('../assets/shared/icon-arrow-down.svg');
+        background-image: url('../assets/shared/icon-arrow-down-white.svg');
         width: 0.625rem;
         height: 0.4375rem;
         margin-left: 0.4375rem;

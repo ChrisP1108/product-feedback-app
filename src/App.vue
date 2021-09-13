@@ -7,9 +7,25 @@
 </template>
 
 <script>
+import { Url } from './Store'
 
 export default {
+  name: 'App',
+  async created() { // Data Fetch Request
+    const res = await fetch(Url)
+    .catch((err) => console.log(err));
+    if (!res) {
+      this.$store.commit('setData', ['error']);
+    } else {
+      const data = await res.json();
+      this.$store.commit('setData', data);
+      setTimeout(() => {
+        this.$store.commit('setList');
+      }, 2000)
+    }
+  }
 }
+
 </script>
 
 
@@ -43,6 +59,9 @@ export default {
       --o: #fbb47980;
       --p: #F2F4FE;
       --q: #C75AF6;
+      --r: #F2F2F2;
+      --s: #CFD7FF;
+      --t: #8397F8;
       --halfTrans: #00000083;
     }
   body {

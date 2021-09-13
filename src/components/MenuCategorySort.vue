@@ -1,38 +1,38 @@
 <template>
     <div class="menu-section-container container-padding">
         <div class="menu-sort-row w-100">
-            <div @click="setSortCategory('All')" 
-                :class="[sortEval('All') ? 'active' : 'inactive', 
+            <div @click="setSortCategory('all')" 
+                :class="[sortEval('all') ? 'active' : 'inactive', 
                 'button w-25']">
                 <h1>All</h1>
             </div>
-            <div @click="setSortCategory('UI')" 
-                :class="[sortEval('UI') ? 'active' : 'inactive', 
+            <div @click="setSortCategory('ui')" 
+                :class="[sortEval('ui') ? 'active' : 'inactive', 
                 'button w-25']">
                 <h1>UI</h1>
             </div>    
-            <div @click="setSortCategory('UX')" 
-                :class="[sortEval('UX') ? 'active' : 'inactive', 
+            <div @click="setSortCategory('ux')" 
+                :class="[sortEval('ux') ? 'active' : 'inactive', 
                 'button w-25']">
                 <h1>UX</h1>
             </div> 
             <div class="w-25"></div>
         </div>
         <div class="menu-sort-row">
-            <div @click="setSortCategory('Enhancement')" 
-                :class="[sortEval('Enhancement') ? 'active' : 'inactive', 
+            <div @click="setSortCategory('enhancement')" 
+                :class="[sortEval('enhancement') ? 'active' : 'inactive', 
                 'button w-100']">
                 <h1>Enhancement</h1>
             </div>
-            <div @click="setSortCategory('Bug')" 
-                :class="[sortEval('Bug') ? 'active' : 'inactive', 
+            <div @click="setSortCategory('bug')" 
+                :class="[sortEval('bug') ? 'active' : 'inactive', 
                 'button w-50']">
                 <h1>Bug</h1>
             </div>    
         </div>
         <div class="menu-sort-row">
-            <div @click="setSortCategory('Feature')" 
-                :class="[sortEval('Feature') ? 'active' : 'inactive', 
+            <div @click="setSortCategory('feature')" 
+                :class="[sortEval('feature') ? 'active' : 'inactive', 
                 'button w-50']">
                 <h1>Feature</h1>
             </div> 
@@ -50,6 +50,7 @@ export default {
         },
         setSortCategory(value) {
             this.$store.commit('setSortCategory', value);
+            this.$store.commit('setList');
         }
     }
 }
@@ -67,6 +68,9 @@ export default {
         margin-right: 0.5rem;
         transition: 0.25s;
     }
+    .button:hover {
+        background: var(--s);
+    }
     .button h1 {
         font-size: 0.8125rem;
         font-weight: 600;
@@ -78,6 +82,9 @@ export default {
     .active {
         background: var(--b);
         color: var(--d);
+    }
+    .active:hover {
+        background: var(--b)!important;
     }
     .menu-sort-row {
         display: flex;

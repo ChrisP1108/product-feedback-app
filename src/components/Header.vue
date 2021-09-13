@@ -35,11 +35,11 @@ export default {
         color: var(--d);
         height: 4.5rem;
         background-image: linear-gradient(to right, var(--n) 5%, transparent, var(--o) 99%);
-        padding: 1.25rem 1.5rem 1.25rem;
+        padding: 0rem 1.5rem 0rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        position: relative
+        position: relative;
     }
     .headings {
         display: flex;
@@ -57,6 +57,7 @@ export default {
         opacity: .8;
     }
     .mobile-trans {
+        height: 100%;
         transition: 0.25s!important;
     }
     .mobile-menu-inactive {

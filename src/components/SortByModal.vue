@@ -37,7 +37,6 @@
             },
             setSortBy(value) {
                 this.$store.commit('setSortBy', value);
-                console.log(this.$store.state.sortBy)
             }
         }
     }
@@ -46,7 +45,7 @@
 <style scoped>
     .sortby-modal-container {
         width: 50%;
-        background: rgb(209, 209, 209);
+        background: var(--d);
         position: absolute;
         top: 4.5rem;
         height: 10rem;
@@ -67,7 +66,7 @@
         align-items: center;
     }
     .borderbottom {
-        border-bottom: 1px var(--d) solid;
+        border-bottom: 1px var(--r) solid;
     }
     h1 {
         font-size: 0.8125rem;
