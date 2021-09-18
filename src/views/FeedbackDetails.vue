@@ -17,7 +17,8 @@
       <h1>{{commentCounter(selectedFeedback.comments)}} Comments</h1>
       <div :key="comment.id" v-for="comment in selectedFeedback.comments">
         <Comment :comment="comment"/>
-        <div v-if="('replies' in comment)">
+        <div v-if="('replies' in comment)" class="position-relative">
+          <div class="reply-border"></div>
           <div :key="reply" v-for="reply in comment.replies" class="replies-container">
             <Comment :comment="reply"/>
           </div>
@@ -68,14 +69,12 @@ import Comment from '../components/Comment'
       lastComment(comment) {
         const comments = this.selectedFeedback.comments.slice()
         const last = comments.pop();
-        console.log(last);
-        console.log(comment);
         if (comment === last) {
           return false
         } else {
           return true
         }
-      }
+      },
     }
   }
 </script>
@@ -164,11 +163,17 @@ import Comment from '../components/Comment'
     font-weight: 700;
   }
   .comment-bottom-border {
-        margin: 1.5rem 0 1.5rem;
-        border-bottom: 0.0625rem var(--v) solid;
+    margin: 1.5rem 0 1.5rem;
+    border-bottom: 0.0625rem var(--v) solid;
   }
   .replies-container {
     margin-top: 1.5rem!important;
-    margin-left: 1.5rem!important;
+    padding-left: 1.5rem!important;
+  }
+  .reply-border {
+    position: absolute;
+    border-left: 0.0625rem var(--h) solid;
+    height: 59%;
+    left: 0rem;
   }
 </style>

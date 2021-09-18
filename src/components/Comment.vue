@@ -68,8 +68,10 @@
         font-size: 0.9375rem;
         color: var(--h);
         font-weight: 400;
-        letter-spacing: -0.0112rem;
+        letter-spacing: 0rem;
+        line-height: 1.25rem;
         margin: 0;
+
     }
     h3 span {
         color: var(--a);
