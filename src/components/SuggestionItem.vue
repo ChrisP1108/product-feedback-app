@@ -7,7 +7,7 @@
         {{item.category.charAt(0).toUpperCase() + item.category.slice(1)}}
     </h2>
     <div class="votes-comments-container">
-        <div :style="[route !== '/' && 'background: var(--e)']" 
+        <div :style="[route !== '/' && 'background: var(--e)', 'cursor: auto']" 
             class="votes-amount-container">
                 <div class="up-arrow-icon"></div>
                 <h3>{{item.upvotes}}</h3>

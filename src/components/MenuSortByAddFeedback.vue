@@ -10,7 +10,7 @@
         <div @click="toggleAddFeedback()"
             class="add-feedback-button">
                 <h2>+ Add Feedback</h2>
-            </div>
+        </div>
     </div>
 </template>
 
