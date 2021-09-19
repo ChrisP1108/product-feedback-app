@@ -10,10 +10,10 @@
               <h2>Edit Feedback</h2>
       </div>
     </div>
-    <div class="suggestion-item-container">
+    <div class="section-container">
       <SuggestionItem :item="selectedFeedback"/>
     </div>
-    <div class="suggestion-item-container">
+    <div class="section-container">
       <h1>{{commentCounter(selectedFeedback.comments)}} Comments</h1>
       <div :key="comment.id" v-for="comment in selectedFeedback.comments">
         <Comment :comment="comment"/>
@@ -26,18 +26,23 @@
         <div :class="[lastComment(comment) && 'comment-bottom-border']"></div>
       </div>
     </div>
+    <div class="section-container">
+      <AddComment />
+    </div>
   </div>
 </template>
 
 <script>
 import SuggestionItem from '../components/SuggestionItem.vue';
-import Comment from '../components/Comment'
+import Comment from '../components/Comment';
+import AddComment from '../components/AddComment';
 
   export default {
     name: 'FeedbackDetails',
     components: {
       SuggestionItem,
-      Comment
+      Comment,
+      AddComment
     },
     computed: {
       selectedFeedback() {
@@ -124,7 +129,7 @@ import Comment from '../components/Comment'
     width: 0.4375rem;
     height: 0.625rem;
   }
-  .suggestion-item-container {
+  .section-container {
     padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
     margin: 1.5rem;
     background: var(--d);

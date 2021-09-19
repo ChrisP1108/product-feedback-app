@@ -2,7 +2,7 @@
     <div class="comment-container">
         <div class="img-name">
             <div :style="[!comment.user.image 
-                && `background: url(.${comment.user.image})`]" 
+                && `backgroundImage: url(.${comment.user.image})`]" 
                 class="img-avatar">
             </div>
             <div class="name">
@@ -48,7 +48,7 @@
         color: var(--b);
         font-weight: 700;
         letter-spacing: -0.0112rem;
-        transition: 0.25s;
+        transition: 0.25s!important;
         margin: 0;
         cursor: pointer;
         height: 2.5rem;
@@ -56,7 +56,7 @@
     }
     h1:hover {
         text-decoration: underline;
-        transition: 0.25s;
+        transition: 0.25s!important;
     }
     h2 {
         font-size: 0.8125rem;
@@ -89,6 +89,7 @@
         justify-content: space-between;
         align-items: center;
         position: relative;
+        transition: 0.25s!important;
     }
     .img-avatar {
         width: 2.5rem;
