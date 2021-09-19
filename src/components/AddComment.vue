@@ -1,8 +1,17 @@
 <template>
     <h1>Add Comment</h1>
-    <textarea @keydown="(e) => textTyping(e)" maxlength="250"></textarea>
+    <textarea @keyup="(e) => textTyping(e)" 
+        maxlength="250"  :value="text" placeholder="Type your comment here" 
+        :class="[!limit && 'red-border']">
+    </textarea>
     <div class="character-comment-container">
-        <p>{{ limit }} Characters left</p>
+        <p :class="[!limit && 'red-highlight']">
+            {{ limit }} Characters left
+        </p>
+        <div @click="postComment()"
+            class="post-comment-button">
+                <h2>Post Comment</h2>
+        </div>
     </div>
 </template>
 
@@ -12,15 +21,20 @@
         data() {
             return {
                 limit: 250,
-                characters: 0
+                characters: 0,
+                text: ''
             }
         },
         methods: {
             textTyping(e) {
-                this.characters = e.target.value.length;
+                const input = e.target.value
+                this.characters = input.length;
                 this.limit = 250 - this.characters;
-                this.limit < 0 ? this.limit = 0 : '';
-                console.log(e.target.value.length);
+                this.text = input;
+                console.log(this.text);
+            },
+            postComment() {
+                console.log('Hello')
             }
         }
     }
@@ -41,13 +55,42 @@
         background: var(--f);
         border: 0;
         height: 5rem;
+        padding: 1rem 1.25rem;
+        font-size: 0.8125rem;
+        color: var(--v);
     }
-    textarea:active {
-        border: 1px red solid;
+    h2 {
+        font-size: 0.8125rem;
+        color: var(--p);
+        font-weight: 700;
     }
     p {
         font-size: 0.8125rem;
+        font-weight: 400;
         margin: 0;
         color: var(--h);
+    }
+    .character-comment-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+    }
+    .red-highlight {
+        color: red;
+    }
+    .red-border {
+        border: 2px red solid;
+    }
+    .post-comment-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem 0;
+        height: 2.5rem;
+        background: var(--a);
+        border-radius: 0.625rem;
+        cursor: pointer;
+        transition: 0.25s;
     }
 </style>
