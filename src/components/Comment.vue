@@ -10,18 +10,29 @@
                 <p>@{{ comment.user.username }}</p>
             </div>
         </div>
-        <h1>Reply</h1>
+        <h1 @click="toggleReply()">Reply</h1>
     </div>
     <div class="comment-content">
         <h3><span>{{ replyGenerator(comment) }}</span> {{ comment.content }}</h3>
     </div>
+    <Reply @reply-off="toggleReply()" v-if="reply" />
 </template>
 
 <script>
+    import Reply from './Reply';
+
     export default {
         name: 'Comment',
+        components: {
+            Reply
+        },
         props: {
             comment: Object
+        },
+        data() {
+            return {
+                reply: false
+            }
         },
         methods: {
             replyGenerator(comment) {
@@ -31,6 +42,9 @@
                 } else {
                     return
                 }
+            },
+            toggleReply() {
+                this.reply = !this.reply;
             }
         }
     }

@@ -31,7 +31,6 @@
                 this.characters = input.length;
                 this.limit = 250 - this.characters;
                 this.text = input;
-                console.log(this.text);
             },
             postComment() {
                 console.log('Hello')
@@ -58,6 +57,10 @@
         padding: 1rem 1.25rem;
         font-size: 0.8125rem;
         color: var(--v);
+    }
+    textarea:focus {
+        outline: none!important;
+        border: 1px var(--b) solid;
     }
     h2 {
         font-size: 0.8125rem;
