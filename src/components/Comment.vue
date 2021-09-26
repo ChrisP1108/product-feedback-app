@@ -1,10 +1,8 @@
 <template>
     <div class="comment-container">
         <div class="img-name">
-            <div :style="[!comment.user.image 
-                && `backgroundImage: url(.${comment.user.image})`]" 
+            <img :src="comment.user.image" id="avatar" 
                 class="img-avatar">
-            </div>
             <div class="name">
                 <h2>{{ comment.user.name }}</h2>
                 <p>@{{ comment.user.username }}</p>
