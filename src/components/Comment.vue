@@ -1,8 +1,10 @@
 <template>
     <div class="comment-container">
         <div class="img-name">
-            <img :src="comment.user.image" id="avatar" 
-                class="img-avatar">
+            <img :src="comment.user.image"  
+                :alt="comment.user.name" 
+                onerror="this.src='/icon-no-image.svg'"
+            >
             <div class="name">
                 <h2>{{ comment.user.name }}</h2>
                 <p>@{{ comment.user.username }}</p>
@@ -103,10 +105,9 @@
         position: relative;
         transition: 0.25s!important;
     }
-    .img-avatar {
+    img {
         width: 2.5rem;
         height: 2.5rem;
-        background: url('../assets/shared/icon-no-image.svg');
         border-radius: 50%;
     }
     .img-name {
