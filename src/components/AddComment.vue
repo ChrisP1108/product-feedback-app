@@ -22,7 +22,24 @@
             return {
                 limit: 250,
                 characters: 0,
-                text: ''
+                text: '',
+                commentData: {
+                    id: null,
+                    content: '',
+                    user: {
+                        image: '',
+                        name: '',
+                        username: ''
+                    }
+                }
+            }
+        },
+        computed: {
+            selectedFeedback() {
+                return (this.$store.state.feedbackSelect)
+            },
+            userData() {
+                return (this.$store.state.data.currentUser)
             }
         },
         methods: {
@@ -33,7 +50,16 @@
                 this.text = input;
             },
             postComment() {
-                console.log('Hello')
+                this.commentAdd = {
+                    id: this.selectedFeedback.comments.length + 1,
+                    content: this.text,
+                    user: {
+                        image: this.userData.image,
+                        name: this.userData.name,
+                        username: this.userData.username
+                    }
+                }
+                console.log(this.commentAdd);
             }
         }
     }

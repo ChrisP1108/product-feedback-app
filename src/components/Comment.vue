@@ -10,12 +10,17 @@
                 <p>@{{ comment.user.username }}</p>
             </div>
         </div>
-        <h1 @click="toggleReply()">Reply</h1>
+        <h1 v-if="userData.username !== comment.user.username"
+            @click="toggleReply()">Reply
+        </h1>
+        <h1 v-if="userData.username === comment.user.username"
+            @click="toggleReply()">Edit
+        </h1>
     </div>
     <div class="comment-content">
         <h3><span>{{ replyGenerator(comment) }}</span> {{ comment.content }}</h3>
     </div>
-    <Reply @reply-off="toggleReply()" v-if="reply" />
+    <Reply @reply-off="toggleReply()" v-if="reply" :comment="comment" />
 </template>
 
 <script>
@@ -28,6 +33,11 @@
         },
         props: {
             comment: Object
+        },
+        computed: {
+            userData() {
+                return (this.$store.state.data.currentUser)
+            },
         },
         data() {
             return {
