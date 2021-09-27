@@ -116,7 +116,17 @@
                 console.log('Updated')
             },
             deleteReply() {
-                console.log(this.comment)
+                let filter = []
+                console.log(this.comment);
+                this.selectedFeedback.comments.forEach(comment => {
+                    comment.replies.forEach(reply => {
+                        if(reply.content === this.comment.content) {
+                            filter.push(comment);
+                        }
+                    })
+                })
+                filter = filter[0]
+                console.log(filter);
             }
         }
     }
@@ -144,7 +154,7 @@
         background: var(--a);
     }
     .delete-button {
-        background: var(--k);
+        background: var(--w);
     }
     .edit-container {
         display: flex;

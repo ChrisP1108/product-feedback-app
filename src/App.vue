@@ -64,6 +64,7 @@ export default {
       --t: #8397F8;
       --u: #7C91F9;
       --v: #8C92B3;
+      --w: #D73737;
       --halfTrans: #00000083;
     }
   body {
