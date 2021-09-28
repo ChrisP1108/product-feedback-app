@@ -83,20 +83,38 @@
                     }
                 }
                 let replyAdd = {...this.comment}
-                if ('replyingTo' in this.comment) {
-                    replyAdd = {...this.comment, replies: {...this.comment.replies, replies: []}}
-                    console.log(replyAdd);
-                } else {
-                    if (!this.comment.replies) {
+                if (!this.comment.replies) {
                         replyAdd = {...this.comment, replies: []}
                     }
-                    replyAdd.replies.push(this.replyData);
+                replyAdd.replies.push(this.replyData);
+                
+                if ('replyingTo' in this.comment) {
+                    let commentRoot;
+                    replyAdd = {...this.comment, replies: {...this.comment.replies, replies: []}}
+                    replyAdd.replies.replies.push(this.replyData);
+                    this.selectedFeedback.comments.forEach(comment => {
+                        if ('replies' in comment) {
+                            comment.replies.forEach(reply => {
+                                if(reply.content === replyAdd.content) {
+                                    commentRoot = comment
+                                }
+                            });
+                        }
+                    }); 
+                    for(let i = 0; commentRoot.replies.length > i; i++) {
+                        if (commentRoot.replies[i].content === replyAdd.content) {
+                            commentRoot.replies[i] = replyAdd;
+                            console.log(replyAdd);
+                        }
+                    }
+                    replyAdd = commentRoot;
+                    console.log(replyAdd);
                 }
-                const commentsUpdate = []
+                const commentsUpdate = [] 
                 this.selectedFeedback.comments.forEach(comment => {
-                    comment.id === replyAdd.id ? commentsUpdate.push(replyAdd)
-                    : commentsUpdate.push(comment)
-                });
+                        comment.content === replyAdd.content ? commentsUpdate.push(replyAdd)
+                        : commentsUpdate.push(comment)
+                }); 
                 const feedbackUpdate = {...this.selectedFeedback, comments: commentsUpdate}
                 this.$store.commit('setFeedbackSelect', feedbackUpdate);
                 const productData = [];
@@ -110,7 +128,7 @@
                 }
                 this.$store.commit('setData', data);
                 this.$store.commit('setList');
-                this.$emit('reply-off');   
+                this.$emit('reply-off'); 
             },
             updateReply() {
                 console.log('Updated')
@@ -126,7 +144,7 @@
                     })
                 })
                 filter = filter[0]
-                console.log(filter);
+                
             }
         }
     }
