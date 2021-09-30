@@ -87,28 +87,26 @@
                         replyAdd = {...this.comment, replies: []}
                     }
                 replyAdd.replies.push(this.replyData);
-                
                 if ('replyingTo' in this.comment) {
                     let commentRoot;
-                    replyAdd = {...this.comment, replies: {...this.comment.replies, replies: []}}
-                    replyAdd.replies.replies.push(this.replyData);
                     this.selectedFeedback.comments.forEach(comment => {
                         if ('replies' in comment) {
                             comment.replies.forEach(reply => {
                                 if(reply.content === replyAdd.content) {
                                     commentRoot = comment
+                                    console.log(reply);
                                 }
                             });
                         }
-                    }); 
+                    });
+                    console.log(replyAdd);
+                    console.log(commentRoot); 
                     for(let i = 0; commentRoot.replies.length > i; i++) {
                         if (commentRoot.replies[i].content === replyAdd.content) {
                             commentRoot.replies[i] = replyAdd;
-                            console.log(replyAdd);
                         }
                     }
                     replyAdd = commentRoot;
-                    console.log(replyAdd);
                 }
                 const commentsUpdate = [] 
                 this.selectedFeedback.comments.forEach(comment => {

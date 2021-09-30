@@ -14,7 +14,7 @@
             @click="toggleReply()">Reply
         </h1>
         <h1 v-if="userData.username === comment.user.username"
-            @click="toggleReply()">Edit
+            @click="toggleReply()">{{ reply ? 'Cancel' : 'Edit' }}
         </h1>
     </div>
     <div class="comment-content">
