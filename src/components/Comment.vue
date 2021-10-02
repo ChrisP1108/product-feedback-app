@@ -11,10 +11,10 @@
             </div>
         </div>
         <h1 v-if="userData.username !== comment.user.username"
-            @click="toggleReply()">Reply
+            @click="toggleReply()">{{ reply ? 'Close' : 'Reply' }}
         </h1>
         <h1 v-if="userData.username === comment.user.username"
-            @click="toggleReply()">{{ reply ? 'Cancel' : 'Edit' }}
+            @click="toggleReply()">{{ reply ? 'Close' : 'Edit' }}
         </h1>
     </div>
     <div class="comment-content">

@@ -94,13 +94,10 @@
                             comment.replies.forEach(reply => {
                                 if(reply.content === replyAdd.content) {
                                     commentRoot = comment
-                                    console.log(reply);
                                 }
                             });
                         }
                     });
-                    console.log(replyAdd);
-                    console.log(commentRoot); 
                     for(let i = 0; commentRoot.replies.length > i; i++) {
                         if (commentRoot.replies[i].content === replyAdd.content) {
                             commentRoot.replies[i] = replyAdd;
@@ -129,20 +126,58 @@
                 this.$emit('reply-off'); 
             },
             updateReply() {
-                console.log('Updated')
+                let data = {...this.selectedFeedback};
+                for (let i = 0; i < data.comments.length; i++) {
+                    if ('replies' in data.comments[i]) {
+                        for (let j = 0; j < data.comments[i].replies.length; j++) {
+                            if (data.comments[i].replies[j].content === this.comment.content) {
+                                data.comments[i].replies[j].content = this.text;
+                                break;
+                            }
+                            if ('replies' in data.comments[i].replies[j]) {
+                                for (let k = 0; k < data.comments[i].replies[j].replies.length; k++) {
+                                    if (data.comments[i].replies[j].replies[k].content === this.comment.content) {
+                                        data.comments[i].replies[j].replies[k].content = this.text;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                this.$emit('reply-off'); 
             },
             deleteReply() {
-                let filter = []
-                console.log(this.comment);
-                this.selectedFeedback.comments.forEach(comment => {
-                    comment.replies.forEach(reply => {
-                        if(reply.content === this.comment.content) {
-                            filter.push(comment);
+                let data = {...this.selectedFeedback};
+                for (let i = 0; i < data.comments.length; i++) {
+                    if ('replies' in data.comments[i]) {
+                        for (let j = 0; j < data.comments[i].replies.length; j++) {
+                            if (data.comments[i].replies[j] === this.comment) {
+                                    data.comments[i].replies.splice(j, 1);
+                                    break;
+                            }
+                            if ('replies' in data.comments[i].replies[j]) {
+                                for (let k = 0; k < data.comments[i].replies[j].replies.length; k++) {
+                                    if (data.comments[i].replies[j].replies[k] === this.comment) {
+                                        data.comments[i].replies[j].replies.splice(k, 1);
+                                    }
+                                }
+                            }
                         }
-                    })
+                    }
+                }
+                this.$store.commit('setFeedbackSelect', data);
+                const productData = [];
+                this.productData.forEach(product => {
+                    product.id === data.id ? productData.push(data) 
+                    : productData.push(product)
                 })
-                filter = filter[0]
-                
+                const output = {
+                    currentUser: this.userData,
+                    productRequests: productData
+                }
+                console.log(output);
+                this.$store.commit('setData', output);
+                this.$store.commit('setList');
             }
         }
     }

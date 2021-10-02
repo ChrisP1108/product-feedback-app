@@ -22,6 +22,7 @@
           <div :key="reply" v-for="reply in comment.replies" class="replies-container">
             <Comment :comment="reply"/>
             <div v-if="('replies' in reply)" class="position-relative">
+              <div class="reply-border"></div>
               <div :key="subReply" v-for="subReply in reply.replies" class="replies-container">
                 <Comment :comment="subReply" />
               </div>
