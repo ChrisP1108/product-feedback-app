@@ -68,6 +68,20 @@
                 this.limit = 250 - this.characters;
                 this.text = input;
             },
+            dataUpdate(input) {
+                const productData = [];
+                this.productData.forEach(product => {
+                    product.id === input.id ? productData.push(input) 
+                    : productData.push(product)
+                })
+                const data = {
+                    currentUser: this.userData,
+                    productRequests: productData
+                }
+                this.$store.commit('setData', data);
+                this.$store.commit('setList');
+                this.$emit('reply-off');
+            },
             postReply() {
                 if (!this.text) {
                     this.$emit('reply-off');
@@ -112,18 +126,7 @@
                 }); 
                 const feedbackUpdate = {...this.selectedFeedback, comments: commentsUpdate}
                 this.$store.commit('setFeedbackSelect', feedbackUpdate);
-                const productData = [];
-                this.productData.forEach(product => {
-                    product.id === feedbackUpdate.id ? productData.push(feedbackUpdate) 
-                    : productData.push(product)
-                })
-                const data = {
-                    currentUser: this.userData,
-                    productRequests: productData
-                }
-                this.$store.commit('setData', data);
-                this.$store.commit('setList');
-                this.$emit('reply-off'); 
+                this.dataUpdate(feedbackUpdate);
             },
             updateReply() {
                 let data = {...this.selectedFeedback};
@@ -149,7 +152,7 @@
                         }
                     }
                 }
-                this.$emit('reply-off'); 
+                this.dataUpdate(data)
             },
             deleteReply() {
                 let data = {...this.selectedFeedback};
@@ -176,17 +179,7 @@
                     }
                 }
                 this.$store.commit('setFeedbackSelect', data);
-                const productData = [];
-                this.productData.forEach(product => {
-                    product.id === data.id ? productData.push(data) 
-                    : productData.push(product)
-                })
-                const output = {
-                    currentUser: this.userData,
-                    productRequests: productData
-                }
-                this.$store.commit('setData', output);
-                this.$store.commit('setList');
+                this.dataUpdate(data);
             }
         }
     }

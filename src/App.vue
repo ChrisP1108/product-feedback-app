@@ -12,17 +12,22 @@ import { Url } from './Store'
 export default {
   name: 'App',
   async created() { // Data Fetch Request
-    const res = await fetch(Url)
-    .catch((err) => console.log(err));
-    if (!res) {
-      this.$store.commit('setData', ['error']);
+    const storedList = JSON.parse(localStorage.getItem("FeedbackList"));
+    if (!storedList) {
+      const res = await fetch(Url)
+      .catch((err) => console.log(err));
+      if (!res) {
+        this.$store.commit('setData', ['error']);
+      } else {
+        const data = await res.json();
+        this.$store.commit('setData', data);
+      } 
     } else {
-      const data = await res.json();
-      this.$store.commit('setData', data);
-      setTimeout(() => {
-        this.$store.commit('setList');
-      }, 2000)
+      this.$store.commit('setData', storedList);
     }
+    setTimeout(() => {
+      this.$store.commit('setList');
+    }, 2000)
   }
 }
 
@@ -86,5 +91,19 @@ export default {
   .ns {
     margin: 0!important;
     padding: 0!important;
+  }
+  .feedback-container {
+    z-index: 1;
+    background: var(--f);
+    padding-top: 1.5rem;
+    height: 100%;
+    min-height: 41.6875rem!important;
+  }
+  .section-container {
+    padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
+    margin: 1.5rem;
+    background: var(--d);
+    border-radius: 0.625rem;
+    margin-bottom: 1rem;
   }
 </style>

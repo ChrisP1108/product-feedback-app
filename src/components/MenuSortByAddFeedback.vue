@@ -29,7 +29,7 @@
         },
         methods: {
             toggleAddFeedback() {
-                console.log('Add Feedback Clicked');
+                this.$router.push('/newfeedback');
             },
             toggleSortByModal() {
                 this.$store.commit('toggleSortByModal');

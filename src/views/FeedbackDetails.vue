@@ -1,15 +1,6 @@
 <template>
-  <div class="feedback-detail-container">
-    <div class="go-back-feedback-container">
-      <div @click="goBackHome()" class="back-arrow-container">
-        <div class="back-arrow-icon"></div>
-        <p>Go Back</p>
-      </div>
-      <div @click="toggleFeedbackEdit()"
-          class="edit-feedback-button">
-              <h2>Edit Feedback</h2>
-      </div>
-    </div>
+  <div class="feedback-container">
+    <GoBack />
     <div class="section-container">
       <SuggestionItem :item="selectedFeedback"/>
     </div>
@@ -42,13 +33,15 @@
 import SuggestionItem from '../components/SuggestionItem.vue';
 import Comment from '../components/Comment';
 import AddComment from '../components/AddComment';
+import GoBack from '../components/GoBack';
 
   export default {
     name: 'FeedbackDetails',
     components: {
       SuggestionItem,
       Comment,
-      AddComment
+      AddComment,
+      GoBack
     },
     computed: {
       selectedFeedback() {
@@ -58,9 +51,6 @@ import AddComment from '../components/AddComment';
     methods: {
       toggleFeedbackEdit() {
         console.log('Hello');
-      },
-      goBackHome() {
-        this.$router.push('/');
       },
       commentCounter(comment) {
           let tally = 0;
@@ -99,48 +89,6 @@ import AddComment from '../components/AddComment';
     margin: 0 0 1.875rem!important;
     transition: 0.25s;
   }
-  p {
-    font-size: 0.8125rem;
-    color: var(--h);
-    font-weight: 700;
-    letter-spacing: -0.0112rem;
-    transition: 0.25s;
-    margin: 0 0 0 0.9375rem;
-  }
-  .feedback-detail-container {
-    z-index: 1;
-    background: var(--f);
-    padding-top: 1.5rem;
-    height: 100%;
-    min-height: 41.6875rem!important;
-  }
-  .go-back-feedback-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0rem 1.5rem 0;
-    position: relative;
-    height: 2.5rem;
-  }
-  .back-arrow-container {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    height: 3rem;
-    cursor: pointer;
-  }
-  .back-arrow-icon {
-    background-image: url('../assets/shared/icon-arrow-left.svg');
-    width: 0.4375rem;
-    height: 0.625rem;
-  }
-  .section-container {
-    padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
-    margin: 1.5rem;
-    background: var(--d);
-    border-radius: 0.625rem;
-    margin-bottom: 1rem;
-  }
   .background {
     width: 100%;
     height: 100%;
@@ -149,28 +97,8 @@ import AddComment from '../components/AddComment';
     z-index: 1;
     background-color: var(--f);
   }
-  .edit-feedback-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1rem 0;
-    height: 2.5rem;
-    width: 7.75rem;
-    background: var(--b);
-    border-radius: 0.625rem;
-    cursor: pointer;
-    transition: 0.25s;
-    position: absolute;
-    left: 100%;
-    transform: translateX(-100%);
-  }
   .edit-feedback-button:hover {
     background: var(--u);
-  }
-  h2 {
-    font-size: 0.8125rem;
-    color: var(--p);
-    font-weight: 700;
   }
   .comment-bottom-border {
     margin: 1.5rem 0 1.5rem;
