@@ -109,8 +109,7 @@ import AddComment from '../components/AddComment';
   }
   .feedback-detail-container {
     z-index: 1;
-    /* background: var(--f); */
-    background: lightgray;
+    background: var(--f);
     padding-top: 1.5rem;
     height: 100%;
     min-height: 41.6875rem!important;

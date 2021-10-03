@@ -2,11 +2,11 @@
     <h1>Add Comment</h1>
     <textarea @keyup="(e) => textTyping(e)" 
         maxlength="250"  :value="text" placeholder="Type your comment here" 
-        :class="[!limit && 'red-border']">
+        :class="[empty || !limit ? 'red-border' : '']">
     </textarea>
     <div class="character-comment-container">
-        <p :class="[!limit && 'red-highlight']">
-            {{ limit }} Characters left
+        <p :class="[empty || !limit ? 'red-highlight' : '']">
+            {{empty ? "Can't Be Empty" : `${limit} Character Left`}}
         </p>
         <div @click="postComment()"
             class="post-comment-button">
@@ -23,6 +23,7 @@
                 limit: 250,
                 characters: 0,
                 text: '',
+                empty: false,
                 commentData: {
                     id: null,
                     content: '',
@@ -35,6 +36,9 @@
             }
         },
         computed: {
+            productData() {
+                return (this.$store.state.data.productRequests)
+            },
             selectedFeedback() {
                 return (this.$store.state.feedbackSelect)
             },
@@ -44,14 +48,29 @@
         },
         methods: {
             textTyping(e) {
+                if (this.text) {
+                    this.empty = false;
+                }
                 const input = e.target.value
                 this.characters = input.length;
                 this.limit = 250 - this.characters;
                 this.text = input;
             },
             postComment() {
-                this.commentAdd = {
-                    id: this.selectedFeedback.comments.length + 1,
+                if (!this.text) {
+                    this.empty = true;
+                    return
+                }
+                let idTally = 0;
+                this.productData.forEach(request => {
+                    if ('comments' in request) {
+                        request.comments.forEach(() => {
+                            idTally += 1;
+                        });
+                    }
+                });
+                this.commentData = {
+                    id: idTally + 1,
                     content: this.text,
                     user: {
                         image: this.userData.image,
@@ -59,7 +78,20 @@
                         username: this.userData.username
                     }
                 }
-                console.log(this.commentAdd);
+                const update = {...this.selectedFeedback}
+                update.comments.push(this.commentData);
+                const productData = [];
+                this.productData.forEach(product => {
+                    product.id === update.id ? productData.push(update) 
+                    : productData.push(product)
+                })
+                const output = {
+                    currentUser: this.userData,
+                    productRequests: productData
+                }
+                this.$store.commit('setData', output);
+                this.$store.commit('setList');
+                this.text = '';
             }
         }
     }
@@ -106,10 +138,10 @@
         margin-top: 1rem;
     }
     .red-highlight {
-        color: red;
+        color: var(--w);
     }
     .red-border {
-        border: 2px red solid;
+        border: 0.0625rem var(--w) solid;
     }
     .post-comment-button {
         display: flex;

@@ -128,6 +128,10 @@
             updateReply() {
                 let data = {...this.selectedFeedback};
                 for (let i = 0; i < data.comments.length; i++) {
+                    if (data.comments[i] === this.comment) {
+                        data.comments[i].content = this.text;
+                        break;
+                    }
                     if ('replies' in data.comments[i]) {
                         for (let j = 0; j < data.comments[i].replies.length; j++) {
                             if (data.comments[i].replies[j].content === this.comment.content) {
@@ -138,6 +142,7 @@
                                 for (let k = 0; k < data.comments[i].replies[j].replies.length; k++) {
                                     if (data.comments[i].replies[j].replies[k].content === this.comment.content) {
                                         data.comments[i].replies[j].replies[k].content = this.text;
+                                        break;
                                     }
                                 }
                             }
@@ -149,6 +154,10 @@
             deleteReply() {
                 let data = {...this.selectedFeedback};
                 for (let i = 0; i < data.comments.length; i++) {
+                    if (data.comments[i] === this.comment) {
+                        data.comments.splice(i, 1);
+                        break;
+                    }
                     if ('replies' in data.comments[i]) {
                         for (let j = 0; j < data.comments[i].replies.length; j++) {
                             if (data.comments[i].replies[j] === this.comment) {
@@ -159,6 +168,7 @@
                                 for (let k = 0; k < data.comments[i].replies[j].replies.length; k++) {
                                     if (data.comments[i].replies[j].replies[k] === this.comment) {
                                         data.comments[i].replies[j].replies.splice(k, 1);
+                                        break;
                                     }
                                 }
                             }
@@ -175,7 +185,6 @@
                     currentUser: this.userData,
                     productRequests: productData
                 }
-                console.log(output);
                 this.$store.commit('setData', output);
                 this.$store.commit('setList');
             }
