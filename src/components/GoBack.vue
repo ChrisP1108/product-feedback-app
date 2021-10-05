@@ -17,6 +17,9 @@
         methods: {
             goBackHome() {
                 this.$router.push('/');
+            },
+            toggleFeedbackEdit() {
+                console.log('Edit Feedback Button Toggled')
             }
         }
     }

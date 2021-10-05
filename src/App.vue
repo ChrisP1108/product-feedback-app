@@ -13,19 +13,16 @@ export default {
   name: 'App',
   async created() { // Data Fetch Request
     const storedList = JSON.parse(localStorage.getItem("FeedbackList"));
-    if (!storedList) {
-      const res = await fetch(Url)
-      .catch((err) => console.log(err));
-      if (!res) {
-        this.$store.commit('setData', ['error']);
-      } else {
-        const data = await res.json();
-        this.$store.commit('setData', data);
-      } 
+    let data;
+    const res = await fetch(Url)
+    .catch((err) => console.log(err));
+    if (!res) {
+      this.$store.commit('setData', ['error']);
     } else {
-      this.$store.commit('setData', storedList);
-    }
+      data = await res.json();
+    } 
     setTimeout(() => {
+      this.$store.commit('setData', storedList ? storedList : data); 
       this.$store.commit('setList');
     }, 2000)
   }

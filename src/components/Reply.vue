@@ -9,11 +9,11 @@
                 <h2>Post Reply</h2>
         </div>
         <div v-if="currentUser" class="edit-container">
-            <div @click="deleteReply()"
+            <div @click="replyChange('delete')"
                 class="button delete-button">
                     <h2>Delete</h2>
             </div>
-            <div v-if="this.text" @click="updateReply()"
+            <div v-if="this.text" @click="replyChange('update')"
                 class="button reply-button">
                     <h2>Update Reply</h2>
             </div>
@@ -99,7 +99,7 @@
                 let replyAdd = {...this.comment}
                 if (!this.comment.replies) {
                         replyAdd = {...this.comment, replies: []}
-                    }
+                }
                 replyAdd.replies.push(this.replyData);
                 if ('replyingTo' in this.comment) {
                     let commentRoot;
@@ -128,49 +128,36 @@
                 this.$store.commit('setFeedbackSelect', feedbackUpdate);
                 this.dataUpdate(feedbackUpdate);
             },
-            updateReply() {
+            replyChange(type) {
                 let data = {...this.selectedFeedback};
                 for (let i = 0; i < data.comments.length; i++) {
                     if (data.comments[i] === this.comment) {
-                        data.comments[i].content = this.text;
+                        if (type === 'update') {
+                            data.comments[i].content = this.text;
+                        } else {
+                            data.comments.splice(i, 1);
+                        }
                         break;
                     }
                     if ('replies' in data.comments[i]) {
                         for (let j = 0; j < data.comments[i].replies.length; j++) {
                             if (data.comments[i].replies[j].content === this.comment.content) {
-                                data.comments[i].replies[j].content = this.text;
+                                if (type === 'update') {
+                                    data.comments[i].replies[j].content = this.text;
+                                } else {
+                                    data.comments[i].replies.splice(j, 1);
+                                }
+                                
                                 break;
                             }
                             if ('replies' in data.comments[i].replies[j]) {
                                 for (let k = 0; k < data.comments[i].replies[j].replies.length; k++) {
                                     if (data.comments[i].replies[j].replies[k].content === this.comment.content) {
-                                        data.comments[i].replies[j].replies[k].content = this.text;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                this.dataUpdate(data)
-            },
-            deleteReply() {
-                let data = {...this.selectedFeedback};
-                for (let i = 0; i < data.comments.length; i++) {
-                    if (data.comments[i] === this.comment) {
-                        data.comments.splice(i, 1);
-                        break;
-                    }
-                    if ('replies' in data.comments[i]) {
-                        for (let j = 0; j < data.comments[i].replies.length; j++) {
-                            if (data.comments[i].replies[j] === this.comment) {
-                                    data.comments[i].replies.splice(j, 1);
-                                    break;
-                            }
-                            if ('replies' in data.comments[i].replies[j]) {
-                                for (let k = 0; k < data.comments[i].replies[j].replies.length; k++) {
-                                    if (data.comments[i].replies[j].replies[k] === this.comment) {
-                                        data.comments[i].replies[j].replies.splice(k, 1);
+                                        if (type === 'update') {
+                                            data.comments[i].replies[j].replies[k].content = this.text;
+                                        } else {
+                                            data.comments[i].replies[j].replies.splice(k, 1); 
+                                        }
                                         break;
                                     }
                                 }

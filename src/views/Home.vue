@@ -7,10 +7,15 @@
     </div>
     <MenuSortByAddFeedback />
     <div class="suggestion-list-container">
-      <div @click="selectFeedback(item)"
-        :key="item.id" v-for="item in this.$store.state.list" 
-        class="suggestion-item-container">
-          <SuggestionItem :item="item" />
+      <div v-if="!data" class="page-loading-container">
+        <PageLoader />
+      </div>
+      <div v-if="data">
+        <div @click="selectFeedback(item)"
+          :key="item.id" v-for="item in this.$store.state.list" 
+          class="suggestion-item-container">
+            <SuggestionItem :item="item" />
+        </div>
       </div>
     </div>
     <MenuMain />
@@ -22,6 +27,7 @@
   import MenuMain from '../components/MenuMain';
   import MenuSortByAddFeedback from '../components/MenuSortByAddFeedback';
   import SuggestionItem from '../components/SuggestionItem';
+  import PageLoader from '../components/PageLoader';
 
   export default {
     name: 'Home',
@@ -29,7 +35,13 @@
       Header,
       MenuMain,
       MenuSortByAddFeedback,
-      SuggestionItem
+      SuggestionItem,
+      PageLoader
+    },
+    computed: {
+      data() {
+        return this.$store.state.data[0] === 'loading' ? false : true
+      }
     },
     methods: {
       selectFeedback(feedback) {
@@ -59,6 +71,13 @@
     border-radius: 0.625rem;
     margin-bottom: 1rem;
     cursor: pointer;
+  }
+  .page-loading-container {
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .background {
     width: 100%;
