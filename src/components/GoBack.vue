@@ -4,7 +4,7 @@
             <div class="back-arrow-icon"></div>
             <p>Go Back</p>
         </div>
-        <div @click="toggleFeedbackEdit()"
+        <div v-if="route !== '/newfeedback'" @click="toggleFeedbackEdit()"
             class="edit-feedback-button">
                 <h2>Edit Feedback</h2>
         </div>
@@ -20,6 +20,11 @@
             },
             toggleFeedbackEdit() {
                 console.log('Edit Feedback Button Toggled')
+            }
+        },
+        computed: {
+            route() {
+                return this.$router.currentRoute.value.fullPath
             }
         }
     }

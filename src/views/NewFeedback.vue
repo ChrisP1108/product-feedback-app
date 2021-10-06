@@ -1,10 +1,22 @@
 <template>
-    <h1>New Feedback Works</h1>
+    <div class="feedback-container">
+        <GoBack />
+        <div class="section-container">
+            <CreateOrEditFeedback />
+        </div>
+    </div>
 </template>
 
 <script>
+    import GoBack from '../components/GoBack';
+    import CreateOrEditFeedback from '../components/CreateOrEditFeedback';
+
     export default {
-        name: 'NewFeedback'
+        name: 'NewFeedback',
+        components: {
+            GoBack,
+            CreateOrEditFeedback
+        }
     }
 </script>
 

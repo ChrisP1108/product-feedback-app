@@ -7,13 +7,22 @@
 </template>
 
 <style scoped>
+    .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    h1 {
+        margin-top: 6.25rem!important;
+    }
     .lds-spinner {
         color: official;
         display: inline-block;
         position: relative;
         width: 80px;
         height: 80px;
-        transform: scale(2);
+        transform: scale(1.5);
     }
     .lds-spinner div {
         transform-origin: 40px 40px;
