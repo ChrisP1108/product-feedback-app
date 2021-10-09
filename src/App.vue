@@ -103,4 +103,20 @@ export default {
     border-radius: 0.625rem;
     margin-bottom: 1rem;
   }
+  .text-field {
+    width: 100%;
+    border-radius: 0.3125rem;
+    background: var(--f);
+    border: 0;
+    padding: 1rem 1.25rem;
+    font-size: 0.9375rem;
+    color: var(--g);
+  }
+  .text-field:focus {
+      outline: none!important;
+      border: 1px var(--b) solid;
+  }
+  .text-area {
+    height: 5rem;
+  }
 </style>

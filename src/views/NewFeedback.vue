@@ -1,9 +1,7 @@
 <template>
     <div class="feedback-container">
         <GoBack />
-        <div class="section-container">
-            <CreateOrEditFeedback />
-        </div>
+        <CreateOrEditFeedback />
     </div>
 </template>
 
@@ -21,5 +19,5 @@
 </script>
 
 <style scoped>
-
+    
 </style>

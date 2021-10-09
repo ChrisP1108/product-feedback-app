@@ -2,7 +2,7 @@
     <h1>Add Comment</h1>
     <textarea @keyup="(e) => textTyping(e)" 
         maxlength="250"  :value="text" placeholder="Type your comment here" 
-        :class="[empty || !limit ? 'red-border' : '']">
+        :class="[empty || !limit ? 'red-border' : '', 'text-field text-area']">
     </textarea>
     <div class="character-comment-container">
         <p :class="[empty || !limit ? 'red-highlight' : '']">
@@ -105,20 +105,6 @@
         letter-spacing: -0.0112rem;
         margin: 0 0 1.875rem!important;
         transition: 0.25s;
-    }
-    textarea {
-        width: 100%;
-        border-radius: 0.3125rem;
-        background: var(--f);
-        border: 0;
-        height: 5rem;
-        padding: 1rem 1.25rem;
-        font-size: 0.8125rem;
-        color: var(--v);
-    }
-    textarea:focus {
-        outline: none!important;
-        border: 1px var(--b) solid;
     }
     h2 {
         font-size: 0.8125rem;

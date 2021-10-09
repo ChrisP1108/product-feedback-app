@@ -4,7 +4,7 @@
             <div class="back-arrow-icon"></div>
             <p>Go Back</p>
         </div>
-        <div v-if="route !== '/newfeedback'" @click="toggleFeedbackEdit()"
+        <div v-if="route !== '/feedback/new'" @click="toggleFeedbackEdit()"
             class="edit-feedback-button">
                 <h2>Edit Feedback</h2>
         </div>

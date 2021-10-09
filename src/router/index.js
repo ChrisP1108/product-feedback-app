@@ -15,7 +15,7 @@ const routes = [
     component: FeedbackDetails
   },
   {
-    path: '/newfeedback',
+    path: '/feedback/new',
     name: 'NewFeedback',
     component: NewFeedback
   }
