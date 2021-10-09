@@ -48,7 +48,7 @@ const outputList = () => {
 export const store = new Vuex.Store({
     state: {
         toggleMobileMenu: false,
-        toggleSortByModal: false,
+        toggleSortByDropdown: false,
         sortCategory: 'all',
         sortBy: 'Most Upvotes',
         data: ['loading'],
@@ -59,8 +59,8 @@ export const store = new Vuex.Store({
         toggleMobileMenu (state) {
             state.toggleMobileMenu = !state.toggleMobileMenu
         },
-        toggleSortByModal (state) {
-            state.toggleSortByModal = !state.toggleSortByModal
+        toggleSortByDropdown (state) {
+            state.toggleSortByDropdown = !state.toggleSortByDropdown
         },
         setSortCategory (state, value) {
             state.sortCategory = value;

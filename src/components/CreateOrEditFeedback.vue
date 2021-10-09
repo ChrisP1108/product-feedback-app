@@ -44,10 +44,44 @@
                     comments: []
                 },
                 categoryChoices: [
-                    'Feature', 'UI', 'UX', 'Enhancement', 'Bug'
+                    {
+                        text: 'Feature',
+                        selected: false
+                    },
+                    {
+                        text: 'UI',
+                        selected: false
+                    },
+                    {
+                        text: 'UX',
+                        selected: false
+                    },
+                    {
+                        text: 'Enhancement',
+                        selected: false
+                    },
+                    {
+                        text: 'Bug',
+                        selected: false
+                    }
                 ],
                 updateStatusCHoices: [
-                    'Suggestion', 'Planned', 'In-Progress', 'Live'
+                    {
+                        text: 'Suggestion',
+                        selected: false
+                    },
+                    {
+                        text: 'Planned',
+                        selected: false
+                    },
+                    {
+                        text: 'In-Progress',
+                        selected: false
+                    },
+                    {
+                        text: 'Live',
+                        selected: false
+                    }
                 ]
             }
         },

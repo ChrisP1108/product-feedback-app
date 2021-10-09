@@ -46,6 +46,7 @@
     methods: {
       selectFeedback(feedback) {
         this.$store.commit('setFeedbackSelect', feedback);
+        this.$store.commit('toggleSortByDropdown', false);
         this.$router.push(`/feedback/details/${this.$store.state.feedbackSelect.id}`);
       }
     }

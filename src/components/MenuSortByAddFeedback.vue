@@ -1,11 +1,11 @@
 <template>
     <div class="sortby-feedback-container">
-        <div @click="toggleSortByModal()"
+        <div @click="toggleSortByDropdown()"
             class="sortby-select-container">
-            <h1>Sort by : <span>{{this.$store.state.sortBy}}</span></h1>
-            <div :class="[sortByModal && 'sortby-arrow-icon-active'
+            <h1>Sort by : <span>{{sortBySelected}}</span></h1>
+            <div :class="[sortByDropdown && 'sortby-arrow-icon-active'
                 , 'sortby-arrow-icon']"></div>
-            <SortByModal v-if="sortByModal" />
+            <DropdownSelect @clicked="setSortBy" v-if="sortByDropdown" :list="sortByList" />
         </div>
         <div @click="toggleAddFeedback()"
             class="add-feedback-button">
@@ -15,26 +15,67 @@
 </template>
 
 <script>
-    import SortByModal from './SortByModal';
+    import DropdownSelect from './DropdownSelect';
 
     export default {
         name: 'MenuSortByAddFeedback',
         components: {
-            SortByModal
+            DropdownSelect
+        },
+        data() {
+            return {
+                sortByList: [
+                    {
+                        text: 'Most Upvotes',
+                        selected: false
+                    },
+                    {
+                        text: 'Least Upvotes',
+                        selected: false
+                    },
+                    {
+                        text: 'Most Comments',
+                        selected: false
+                    },
+                    {
+                        text: 'Least Comments',
+                        selected: false
+                    }
+                ]
+            }
         },
         computed: {
-            sortByModal() {
-                return (this.$store.state.toggleSortByModal)
+            sortByDropdown() {
+                return (this.$store.state.toggleSortByDropdown)
+            },
+            sortBySelected() {
+                return (this.$store.state.sortBy)
             }
         },
         methods: {
             toggleAddFeedback() {
                 this.$router.push('/feedback/new');
             },
-            toggleSortByModal() {
-                this.$store.commit('toggleSortByModal');
+            toggleSortByDropdown() {
+                this.$store.commit('toggleSortByDropdown');
                 this.$store.commit('setList');
-            }
+            },
+            isSelected() {
+                for (let i = 0; i < this.sortByList.length; i++) {
+                    if (this.sortByList[i].text === this.$store.state.sortBy) {
+                        this.sortByList[i].selected = true;
+                    } else {
+                        this.sortByList[i].selected = false;
+                    }
+                }
+            },
+            setSortBy(item) {
+                this.$store.commit('setSortBy', item);
+                this.isSelected();
+            },
+        },
+        created() {
+            this.isSelected();
         }
     }
 </script>
