@@ -78,8 +78,12 @@
                         username: this.userData.username
                     }
                 }
-                const update = {...this.selectedFeedback}
+                let update = {...this.selectedFeedback};
+                if (!update.comments) {
+                    update = {...this.selectedFeedback, comments: []};
+                }
                 update.comments.push(this.commentData);
+                this.$store.commit('setFeedbackSelect', update);
                 const productData = [];
                 this.productData.forEach(product => {
                     product.id === update.id ? productData.push(update) 

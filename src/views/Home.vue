@@ -11,10 +11,17 @@
         <PageLoader />
       </div>
       <div v-if="data">
-        <div @click="selectFeedback(item)"
-          :key="item.id" v-for="item in this.$store.state.list" 
-          class="suggestion-item-container">
+        <div :key="item.id" v-for="item in this.$store.state.list" 
+        class="position-relative">
+          <div class="suggestion-item-container">
             <SuggestionItem :item="item" />
+            <div @click="selectFeedback(item)" 
+              class="suggestion-click-area-1">
+            </div>
+            <div @click="selectFeedback(item)" 
+              class="suggestion-click-area-2">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -37,6 +44,11 @@
       MenuSortByAddFeedback,
       SuggestionItem,
       PageLoader
+    },
+    data() {
+      return {
+        voteClick: false
+      }
     },
     computed: {
       data() {
@@ -71,7 +83,6 @@
     background: var(--d);
     border-radius: 0.625rem;
     margin-bottom: 1rem;
-    cursor: pointer;
   }
   .page-loading-container {
     width: 100%;
@@ -99,5 +110,23 @@
   }
   h1 {
     background: red;
+  }
+  .suggestion-click-area-1 {
+    position: absolute;
+    height: 70%;
+    top: 0rem;
+    left: 0rem;
+    width: 100%;
+    z-index: 2;
+    cursor: pointer;
+  }
+  .suggestion-click-area-2 {
+    position: absolute;
+    height: 67%;
+    top: 4rem;
+    left: 5.75rem;
+    width: 87%;
+    z-index: 2;
+    cursor: pointer;
   }
 </style>

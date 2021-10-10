@@ -53,6 +53,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        z-index: 10;
     }
     .dropdown-item:hover {
         background: inherit;

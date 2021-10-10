@@ -59,8 +59,8 @@ export const store = new Vuex.Store({
         toggleMobileMenu (state) {
             state.toggleMobileMenu = !state.toggleMobileMenu
         },
-        toggleSortByDropdown (state) {
-            state.toggleSortByDropdown = !state.toggleSortByDropdown
+        toggleSortByDropdown (state, value) {
+            state.toggleSortByDropdown = value
         },
         setSortCategory (state, value) {
             state.sortCategory = value;

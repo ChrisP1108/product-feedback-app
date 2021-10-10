@@ -57,7 +57,7 @@
                 this.$router.push('/feedback/new');
             },
             toggleSortByDropdown() {
-                this.$store.commit('toggleSortByDropdown');
+                this.$store.commit('toggleSortByDropdown', !this.sortByDropdown);
                 this.$store.commit('setList');
             },
             isSelected() {
