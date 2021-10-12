@@ -127,12 +127,6 @@
         align-items: center;
         margin-top: 1rem;
     }
-    .red-highlight {
-        color: var(--w);
-    }
-    .red-border {
-        border: 0.0625rem var(--w) solid;
-    }
     .post-comment-button {
         display: flex;
         align-items: center;

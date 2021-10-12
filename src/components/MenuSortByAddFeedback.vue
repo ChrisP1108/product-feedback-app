@@ -5,7 +5,9 @@
             <h1>Sort by : <span>{{sortBySelected}}</span></h1>
             <div :class="[sortByDropdown && 'sortby-arrow-icon-active'
                 , 'sortby-arrow-icon']"></div>
-            <DropdownSelect @clicked="setSortBy" v-if="sortByDropdown" :list="sortByList" />
+            <div class="sortby-dropdown">
+                <DropdownSelect @loaded="setSortBy" v-if="sortByDropdown" :list="sortByList" />
+            </div>
         </div>
         <div @click="toggleAddFeedback()"
             class="add-feedback-button">
@@ -92,6 +94,7 @@
         background: var(--c);
         z-index: 0;
         margin-top: 4.5rem;
+        z-index: 1;
     }
     .sortby-select-container {
         display: flex;
@@ -113,20 +116,6 @@
     .sortby-arrow-icon-active {
         transform: rotateX(-180deg);
     }
-    .add-feedback-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 1rem 0;
-        height: 2.5rem;
-        background: var(--a);
-        border-radius: 0.625rem;
-        cursor: pointer;
-        transition: 0.25s;
-    }
-    .add-feedback-button:hover {
-        background: var(--q);
-    }
     h1 {
         font-size: 0.8125rem;
         color: var(--p);
@@ -140,5 +129,10 @@
         font-size: 0.8125rem;
         color: var(--p);
         font-weight: 700;
+    }
+    .sortby-dropdown {
+        width: 72%;
+        position: absolute;
+        top: 0rem;
     }
 </style>

@@ -109,7 +109,8 @@ export default {
     background: var(--f);
     border: 0;
     padding: 1rem 1.25rem;
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
     color: var(--g);
   }
   .text-field:focus {
@@ -118,5 +119,25 @@ export default {
   }
   .text-area {
     height: 5rem;
+  }
+  .red-highlight {
+        color: var(--w);
+    }
+  .red-border {
+      border: 0.0625rem var(--w) solid;
+  }
+  .add-feedback-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem 0;
+    height: 2.5rem;
+    background: var(--a);
+    border-radius: 0.625rem;
+    cursor: pointer;
+    transition: 0.25s;
+  }
+  .add-feedback-button:hover {
+    background: var(--q);
   }
 </style>

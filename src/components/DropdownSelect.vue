@@ -1,7 +1,7 @@
 <template>
     <div class="dropdown-container">
         <div :key="item.index" v-for="item in list">
-            <div @click="$emit('clicked', item.text)"
+            <div @click="$emit('loaded', item.text)"
                 :class="[lastItem(item) && 
                 'borderbottom', 'dropdown-item']">
                     <h1>{{ item.text }}</h1>
@@ -31,11 +31,10 @@
 
 <style scoped>
     .dropdown-container {
-        width: 50%;
+        width: inherit;
         background: var(--d);
         position: absolute;
         top: 4.5rem;
-        height: 10rem;
         border-radius: 0.625rem;
         box-shadow: 5px 10px 20px lightgray;
         animation-name: modal-on;

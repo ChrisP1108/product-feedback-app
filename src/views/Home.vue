@@ -12,7 +12,7 @@
       </div>
       <div v-if="data">
         <div :key="item.id" v-for="item in this.$store.state.list" 
-        class="position-relative">
+        class="relative">
           <div class="suggestion-item-container">
             <SuggestionItem :item="item" />
             <div @click="selectFeedback(item)" 
@@ -75,7 +75,7 @@
     min-height: 41.6875rem;
   }
   .suggestion-list-container {
-    z-index: 1;
+    z-index: 0;
     margin: 2rem 1.5rem 2.4375rem;
   }
   .suggestion-item-container {
@@ -107,6 +107,7 @@
   .trans-background {
     background-color: var(--halfTrans);
     position: absolute; 
+    z-index: 2;
   }
   h1 {
     background: red;
@@ -117,7 +118,7 @@
     top: 0rem;
     left: 0rem;
     width: 100%;
-    z-index: 2;
+    z-index: 0;
     cursor: pointer;
   }
   .suggestion-click-area-2 {
@@ -126,7 +127,10 @@
     top: 4rem;
     left: 5.75rem;
     width: 87%;
-    z-index: 2;
+    z-index: 0;
     cursor: pointer;
+  }
+  .relative {
+    position: relative;
   }
 </style>
