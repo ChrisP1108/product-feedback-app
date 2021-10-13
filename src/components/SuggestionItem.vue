@@ -4,7 +4,7 @@
     </h1>
     <p>{{item.description}}</p>
     <h2>
-        {{item.category.charAt(0).toUpperCase() + item.category.slice(1)}}
+        {{ capitalizeCategory() }}
     </h2>
     <div class="votes-comments-container">
         <div :class="[voteClicked ? 'votes-amount-clicked' : 'votes-amount-no-click', 
@@ -86,6 +86,13 @@
                 }
                 if (this.userUpvotes.includes(this.item.id)) {
                     this.voteClicked = true
+                }
+            },
+            capitalizeCategory() {
+                if (this.item.category === 'ux' || this.item.category === 'ui') {
+                    return this.item.category.toUpperCase();
+                } else {
+                    return this.item.category.charAt(0).toUpperCase() + this.item.category.slice(1);
                 }
             }
         },

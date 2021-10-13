@@ -36,7 +36,7 @@
         position: absolute;
         top: 4.5rem;
         border-radius: 0.625rem;
-        box-shadow: 5px 10px 20px lightgray;
+        box-shadow: 0px 1px 10px lightgray;
         animation-name: modal-on;
         animation-duration: .5s;
         animation-fill-mode: forwards;

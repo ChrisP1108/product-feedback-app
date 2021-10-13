@@ -4,10 +4,12 @@
         <h1>{{isNew ? 'Create New Feedback' : 'Edit Feedback'}}</h1>
         <h2>Feedback Title</h2>
         <p>Add a short, descriptive headline</p>
-        <input type="text" @keyup="(e) => titleTyping(e)" maxlength="50"
-            :value="feedbackData.title" :class="[titleEmpty && 'red-border', 
-            'text-field']">
-        <h4 v-if="titleEmpty">Can't be empty</h4>
+        <div>
+            <input type="text" @keyup="(e) => titleTyping(e)" maxlength="50"
+                :value="feedbackData.title" :class="[titleEmpty && 'red-border', 
+                'text-field']">
+            <h4 v-if="titleEmpty">Can't be empty</h4>
+        </div>
         <h2>Category</h2>
         <p>Choose a category for your feedback</p>
         <div @click="toggleCategoryDropdown()" 
@@ -25,15 +27,22 @@
         <p>Include any specific comments on what should be improved,
             added, etc.
         </p>
-        <textarea @keyup="(e) => descriptionTyping(e)" 
-            maxlength="250" :value="feedbackData.description" 
-            :class="[descriptionEmpty && 'red-border', 
-            'text-field text-area']">
-        </textarea>
-        <h4 v-if="descriptionEmpty">Can't be empty</h4>
+        <div>
+            <textarea @keyup="(e) => descriptionTyping(e)" 
+                maxlength="250" :value="feedbackData.description" 
+                :class="[descriptionEmpty && 'red-border', 
+                'text-field text-area']">
+            </textarea>
+            <h4 v-if="descriptionEmpty" 
+                :class="[categoryToggle && 'hidden']">Can't be empty</h4>
+        </div>
         <div @click="createFeedback()"
-            class="add-feedback-button button-margin-top">
+            class="button-format add-feedback-button button-margin-top">
                 <h3>Add Feedback</h3>
+        </div>
+        <div @click="returnHome()"
+            class="button-format cancel-button">
+                <h3>Cancel</h3>
         </div>
     </div> 
 </template>
@@ -66,9 +75,9 @@
                 feedbackData: {
                     id: null,
                     title: '',
-                    category: 'Feature',
+                    category: 'feature',
                     upvotes: 0,
-                    status: 'Suggestion',
+                    status: 'suggestion',
                     description: ''
                 },
                 categoryChoices: [
@@ -120,7 +129,6 @@
                 }
                 const input = e.target.value;
                 this.feedbackData.title = input;
-                console.log(this.feedbackData);
             },
             descriptionTyping(e) {
                 if (this.feedbackData.description) {
@@ -128,7 +136,6 @@
                 }
                 const input = e.target.value;
                 this.feedbackData.description = input;
-                console.log(this.feedbackData)
             },
             toggleCategoryDropdown() {
                 this.categoryToggle = !this.categoryToggle;
@@ -142,6 +149,9 @@
                         this.categoryChoices[i].selected = false;
                     }
                 }
+            },
+            returnHome() {
+                this.$router.push('/');
             },
             createFeedback() {
                 if (!this.feedbackData.title && !this.feedbackData.description) {
@@ -157,7 +167,13 @@
                     this.descriptionEmpty = true;
                     return
                 }
-                console.log('Post Successful')
+                const data = {...this.$store.state.data}
+                this.feedbackData.category = this.feedbackData.category.toLowerCase();
+                console.log(this.feedbackData.category);
+                data.productRequests.push(this.feedbackData);
+                this.$store.commit('setData', data);
+                this.$store.commit('setList');
+                this.returnHome();
             }
         },
         created() {
@@ -224,6 +240,8 @@
         font-weight: 400;
         margin: 0.5rem 0 0;
         color: var(--w);
+        position: absolute;
+        z-index: 0;
     }
     p {
         font-size: 0.8125rem;
@@ -257,6 +275,20 @@
         transform: rotateX(-180deg);
     }
     .button-margin-top {
-        margin-top: 2.5rem!important
+        margin-top: 2.5rem!important;
+    }
+    .cancel-button {
+        margin-top: 1rem;
+        background: var(--g);
+    }
+    .cancel-button:hover {
+        background: var(--x);
+    }
+    textarea {
+        margin-bottom: -7px;
+    }
+    .hidden {
+        z-index: -1;
+        transition: 1s;
     }
 </style>

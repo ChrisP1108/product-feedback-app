@@ -67,6 +67,7 @@ export default {
       --u: #7C91F9;
       --v: #8C92B3;
       --w: #D73737;
+      --x: #656EA3;
       --halfTrans: #00000083;
     }
   body {
@@ -126,16 +127,18 @@ export default {
   .red-border {
       border: 0.0625rem var(--w) solid;
   }
-  .add-feedback-button {
+  .button-format {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 1rem 0;
     height: 2.5rem;
-    background: var(--a);
     border-radius: 0.625rem;
     cursor: pointer;
     transition: 0.25s;
+  }
+  .add-feedback-button {
+    background: var(--a);
   }
   .add-feedback-button:hover {
     background: var(--q);

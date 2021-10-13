@@ -97,9 +97,6 @@ import GoBack from '../components/GoBack';
     z-index: 1;
     background-color: var(--f);
   }
-  .edit-feedback-button:hover {
-    background: var(--u);
-  }
   .comment-bottom-border {
     margin: 1.5rem 0 1.5rem;
     border-bottom: 0.0625rem var(--v) solid;
