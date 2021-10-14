@@ -1,6 +1,6 @@
 <template>
     <div class="createoredit-container">
-        <div :class="[isNew ? 'new-icon' : 'edit-icon', 'icon-position']"></div>
+        <div :class="[isNew ? 'new-icon' : 'edit-icon']"></div>
         <h1>{{isNew ? 'Create New Feedback' : 'Edit Feedback'}}</h1>
         <h2>Feedback Title</h2>
         <p>Add a short, descriptive headline</p>
@@ -36,13 +36,17 @@
             <h4 v-if="descriptionEmpty" 
                 :class="[categoryToggle && 'hidden']">Can't be empty</h4>
         </div>
-        <div @click="createFeedback()"
+        <div @click="isNew ? createFeedback() : changeFeedback('update')"
             class="button-format add-feedback-button button-margin-top">
-                <h3>Add Feedback</h3>
+                <h3>{{isNew ? 'Add Feedback' : 'Save Changes'}}</h3>
         </div>
         <div @click="returnHome()"
             class="button-format cancel-button">
                 <h3>Cancel</h3>
+        </div>
+        <div v-if="!isNew" @click="changeFeedback('delete')"
+            class="button-format delete-button">
+                <h3>Delete</h3>
         </div>
     </div> 
 </template>
@@ -55,15 +59,15 @@
         components: {
             DropdownSelect
         },
-        props: {
-            type: String
-        },
         computed: {
             route() {
                 return this.$router.currentRoute.value.fullPath
             },
             productData() {
                 return (this.$store.state.data.productRequests)
+            },
+            feedbackSelect() {
+                return this.$store.state.feedbackSelect;
             }
         },
         data() {
@@ -82,41 +86,41 @@
                 },
                 categoryChoices: [
                     {
-                        text: 'Feature',
+                        text: 'feature',
                         selected: true
                     },
                     {
-                        text: 'UI',
+                        text: 'ui',
                         selected: false
                     },
                     {
-                        text: 'UX',
+                        text: 'ux',
                         selected: false
                     },
                     {
-                        text: 'Enhancement',
+                        text: 'enhancement',
                         selected: false
                     },
                     {
-                        text: 'Bug',
+                        text: 'bug',
                         selected: false
                     }
                 ],
                 updateStatusChoices: [
                     {
-                        text: 'Suggestion',
+                        text: 'suggestion',
                         selected: false
                     },
                     {
-                        text: 'Planned',
+                        text: 'planned',
                         selected: false
                     },
                     {
-                        text: 'In-Progress',
+                        text: 'in-progress',
                         selected: false
                     },
                     {
-                        text: 'Live',
+                        text: 'live',
                         selected: false
                     }
                 ]
@@ -174,7 +178,23 @@
                 this.$store.commit('setData', data);
                 this.$store.commit('setList');
                 this.returnHome();
-            }
+            },
+            changeFeedback(type) {
+                const data = {...this.$store.state.data};
+                for(let i = 0; i < data.productRequests.length; i++) {
+                    if (data.productRequests[i].id === this.feedbackData.id) {
+                        if (type === 'update') {
+                            data.productRequests.splice(i, 1, this.feedbackData);
+                        } else {
+                            data.productRequests.splice(i, 1);
+                        }
+                    } 
+                }
+                this.$store.commit('setFeedbackSelect', this.feedbackData);
+                this.$store.commit('setData', data);
+                this.$store.commit('setList');
+                this.returnHome();
+            },
         },
         created() {
             if (this.route === '/feedback/new') {
@@ -185,6 +205,8 @@
                 });
                 this.feedbackData.id = idTally + 1;
                 this.categorySelected('Feature');  
+            } else {
+                this.feedbackData = this.feedbackSelect;
             }
         }
     }
@@ -200,18 +222,21 @@
         position: relative;
     }
     .new-icon {
-        background-image: url('../assets/shared/icon-new-feedback.svg');
-    }
-    .edit-icon {
-        background-image: url('../assets/shared/icon-edit-feedback.svg');
-    }
-    .icon-position {
         position: absolute;
         top: -1.75rem;
         left: 0.95rem;
         transform: scale(0.71428);
         height: 3.5rem;
         width: 3.5rem;
+        background-image: url('../assets/shared/icon-new-feedback.svg');
+    }
+    .edit-icon {
+        position: absolute;
+        top: -1.25rem;
+        left: 1.5rem;
+        height: 2.5rem;
+        width: 2.5rem;
+        background-image: url('../assets/shared/icon-edit-feedback.svg');
     }
     h1 {
         font-size: 1.125rem;
@@ -283,6 +308,13 @@
     }
     .cancel-button:hover {
         background: var(--x);
+    }
+    .delete-button {
+        margin-top: 1rem;
+        background: var(--w);
+    }
+    .delete-button:hover {
+        background: var(--y);
     }
     textarea {
         margin-bottom: -7px;

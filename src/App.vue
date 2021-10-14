@@ -12,7 +12,7 @@ import { Url } from './Store'
 export default {
   name: 'App',
   async created() { // Data Fetch Request
-    const storedList = JSON.parse(localStorage.getItem("FeedbackList"));
+    let storedList = JSON.parse(localStorage.getItem("FeedbackList"));
     let data;
     const res = await fetch(Url)
     .catch((err) => console.log(err));
@@ -22,7 +22,7 @@ export default {
       data = await res.json();
     } 
     setTimeout(() => {
-      this.$store.commit('setData', storedList ? storedList : data); 
+      this.$store.commit('setData', storedList.productRequests.length ? storedList : data); 
       this.$store.commit('setList');
     }, 2000)
   }
@@ -68,6 +68,7 @@ export default {
       --v: #8C92B3;
       --w: #D73737;
       --x: #656EA3;
+      --y: #E98888;
       --halfTrans: #00000083;
     }
   body {
