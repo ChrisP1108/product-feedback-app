@@ -15,13 +15,28 @@
         <div @click="toggleCategoryDropdown()" 
             class="category-option-container">
                 <div class="text-field category-option">
-                    <span>{{ feedbackData.category }}</span>
+                    <span>{{ capitalizer(feedbackData.category) }}</span>
                     <div :class="[categoryToggle && 'category-arrow-icon-active', 
                     'category-arrow-icon']"></div>
                 </div>
                 <div class="category-dropdown">
                     <DropdownSelect @loaded="categorySelected" v-if="categoryToggle" :list="categoryChoices" />
                 </div>
+        </div>
+        <div v-if="!isNew">
+            <h2>Update Status</h2>
+            <p>Change feature state</p>
+            <div v-if="!isNew" @click="toggleUpdateStatusDropdown()" 
+                class="category-option-container">
+                    <div class="text-field category-option">
+                        <span>{{ capitalizer(feedbackData.status) }}</span>
+                        <div :class="[updateStatusToggle && 'category-arrow-icon-active', 
+                        'category-arrow-icon']"></div>
+                    </div>
+                    <div class="category-dropdown">
+                        <DropdownSelect @loaded="updateStatusSelected" v-if="updateStatusToggle" :list="updateStatusChoices" />
+                    </div>
+            </div>
         </div>
         <h2>Feedback Detail</h2>
         <p>Include any specific comments on what should be improved,
@@ -33,8 +48,7 @@
                 :class="[descriptionEmpty && 'red-border', 
                 'text-field text-area']">
             </textarea>
-            <h4 v-if="descriptionEmpty" 
-                :class="[categoryToggle && 'hidden']">Can't be empty</h4>
+            <h4 v-if="descriptionEmpty">Can't be empty</h4>
         </div>
         <div @click="isNew ? createFeedback() : changeFeedback('update')"
             class="button-format add-feedback-button button-margin-top">
@@ -76,6 +90,7 @@
                 titleEmpty: false,
                 descriptionEmpty: false,
                 categoryToggle: false,
+                updateStatusToggle: false,
                 feedbackData: {
                     id: null,
                     title: '',
@@ -127,6 +142,13 @@
             }
         },
         methods: {
+            capitalizer(item) {
+                if (item === 'ux' || item === 'ui') {
+                    return item.toUpperCase();
+                } else {
+                    return item.charAt(0).toUpperCase() + item.slice(1);
+                }
+            },
             titleTyping(e) {
                 if (this.feedbackData.title) {
                     this.titleEmpty = false;
@@ -143,6 +165,15 @@
             },
             toggleCategoryDropdown() {
                 this.categoryToggle = !this.categoryToggle;
+                if (this.updateStatusToggle) {
+                    this.updateStatusToggle = !this.updateStatusToggle;
+                }
+            },
+            toggleUpdateStatusDropdown() {
+                this.updateStatusToggle = !this.updateStatusToggle;
+                if (this.categoryToggle) {
+                    this.categoryToggle = !this.categoryToggle;
+                } 
             },
             categorySelected(type) {
                 this.feedbackData.category = type;
@@ -151,6 +182,16 @@
                         this.categoryChoices[i].selected = true;
                     } else {
                         this.categoryChoices[i].selected = false;
+                    }
+                }
+            },
+            updateStatusSelected(type) {
+                this.feedbackData.status = type;
+                for (let i = 0; i < this.updateStatusChoices.length; i++) {
+                    if (this.updateStatusChoices[i].text === type) {
+                        this.updateStatusChoices[i].selected = true;
+                    } else {
+                        this.updateStatusChoices[i].selected = false;
                     }
                 }
             },
@@ -172,14 +213,16 @@
                     return
                 }
                 const data = {...this.$store.state.data}
-                this.feedbackData.category = this.feedbackData.category.toLowerCase();
+                // this.feedbackData.category = this.feedbackData.category.toLowerCase();
                 console.log(this.feedbackData.category);
                 data.productRequests.push(this.feedbackData);
+                console.log(this.feedbackData);
                 this.$store.commit('setData', data);
                 this.$store.commit('setList');
                 this.returnHome();
             },
             changeFeedback(type) {
+                console.log(this.feedbackData);
                 const data = {...this.$store.state.data};
                 for(let i = 0; i < data.productRequests.length; i++) {
                     if (data.productRequests[i].id === this.feedbackData.id) {

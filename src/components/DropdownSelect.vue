@@ -4,7 +4,7 @@
             <div @click="$emit('loaded', item.text)"
                 :class="[lastItem(item) && 
                 'borderbottom', 'dropdown-item']">
-                    <h1>{{ item.text }}</h1>
+                    <h1>{{ capitalizer(item.text) }}</h1>
                 <div :class="[item.selected 
                     ? 'icon-on' : 'icon-off']">
                 </div>
@@ -24,6 +24,13 @@
                 if (this.list.indexOf(item) + 1 !== this.list.length) {
                     return true
                 } else return false   
+            },
+            capitalizer(item) {
+                if (item === 'ux' || item === 'ui') {
+                    return item.toUpperCase();
+                } else {
+                    return item.charAt(0).toUpperCase() + item.slice(1);
+                }
             }
         }
     }
@@ -41,6 +48,7 @@
         animation-duration: .5s;
         animation-fill-mode: forwards;
         cursor: pointer;
+        z-index: 10;
     }
     @keyframes modal-on {
         from {transform: rotateX(-90deg); top: -1rem}
