@@ -26,6 +26,7 @@ export default {
       this.$store.commit('setList');
     }, 2000)
   }
+  
 }
 
 </script>

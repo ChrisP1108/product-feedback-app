@@ -213,10 +213,7 @@
                     return
                 }
                 const data = {...this.$store.state.data}
-                // this.feedbackData.category = this.feedbackData.category.toLowerCase();
-                console.log(this.feedbackData.category);
                 data.productRequests.push(this.feedbackData);
-                console.log(this.feedbackData);
                 this.$store.commit('setData', data);
                 this.$store.commit('setList');
                 this.returnHome();
@@ -224,14 +221,12 @@
             changeFeedback(type) {
                 console.log(this.feedbackData);
                 const data = {...this.$store.state.data};
-                for(let i = 0; i < data.productRequests.length; i++) {
-                    if (data.productRequests[i].id === this.feedbackData.id) {
-                        if (type === 'update') {
-                            data.productRequests.splice(i, 1, this.feedbackData);
-                        } else {
-                            data.productRequests.splice(i, 1);
-                        }
-                    } 
+                const index = data.productRequests.findIndex(i => i.id === this.feedbackData.id);
+                console.log(index);
+                if (type === 'update') {
+                    data.productRequests.splice(index, 1, this.feedbackData);
+                } else {
+                    data.productRequests.splice(index, 1);
                 }
                 this.$store.commit('setFeedbackSelect', this.feedbackData);
                 this.$store.commit('setData', data);

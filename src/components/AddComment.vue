@@ -88,7 +88,7 @@
                 this.productData.forEach(product => {
                     product.id === update.id ? productData.push(update) 
                     : productData.push(product)
-                })
+                });
                 const output = {
                     currentUser: this.userData,
                     productRequests: productData

@@ -112,11 +112,8 @@
                             });
                         }
                     });
-                    for(let i = 0; commentRoot.replies.length > i; i++) {
-                        if (commentRoot.replies[i].content === replyAdd.content) {
-                            commentRoot.replies[i] = replyAdd;
-                        }
-                    }
+                    const index = commentRoot.replies.findIndex(i => i.content === replyAdd.content);
+                    commentRoot.replies[index] = replyAdd;
                     replyAdd = commentRoot;
                 }
                 const commentsUpdate = [] 

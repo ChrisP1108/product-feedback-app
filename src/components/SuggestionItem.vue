@@ -70,11 +70,8 @@
                     data.currentUser.upvotes.push(item.id);
                 }
                 item.upvotes = item.upvotes + 1;
-                for (let i = 0; i < data.productRequests.length; i++) {
-                    if (data.productRequests[i].id === item.id) {
-                        data.productRequests.splice(i, 1, item);
-                    }
-                }
+                const index = data.productRequests.findIndex(i => i.id === item.id);
+                data.productRequests.splice(index, 1, item);
                 this.$store.commit('setFeedbackSelect', item);
                 this.$store.commit('setData', data);
                 this.$store.commit('setList');

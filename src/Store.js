@@ -45,6 +45,18 @@ const outputList = () => {
     }
 }
 
+const roadmapSet = (list) => {
+    const tallyUp = (type) => {
+        const data = list.filter(item => item.status === type);
+        return data.length;
+    }
+    store.state.roadmap = {
+        planned: tallyUp('planned'),
+        inProgress: tallyUp('in-progress'),
+        live: tallyUp('live')
+    }
+}
+
 export const store = new Vuex.Store({
     state: {
         toggleMobileMenu: false,
@@ -53,7 +65,12 @@ export const store = new Vuex.Store({
         sortBy: 'Most Upvotes',
         data: ['loading'],
         list: [],
-        feedbackSelect: []
+        feedbackSelect: [],
+        roadmap: {
+            planned: 0,
+            inProgress: 0,
+            live: 0
+        }
     },
     mutations: {
         toggleMobileMenu (state) {
@@ -73,12 +90,13 @@ export const store = new Vuex.Store({
             const SavedList = JSON.stringify(value);
             localStorage.setItem("FeedbackList", SavedList);
             console.log('Data Updated');
+            roadmapSet(value.productRequests);
         },
         setList (state) {
             state.list = outputList()
         },
         setFeedbackSelect (state, value) {
-            state.feedbackSelect = value
+            state.feedbackSelect = value;
         }
     }
 });
