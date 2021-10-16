@@ -1,0 +1,262 @@
+<template>
+    <div class="roadmap-header-container">
+        <div class="back-roadmap-container">
+            <div @click="goBackHome()" class="back-arrow-container">
+                <div class="back-arrow-icon"></div>
+                <p>Go Back</p>
+            </div>
+            <h1>Roadmap</h1>
+        </div>
+        <div @click="toggleAddFeedback()"
+            class="button-format add-feedback-button">
+                <h2>+ Add Feedback</h2>
+        </div>
+    </div>
+    <div class="roadmap-headings-container">
+        <div :class="[headingSelect[0].selected && 
+            'heading-active heading-planned', 'heading']" @click="toggleHeading('planned')">
+            <h3>{{ `Planned (${roadmapList.planned.length})` }}</h3>
+        </div>
+        <div :class="[headingSelect[1].selected && 
+            'heading-active heading-in-progress', 'heading']" @click="toggleHeading('inProgress')">
+            <h3>{{ `In-Progress (${roadmapList.inProgress.length})` }}</h3>
+        </div>
+        <div :class="[headingSelect[2].selected && 
+            'heading-active heading-live', 'heading']" @click="toggleHeading('live')">
+            <h3>{{ `Live (${roadmapList.live.length})` }}</h3>
+        </div>
+    </div>
+    <div class="roadmap-body-container">
+        <h4>{{ titleGenerator() }}</h4>
+        <h5>Feature currently being developed</h5>
+        <div class="roadmap-list-container">
+            <div :key="item.id" v-for="item in outputList">
+                <div :class="[`roadmap-top-border roadmap-${selected}-border`]"></div>
+                <div class="roadmap-item-container">
+                    <SuggestionItem :item="item" isRoadmap='true' />
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import SuggestionItem from '../components/SuggestionItem';
+    export default {
+        name: 'Roadmap',
+        components: {
+            SuggestionItem
+        },
+        data() {
+            return {
+                outputList: [],
+                selected: 'planned',
+                headingSelect: [
+                    {
+                        type: 'planned',
+                        selected: true
+                    },
+                    {
+                        type: 'inProgress',
+                        selected: false
+                    },
+                    {
+                        type: 'live',
+                        selected: false
+                    },
+                ]
+            }
+        },
+        computed: {
+            roadmapList() {
+                return this.$store.state.roadmap;
+            }
+        },
+        methods: {
+            toggleAddFeedback() {
+                this.$router.push('/feedback/new');
+            },
+            goBackHome() {
+                this.$router.push('/');
+            },
+            toggleHeading(type)  {
+                for (let i = 0; i < this.headingSelect.length; i++) {
+                    if (this.headingSelect[i].type === type) {
+                        this.headingSelect[i].selected = true;
+                    } else {
+                        this.headingSelect[i].selected = false;
+                    }
+                }
+            },
+            titleGenerator() {
+                let type;
+                this.headingSelect.forEach(heading => { 
+                    if (heading.selected) {
+                        type = heading.type;
+                    } 
+                });
+                this.selected = type;
+                let quantity = 0;
+                if (type === 'planned') {
+                    type = 'Planned';
+                    quantity = this.roadmapList.planned.length;
+                    this.outputList = this.roadmapList.planned;
+                }
+                if (type === 'inProgress') {
+                    type = 'In-Progress';
+                    quantity = this.roadmapList.inProgress.length;
+                    this.outputList = this.roadmapList.inProgress;
+                }
+                if (type === 'live') {
+                    type = 'Live';
+                    quantity = this.roadmapList.live.length;
+                    this.outputList = this.roadmapList.live;
+                }
+                return `${type} (${quantity})`
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .roadmap-header-container {
+        background: var(--c);
+        padding: 1.5rem;
+        height: 6.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .back-roadmap-container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .roadmap-headings-container {
+        padding: 0 0rem 0;
+        background: var(--f);
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 0.0625rem var(--z) solid;
+    }
+    .roadmap-body-container {
+        min-height: 100vh;
+        background: var(--f);
+        padding: 1.75rem 1.5rem 6.125rem;
+    }
+    .roadmap-list-container {
+        margin-top: 1.5rem;
+        position: relative;
+    }
+    .roadmap-item-container {
+        padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
+        background: var(--d);
+        border-radius: 0.625rem;
+        margin-bottom: 1rem;
+    }
+    .roadmap-top-border {
+        width: 100%;
+        height: 0.375rem;
+        border-top-right-radius: 0.625rem;
+        border-top-left-radius: 0.625rem;
+        position: absolute;
+        background: red;
+    }
+    .roadmap-planned-border {
+        background: var(--i);
+    }
+    .roadmap-inProgress-border {
+        background: var(--a);
+    }
+    .roadmap-live-border {
+        background: var(--j);
+    }
+    h1 {
+        font-size: 1.125rem;
+        color: var(--d);
+        font-weight: 700;
+        letter-spacing: -0.0112rem;
+        margin: 2.5rem 0 1rem 0!important;
+        transition: 0.25s;
+    }
+    h2 {
+        font-size: 0.8125rem;
+        color: var(--p);
+        font-weight: 700;
+    }
+    h3 {
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: -0.0112rem;
+        color: var(--g);
+        margin: 0;
+    }
+    h4 {
+        font-size: 1.125rem;
+        color: var(--g);
+        font-weight: 700;
+        letter-spacing: -0.0156rem;
+        margin: 0!important;
+    }
+    h5 {
+        font-size: 0.8125rem;
+        margin: 0.5rem 0 0 0!important;
+        color: var(--h);
+        font-weight: 400;
+    }
+    p {
+        font-size: 0.8125rem;
+        color: var(--d);
+        font-weight: 700;
+        letter-spacing: -0.0112rem;
+        transition: 0.25s;
+        margin: 0 0 0 0.9375rem!important;
+    }
+    p:hover {
+        text-decoration: underline;
+    }
+    .heading {
+        height: 3.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.35;
+        width: 33%;
+        border-bottom: 0.25rem transparent solid;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+    .heading-active {
+        opacity: 1;
+    }
+    .heading-planned {
+        border-bottom: 0.25rem var(--i) solid;
+    }
+    .heading-in-progress {
+        border-bottom: 0.25rem var(--a) solid;
+    }
+    .heading-live {
+        border-bottom: 0.25rem var(--j) solid;
+    }
+    .go-back-feedback-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0rem 1.5rem 0;
+        position: relative;
+        height: 2.5rem;
+    }
+    .back-arrow-container {
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        cursor: pointer;
+        position: absolute;
+    }
+    .back-arrow-icon {
+        background-image: url('../assets/shared/icon-arrow-down-white.svg');
+        width: 0.625rem;
+        height: 0.4375rem;
+        transform: rotate(90deg);
+    }
+</style>
