@@ -7,10 +7,22 @@
     </div>
     <MenuSortByAddFeedback />
     <div class="suggestion-list-container">
-      <div @click="selectFeedback(item)"
-        :key="item.id" v-for="item in this.$store.state.list" 
-        class="suggestion-item-container">
-          <SuggestionItem :item="item" />
+      <div v-if="!data" class="page-loading-container">
+        <PageLoader />
+      </div>
+      <div v-if="data">
+        <div :key="item.id" v-for="item in this.$store.state.list" 
+        class="relative">
+          <div class="suggestion-item-container">
+            <SuggestionItem :item="item" isRoadmap='false' />
+            <div @click="selectFeedback(item)" 
+              class="suggestion-click-area-1">
+            </div>
+            <div @click="selectFeedback(item)" 
+              class="suggestion-click-area-2">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <MenuMain />
@@ -22,6 +34,7 @@
   import MenuMain from '../components/MenuMain';
   import MenuSortByAddFeedback from '../components/MenuSortByAddFeedback';
   import SuggestionItem from '../components/SuggestionItem';
+  import PageLoader from '../components/PageLoader';
 
   export default {
     name: 'Home',
@@ -29,11 +42,23 @@
       Header,
       MenuMain,
       MenuSortByAddFeedback,
-      SuggestionItem
+      SuggestionItem,
+      PageLoader
+    },
+    data() {
+      return {
+        voteClick: false
+      }
+    },
+    computed: {
+      data() {
+        return this.$store.state.data[0] === 'loading' ? false : true
+      }
     },
     methods: {
       selectFeedback(feedback) {
         this.$store.commit('setFeedbackSelect', feedback);
+        this.$store.commit('toggleSortByDropdown', false);
         this.$router.push(`/feedback/details/${this.$store.state.feedbackSelect.id}`);
       }
     }
@@ -50,7 +75,7 @@
     min-height: 41.6875rem;
   }
   .suggestion-list-container {
-    z-index: 1;
+    z-index: 0;
     margin: 2rem 1.5rem 2.4375rem;
   }
   .suggestion-item-container {
@@ -58,7 +83,13 @@
     background: var(--d);
     border-radius: 0.625rem;
     margin-bottom: 1rem;
-    cursor: pointer;
+  }
+  .page-loading-container {
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .background {
     width: 100%;
@@ -76,8 +107,30 @@
   .trans-background {
     background-color: var(--halfTrans);
     position: absolute; 
+    z-index: 2;
   }
   h1 {
     background: red;
+  }
+  .suggestion-click-area-1 {
+    position: absolute;
+    height: 70%;
+    top: 0rem;
+    left: 0rem;
+    width: 100%;
+    z-index: 0;
+    cursor: pointer;
+  }
+  .suggestion-click-area-2 {
+    position: absolute;
+    height: 67%;
+    top: 4rem;
+    left: 5.75rem;
+    width: 87%;
+    z-index: 0;
+    cursor: pointer;
+  }
+  .relative {
+    position: relative;
   }
 </style>

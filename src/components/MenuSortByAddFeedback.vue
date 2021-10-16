@@ -1,40 +1,83 @@
 <template>
     <div class="sortby-feedback-container">
-        <div @click="toggleSortByModal()"
+        <div @click="toggleSortByDropdown()"
             class="sortby-select-container">
-            <h1>Sort by : <span>{{this.$store.state.sortBy}}</span></h1>
-            <div :class="[sortByModal && 'sortby-arrow-icon-active'
+            <h1>Sort by : <span>{{sortBySelected}}</span></h1>
+            <div :class="[sortByDropdown && 'sortby-arrow-icon-active'
                 , 'sortby-arrow-icon']"></div>
-            <SortByModal v-if="sortByModal" />
+            <div class="sortby-dropdown">
+                <DropdownSelect @loaded="setSortBy" v-if="sortByDropdown" :list="sortByList" />
+            </div>
         </div>
         <div @click="toggleAddFeedback()"
-            class="add-feedback-button">
+            class="button-format add-feedback-button">
                 <h2>+ Add Feedback</h2>
-            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    import SortByModal from './SortByModal';
+    import DropdownSelect from './DropdownSelect';
 
     export default {
         name: 'MenuSortByAddFeedback',
         components: {
-            SortByModal
+            DropdownSelect
+        },
+        data() {
+            return {
+                sortByList: [
+                    {
+                        text: 'Most Upvotes',
+                        selected: false
+                    },
+                    {
+                        text: 'Least Upvotes',
+                        selected: false
+                    },
+                    {
+                        text: 'Most Comments',
+                        selected: false
+                    },
+                    {
+                        text: 'Least Comments',
+                        selected: false
+                    }
+                ]
+            }
         },
         computed: {
-            sortByModal() {
-                return (this.$store.state.toggleSortByModal)
+            sortByDropdown() {
+                return (this.$store.state.toggleSortByDropdown)
+            },
+            sortBySelected() {
+                return (this.$store.state.sortBy)
             }
         },
         methods: {
             toggleAddFeedback() {
-                console.log('Add Feedback Clicked');
+                this.$router.push('/feedback/new');
             },
-            toggleSortByModal() {
-                this.$store.commit('toggleSortByModal');
+            toggleSortByDropdown() {
+                this.$store.commit('toggleSortByDropdown', !this.sortByDropdown);
                 this.$store.commit('setList');
-            }
+            },
+            isSelected() {
+                for (let i = 0; i < this.sortByList.length; i++) {
+                    if (this.sortByList[i].text === this.$store.state.sortBy) {
+                        this.sortByList[i].selected = true;
+                    } else {
+                        this.sortByList[i].selected = false;
+                    }
+                }
+            },
+            setSortBy(item) {
+                this.$store.commit('setSortBy', item);
+                this.isSelected();
+            },
+        },
+        created() {
+            this.isSelected();
         }
     }
 </script>
@@ -51,6 +94,7 @@
         background: var(--c);
         z-index: 0;
         margin-top: 4.5rem;
+        z-index: 1;
     }
     .sortby-select-container {
         display: flex;
@@ -72,20 +116,6 @@
     .sortby-arrow-icon-active {
         transform: rotateX(-180deg);
     }
-    .add-feedback-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 1rem 0;
-        height: 2.5rem;
-        background: var(--a);
-        border-radius: 0.625rem;
-        cursor: pointer;
-        transition: 0.25s;
-    }
-    .add-feedback-button:hover {
-        background: var(--q);
-    }
     h1 {
         font-size: 0.8125rem;
         color: var(--p);
@@ -99,5 +129,10 @@
         font-size: 0.8125rem;
         color: var(--p);
         font-weight: 700;
+    }
+    .sortby-dropdown {
+        width: 72%;
+        position: absolute;
+        top: 0rem;
     }
 </style>

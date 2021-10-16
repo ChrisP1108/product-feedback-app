@@ -12,18 +12,20 @@ import { Url } from './Store'
 export default {
   name: 'App',
   async created() { // Data Fetch Request
+    let storedList = JSON.parse(localStorage.getItem("FeedbackList"));
+    let data;
     const res = await fetch(Url)
     .catch((err) => console.log(err));
     if (!res) {
       this.$store.commit('setData', ['error']);
     } else {
-      const data = await res.json();
-      this.$store.commit('setData', data);
-      setTimeout(() => {
-        this.$store.commit('setList');
-      }, 2000)
-    }
+      data = await res.json();
+    } 
+    setTimeout(() => {
+      this.$store.commit('setData', storedList.productRequests.length ? storedList : data); 
+    }, 2000)
   }
+  
 }
 
 </script>
@@ -62,6 +64,11 @@ export default {
       --r: #F2F2F2;
       --s: #CFD7FF;
       --t: #8397F8;
+      --u: #7C91F9;
+      --v: #8C92B3;
+      --w: #D73737;
+      --x: #656EA3;
+      --y: #E98888;
       --halfTrans: #00000083;
     }
   body {
@@ -83,5 +90,58 @@ export default {
   .ns {
     margin: 0!important;
     padding: 0!important;
+  }
+  .feedback-container {
+    z-index: 1;
+    background: var(--f);
+    padding-top: 1.5rem;
+    height: 100%;
+    min-height: 41.6875rem!important;
+  }
+  .section-container {
+    padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
+    margin: 1.5rem;
+    background: var(--d);
+    border-radius: 0.625rem;
+    margin-bottom: 1rem;
+  }
+  .text-field {
+    width: 100%;
+    border-radius: 0.3125rem;
+    background: var(--f);
+    border: 0;
+    padding: 1rem 1.25rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--g);
+  }
+  .text-field:focus {
+      outline: none!important;
+      border: 1px var(--b) solid;
+  }
+  .text-area {
+    height: 5rem;
+  }
+  .red-highlight {
+        color: var(--w);
+    }
+  .red-border {
+      border: 0.0625rem var(--w) solid;
+  }
+  .button-format {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem 0;
+    height: 2.5rem;
+    border-radius: 0.625rem;
+    cursor: pointer;
+    transition: 0.25s;
+  }
+  .add-feedback-button {
+    background: var(--a);
+  }
+  .add-feedback-button:hover {
+    background: var(--q);
   }
 </style>

@@ -24,6 +24,7 @@ export default {
                 left: 0,
                 behavior: 'instant'
             });  
+            this.$store.commit('toggleSortByDropdown', false);
         },
         reload() {
             window.location.reload();

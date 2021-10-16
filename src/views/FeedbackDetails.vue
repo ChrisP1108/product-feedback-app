@@ -1,36 +1,93 @@
 <template>
-  <div class="feedback-detail-container">
-    <h1>Test</h1>
-    <div class="suggestion-item-container">
-      <SuggestionItem :item="this.$store.state.feedbackSelect"/>
+  <div class="feedback-container">
+    <GoBack />
+    <div class="section-container">
+      <SuggestionItem :item="selectedFeedback" isRoadmap='false' />
+    </div>
+    <div class="section-container">
+      <h1>{{commentCounter(selectedFeedback.comments)}} Comments</h1>
+      <div :key="comment.id" v-for="comment in selectedFeedback.comments">
+        <Comment :comment="comment"/>
+        <div v-if="('replies' in comment)" class="position-relative">
+          <div class="reply-border"></div>
+          <div :key="reply" v-for="reply in comment.replies" class="replies-container">
+            <Comment :comment="reply"/>
+            <div v-if="('replies' in reply)" class="position-relative">
+              <div class="reply-border"></div>
+              <div :key="subReply" v-for="subReply in reply.replies" class="replies-container">
+                <Comment :comment="subReply" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div :class="[lastComment(comment) && 'comment-bottom-border']"></div>
+      </div>
+    </div>
+    <div class="section-container">
+      <AddComment />
     </div>
   </div>
 </template>
 
 <script>
-import SuggestionItem from '../components/SuggestionItem.vue'
+import SuggestionItem from '../components/SuggestionItem.vue';
+import Comment from '../components/Comment';
+import AddComment from '../components/AddComment';
+import GoBack from '../components/GoBack';
+
   export default {
     name: 'FeedbackDetails',
     components: {
-      SuggestionItem
+      SuggestionItem,
+      Comment,
+      AddComment,
+      GoBack
+    },
+    computed: {
+      selectedFeedback() {
+        return (this.$store.state.feedbackSelect)
+      }
+    },
+    methods: {
+      toggleFeedbackEdit() {
+        console.log('Hello');
+      },
+      commentCounter(comment) {
+          let tally = 0;
+          if (!comment) {
+              return 0;
+          }
+          comment.forEach((item) => {
+              tally++;
+              if ('replies' in item) {
+                  item.replies.forEach(() => {
+                      tally++;
+                  });
+              }
+          });
+          return tally;
+      },
+      lastComment(comment) {
+        const comments = this.selectedFeedback.comments.slice()
+        const last = comments.pop();
+        if (comment === last) {
+          return false
+        } else {
+          return true
+        }
+      },
     }
   }
 </script>
 
 <style scoped>
-  .feedback-detail-container {
-    z-index: 1;
-    background: var(--f);
-    height: 100%;
-    min-height: 41.6875rem!important;
-  }
-  .suggestion-item-container {
-    padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
-    margin: 1.5rem;
-    background: var(--d);
-    border-radius: 0.625rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
+  h1 {
+    font-size: 1.125rem;
+    color: var(--g);
+    font-weight: 700;
+    letter-spacing: -0.0112rem;
+    margin: 0 0 1.875rem!important;
+    transition: 0.25s;
   }
   .background {
     width: 100%;
@@ -39,5 +96,19 @@ import SuggestionItem from '../components/SuggestionItem.vue'
     transition: 0.25s;
     z-index: 1;
     background-color: var(--f);
+  }
+  .comment-bottom-border {
+    margin: 1.5rem 0 1.5rem;
+    border-bottom: 0.0625rem var(--v) solid;
+  }
+  .replies-container {
+    margin-top: 1.5rem!important;
+    padding-left: 1.5rem!important;
+  }
+  .reply-border {
+    position: absolute;
+    border-left: 0.0625rem var(--h) solid;
+    height: 59%;
+    left: 0rem;
   }
 </style>

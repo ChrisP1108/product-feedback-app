@@ -19,44 +19,65 @@ const commentCounter = (comment) => {
 }
 
 const outputList = () => {
-    const items = store.state.data.productRequests.slice();
-    const sorted = items.sort((a,b) => {
-        if (store.state.sortBy === 'Most Upvotes') {
-            return b.upvotes - a.upvotes
-        }
-        if (store.state.sortBy === 'Least Upvotes') {
-            return a.upvotes - b.upvotes
-        }
-        if (store.state.sortBy === 'Most Comments') {
-            return commentCounter(b.comments) - commentCounter(a.comments)
-        }
-        if (store.state.sortBy === 'Least Comments') {
-            return commentCounter(a.comments) - commentCounter(b.comments)
-        }
-    });
-    const output = store.state.sortCategory === 'all' 
-        ? sorted : sorted.filter(item => 
-        item.category === store.state.sortCategory
-    );
-    return output
+    const items = [...store.state.data.productRequests];
+    if (items.length > 1) {
+        const sorted = items.sort((a,b) => {
+            if (store.state.sortBy === 'Most Upvotes') {
+                return b.upvotes - a.upvotes
+            }
+            if (store.state.sortBy === 'Least Upvotes') {
+                return a.upvotes - b.upvotes
+            }
+            if (store.state.sortBy === 'Most Comments') {
+                return commentCounter(b.comments) - commentCounter(a.comments)
+            }
+            if (store.state.sortBy === 'Least Comments') {
+                return commentCounter(a.comments) - commentCounter(b.comments)
+            }
+        });
+        const output = store.state.sortCategory === 'all' 
+            ? sorted : sorted.filter(item => 
+            item.category === store.state.sortCategory
+        );
+        return output
+    } else {
+        return items
+    }
+}
+
+const roadmapSet = (list) => {
+    const tallyUp = (type) => {
+        const data = list.filter(item => item.status === type);
+        return data;
+    }
+    store.state.roadmap = {
+        planned: tallyUp('planned'),
+        inProgress: tallyUp('in-progress'),
+        live: tallyUp('live')
+    }
 }
 
 export const store = new Vuex.Store({
     state: {
         toggleMobileMenu: false,
-        toggleSortByModal: false,
+        toggleSortByDropdown: false,
         sortCategory: 'all',
         sortBy: 'Most Upvotes',
         data: ['loading'],
         list: [],
-        feedbackSelect: []
+        feedbackSelect: [],
+        roadmap: {
+            planned: [],
+            inProgress: [],
+            live: []
+        }
     },
     mutations: {
         toggleMobileMenu (state) {
             state.toggleMobileMenu = !state.toggleMobileMenu
         },
-        toggleSortByModal (state) {
-            state.toggleSortByModal = !state.toggleSortByModal
+        toggleSortByDropdown (state, value) {
+            state.toggleSortByDropdown = value
         },
         setSortCategory (state, value) {
             state.sortCategory = value;
@@ -65,13 +86,18 @@ export const store = new Vuex.Store({
             state.sortBy = value
         },
         setData (state, value) {
-            state.data = value
+            state.data = value;
+            const SavedList = JSON.stringify(value);
+            localStorage.setItem("FeedbackList", SavedList);
+            roadmapSet(value.productRequests);
+            store.state.list = outputList();
+            console.log('Data Updated');
         },
         setList (state) {
-            state.list = outputList()
+            state.list = outputList();
         },
         setFeedbackSelect (state, value) {
-            state.feedbackSelect = value
+            state.feedbackSelect = value;
         }
     }
 });

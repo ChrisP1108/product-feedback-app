@@ -11,7 +11,7 @@
                     <p>Planned</p>
                 </div>
                 <div class="roadmap-row-section">
-                    <h3>#</h3>
+                    <h3>{{ roadmap.planned.length }}</h3>
                 </div>
             </div>
             <div class="roadmap-item-row">
@@ -20,7 +20,7 @@
                     <p>In-Progress</p>
                 </div>
                 <div class="roadmap-row-section">
-                    <h3>#</h3>
+                    <h3>{{ roadmap.inProgress.length }}</h3>
                 </div>
             </div>
             <div class="roadmap-item-row">
@@ -29,7 +29,7 @@
                     <p>Live</p>
                 </div>
                 <div class="roadmap-row-section">
-                    <h3>#</h3>
+                    <h3>{{ roadmap.live.length }}</h3>
                 </div>
             </div>
         </div>
@@ -39,6 +39,11 @@
 <script>
 export default {
     name: 'MenuRoadmap',
+    computed: {
+        roadmap() {
+            return (this.$store.state.roadmap);
+        }
+    }
 }
 </script>
 

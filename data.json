@@ -140,7 +140,7 @@
           "id": 8,
           "content": "I also want to be notified when devs I follow submit projects on FEM. Is in-app notification also in the pipeline?",
           "user": {
-            "image": "./assets/user-images/image-victoria.jpg",
+            "image": "/assets/user-images/image-victoria.jpg",
             "name": "Victoria Mejia",
             "username": "arlen_the_marlin"
           },
