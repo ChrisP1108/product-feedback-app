@@ -59,6 +59,9 @@
             },
             productData() {
                 return (this.$store.state.data.productRequests)
+            },
+            dataList() {
+                return (this.$store.state.data)
             }
         },
         methods: {
@@ -69,17 +72,10 @@
                 this.text = input;
             },
             dataUpdate(input) {
-                const productData = [];
-                this.productData.forEach(product => {
-                    product.id === input.id ? productData.push(input) 
-                    : productData.push(product)
-                })
-                const data = {
-                    currentUser: this.userData,
-                    productRequests: productData
-                }
+                const data = {...this.dataList};
+                const index = data.productRequests.findIndex(i => i.id === input.id);
+                data.productRequests.splice(index, 1, input);
                 this.$store.commit('setData', data);
-                this.$store.commit('setList');
                 this.$emit('reply-off');
             },
             postReply() {

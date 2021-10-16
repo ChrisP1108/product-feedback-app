@@ -20,7 +20,6 @@
             },
             toggleFeedbackEdit() {
                 this.$router.push(`/feedback/edit/${this.$store.state.feedbackSelect.id}`);
-                console.log('Edit Feedback Button Toggled')
             }
         },
         computed: {

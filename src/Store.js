@@ -89,11 +89,12 @@ export const store = new Vuex.Store({
             state.data = value;
             const SavedList = JSON.stringify(value);
             localStorage.setItem("FeedbackList", SavedList);
-            console.log('Data Updated');
             roadmapSet(value.productRequests);
+            store.state.list = outputList();
+            console.log('Data Updated');
         },
         setList (state) {
-            state.list = outputList()
+            state.list = outputList();
         },
         setFeedbackSelect (state, value) {
             state.feedbackSelect = value;

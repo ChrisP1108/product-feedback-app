@@ -44,6 +44,9 @@
             },
             userData() {
                 return (this.$store.state.data.currentUser)
+            },
+            listData() {
+                return (this.$store.state.data);
             }
         },
         methods: {
@@ -84,17 +87,9 @@
                 }
                 update.comments.push(this.commentData);
                 this.$store.commit('setFeedbackSelect', update);
-                const productData = [];
-                this.productData.forEach(product => {
-                    product.id === update.id ? productData.push(update) 
-                    : productData.push(product)
-                });
-                const output = {
-                    currentUser: this.userData,
-                    productRequests: productData
-                }
+                const output = {...this.listData};
+                output.productRequests.push(update);
                 this.$store.commit('setData', output);
-                this.$store.commit('setList');
                 this.text = '';
             }
         }

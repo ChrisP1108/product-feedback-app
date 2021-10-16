@@ -219,10 +219,8 @@
                 this.returnHome();
             },
             changeFeedback(type) {
-                console.log(this.feedbackData);
                 const data = {...this.$store.state.data};
                 const index = data.productRequests.findIndex(i => i.id === this.feedbackData.id);
-                console.log(index);
                 if (type === 'update') {
                     data.productRequests.splice(index, 1, this.feedbackData);
                 } else {

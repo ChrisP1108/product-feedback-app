@@ -23,7 +23,6 @@ export default {
     } 
     setTimeout(() => {
       this.$store.commit('setData', storedList.productRequests.length ? storedList : data); 
-      this.$store.commit('setList');
     }, 2000)
   }
   
