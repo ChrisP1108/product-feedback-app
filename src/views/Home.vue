@@ -14,7 +14,7 @@
         <div :key="item.id" v-for="item in this.$store.state.list" 
         class="relative">
           <div class="suggestion-item-container">
-            <SuggestionItem :item="item" />
+            <SuggestionItem :item="item" isRoadmap='false' />
             <div @click="selectFeedback(item)" 
               class="suggestion-click-area-1">
             </div>

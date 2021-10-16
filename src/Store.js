@@ -48,7 +48,7 @@ const outputList = () => {
 const roadmapSet = (list) => {
     const tallyUp = (type) => {
         const data = list.filter(item => item.status === type);
-        return data.length;
+        return data;
     }
     store.state.roadmap = {
         planned: tallyUp('planned'),
@@ -67,9 +67,9 @@ export const store = new Vuex.Store({
         list: [],
         feedbackSelect: [],
         roadmap: {
-            planned: 0,
-            inProgress: 0,
-            live: 0
+            planned: [],
+            inProgress: [],
+            live: []
         }
     },
     mutations: {

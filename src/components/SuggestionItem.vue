@@ -23,7 +23,8 @@
     export default {
         name: 'SuggestionItem',
         props: {
-            item: Object
+            item: Object,
+            isRoadmap: String
         },
         data() {
             return {
@@ -74,7 +75,6 @@
                 data.productRequests.splice(index, 1, item);
                 this.$store.commit('setFeedbackSelect', item);
                 this.$store.commit('setData', data);
-                this.$store.commit('setList');
                 this.voteClickCheck();
             },
             voteClickCheck() {

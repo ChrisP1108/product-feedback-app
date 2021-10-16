@@ -2,7 +2,7 @@
   <div class="feedback-container">
     <GoBack />
     <div class="section-container">
-      <SuggestionItem :item="selectedFeedback"/>
+      <SuggestionItem :item="selectedFeedback" isRoadmap='false' />
     </div>
     <div class="section-container">
       <h1>{{commentCounter(selectedFeedback.comments)}} Comments</h1>
