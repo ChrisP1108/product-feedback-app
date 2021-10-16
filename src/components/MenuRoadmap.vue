@@ -2,7 +2,7 @@
     <div class="menu-section-container container-padding">
         <div class="roadmap-header">
             <h1>Roadmap</h1>
-            <h2>View</h2>
+            <h2 @click="toggleRoadmap">View</h2>
         </div>
         <div class="roadmap-list">
             <div class="roadmap-item-row">
@@ -39,6 +39,12 @@
 <script>
 export default {
     name: 'MenuRoadmap',
+    methods: {
+        toggleRoadmap() {
+            this.$store.commit('toggleMobileMenu');
+            this.$router.push('/roadmap');
+        }
+    },
     computed: {
         roadmap() {
             return (this.$store.state.roadmap);
@@ -61,7 +67,10 @@ export default {
         text-decoration: underline;
         cursor: pointer;
         transition: 0.25s;
-        position: relative;
+        position: absolute;
+        padding: 1rem!important;
+        left: 100%;
+        transform: translateX(-75%);
     }
     h2:hover {
         color: var(--t);
@@ -82,6 +91,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
     }
     .roadmap-list {
         width: 100%;

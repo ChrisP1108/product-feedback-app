@@ -1,6 +1,6 @@
 <template>
     <div class="go-back-feedback-container">
-        <div @click="goBackHome()" class="back-arrow-container">
+        <div @click="goBack()" class="back-arrow-container">
             <div class="back-arrow-icon"></div>
             <p>Go Back</p>
         </div>
@@ -15,8 +15,8 @@
     export default {
         name: 'GoBack',
         methods: {
-            goBackHome() {
-                this.$router.push('/');
+            goBack() {
+                this.$router.go(-1);
             },
             toggleFeedbackEdit() {
                 this.$router.push(`/feedback/edit/${this.$store.state.feedbackSelect.id}`);
@@ -43,6 +43,9 @@
         letter-spacing: -0.0112rem;
         transition: 0.25s;
         margin: 0 0 0 0.9375rem;
+    }
+    p:hover {
+        text-decoration: underline;
     }
     .go-back-feedback-container {
         display: flex;

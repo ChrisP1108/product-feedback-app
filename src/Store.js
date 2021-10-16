@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 
-export const Url = 'https://raw.githubusercontent.com/ChrisP1108/product-feedback-app/main/data.json';
+export const Url = 'https://raw.githubusercontent.com/ChrisP1108/product-feedback-app/main/app.json';
 
 const commentCounter = (comment) => {
     let tally = 0;

@@ -78,12 +78,6 @@
     z-index: 0;
     margin: 2rem 1.5rem 2.4375rem;
   }
-  .suggestion-item-container {
-    padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
-    background: var(--d);
-    border-radius: 0.625rem;
-    margin-bottom: 1rem;
-  }
   .page-loading-container {
     width: 100%;
     height: 30rem;

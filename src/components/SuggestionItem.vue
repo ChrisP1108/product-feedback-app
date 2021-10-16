@@ -1,5 +1,9 @@
 <template>
-    <h1 :style="[route !== '/' && 'color: var(--g)']">
+    <div v-if="roadmap" class="status-container">
+        <div :class="[`status-dot status-${item.status}`]"></div>
+        <h4>{{ statusType() }}</h4>
+    </div>
+    <h1>
         {{item.title}}
     </h1>
     <p>{{item.description}}</p>
@@ -40,6 +44,9 @@
             },
             productRequests() {
                 return this.$store.state.data.productRequests
+            },
+            roadmap() {
+                return this.isRoadmap === 'true' ? true : false;
             }
         },
         methods: {
@@ -91,6 +98,21 @@
                 } else {
                     return this.item.category.charAt(0).toUpperCase() + this.item.category.slice(1);
                 }
+            },
+            statusType() {
+                let data;
+                switch(this.item.status) {
+                    case 'planned':
+                        data = 'Planned';
+                        break;
+                    case 'in-progress':
+                        data = 'In Progress';
+                        break;
+                    case 'live':
+                        data = 'Live';
+                        break;
+                }
+                return data;
             }
         },
         created() {
@@ -101,7 +123,7 @@
 
 <style scoped>
     .suggestion-item-container:hover h1 {
-        color: var(--b);
+        color: var(--b)!important;
     }
     h1 {
         font-size: 0.8125rem;
@@ -130,10 +152,35 @@
         letter-spacing: -0.0119rem;
         margin: 0;
     }
+    h4 {
+        font-size: 0.8125rem;
+        color: var(--h);
+        font-weight: 400;
+        margin: 0 0 0 0.5rem;
+    }
     p {
         font-size: 0.8125rem;
         margin: 1rem 0 0.75rem 0;
         color: var(--h);
+    }
+    .status-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.25rem;
+    }
+    .status-dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+    }
+    .status-planned {
+        background: var(--i);
+    }
+    .status-in-progress {
+        background: var(--a);
+    }
+    .status-live {
+        background: var(--j);
     }
     .votes-amount-container {
         display: flex;

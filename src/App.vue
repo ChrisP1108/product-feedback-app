@@ -22,7 +22,7 @@ export default {
       data = await res.json();
     } 
     setTimeout(() => {
-      this.$store.commit('setData', storedList.productRequests.length ? storedList : data); 
+      this.$store.commit('setData', storedList ? storedList : data); 
     }, 2000)
   }
   
@@ -69,6 +69,7 @@ export default {
       --w: #D73737;
       --x: #656EA3;
       --y: #E98888;
+      --z: #3A437435;
       --halfTrans: #00000083;
     }
   body {
@@ -101,6 +102,12 @@ export default {
   .section-container {
     padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
     margin: 1.5rem;
+    background: var(--d);
+    border-radius: 0.625rem;
+    margin-bottom: 1rem;
+  }
+  .suggestion-item-container {
+    padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
     background: var(--d);
     border-radius: 0.625rem;
     margin-bottom: 1rem;
