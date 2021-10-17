@@ -1,16 +1,25 @@
 <template>
   <div class="home">
     <Header />
-    <div :class="[this.$store.state.toggleMobileMenu 
+    <div :class="[toggleMobileMenu 
       ? 'trans-background' : 'reg-background'
       , 'background']"> 
     </div>
+    <div v-if="toggleMobileMenu" 
+      @click="this.$store.commit('toggleMobileMenu')" class="mobile-touch-off">
+    </div>
     <MenuSortByAddFeedback />
     <div class="suggestion-list-container">
-      <div v-if="!data" class="page-loading-container">
+      <div v-if="loading" class="page-loading-container">
         <PageLoader />
       </div>
-      <div v-if="data">
+      <div v-if="empty">
+        <NoFeedbackOrError status="nothing" />
+      </div>
+      <div v-if="error">
+        <NoFeedbackOrError status="error" />
+      </div>
+      <div v-if="!empty">
         <div :key="item.id" v-for="item in this.$store.state.list" 
         class="relative">
           <div class="suggestion-item-container">
@@ -35,6 +44,7 @@
   import MenuSortByAddFeedback from '../components/MenuSortByAddFeedback';
   import SuggestionItem from '../components/SuggestionItem';
   import PageLoader from '../components/PageLoader';
+  import NoFeedbackOrError from '../components/NoFeedbackOrError';
 
   export default {
     name: 'Home',
@@ -43,16 +53,27 @@
       MenuMain,
       MenuSortByAddFeedback,
       SuggestionItem,
-      PageLoader
-    },
-    data() {
-      return {
-        voteClick: false
-      }
+      PageLoader,
+      NoFeedbackOrError
     },
     computed: {
-      data() {
-        return this.$store.state.data[0] === 'loading' ? false : true
+      loading() {
+        return this.$store.state.data[0] === 'loading' ? true : false
+      },
+      empty() {
+        if (this.loading) {
+          return false
+        } else if (!this.$store.state.data.productRequests) {
+          return false
+        } else if (this.$store.state.data.productRequests.length === 0) {
+          return true
+        } else return false;
+      },
+      error() {
+        return this.$store.state.data[0] === 'error' ? true : false
+      },
+      toggleMobileMenu() {
+        return this.$store.state.toggleMobileMenu 
       }
     },
     methods: {
@@ -101,6 +122,12 @@
   .trans-background {
     background-color: var(--halfTrans);
     position: absolute; 
+    z-index: 2;
+  }
+  .mobile-touch-off {
+    position: absolute;
+    height: 100%;
+    width: 100%;
     z-index: 2;
   }
   h1 {

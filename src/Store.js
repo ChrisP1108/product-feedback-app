@@ -1,6 +1,12 @@
 import Vuex from 'vuex'
 
-export const Url = 'https://raw.githubusercontent.com/ChrisP1108/product-feedback-app/main/app.json';
+// Normal List
+
+    // export const Url = 'https://raw.githubusercontent.com/ChrisP1108/product-feedback-app/main/app.json';
+
+// Empty List
+    export const Url = 'https://raw.githubusercontent.com/ChrisP1108/product-feedback-app/main/empty.json';
+
 
 const commentCounter = (comment) => {
     let tally = 0;
@@ -89,8 +95,10 @@ export const store = new Vuex.Store({
             state.data = value;
             const SavedList = JSON.stringify(value);
             localStorage.setItem("FeedbackList", SavedList);
-            roadmapSet(value.productRequests);
-            store.state.list = outputList();
+            if (store.state.data[0] !== 'error') {
+                roadmapSet(value.productRequests);
+                store.state.list = outputList();
+            }
             console.log('Data Updated');
         },
         setList (state) {

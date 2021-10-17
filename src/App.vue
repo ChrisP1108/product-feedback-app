@@ -22,7 +22,7 @@ export default {
       data = await res.json();
     } 
     setTimeout(() => {
-      this.$store.commit('setData', storedList ? storedList : data); 
+      this.$store.commit('setData', storedList ? storedList : data);
     }, 2000)
   }
   

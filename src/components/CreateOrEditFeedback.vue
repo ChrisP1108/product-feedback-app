@@ -50,11 +50,11 @@
             </textarea>
             <h4 v-if="descriptionEmpty">Can't be empty</h4>
         </div>
-        <div @click="isNew ? createFeedback() : changeFeedback('update')"
+        <div v-if="modified" @click="isNew ? createFeedback() : changeFeedback('update')"
             class="button-format add-feedback-button button-margin-top">
                 <h3>{{isNew ? 'Add Feedback' : 'Save Changes'}}</h3>
         </div>
-        <div @click="returnHome()"
+        <div @click="goBack()"
             class="button-format cancel-button">
                 <h3>Cancel</h3>
         </div>
@@ -91,6 +91,7 @@
                 descriptionEmpty: false,
                 categoryToggle: false,
                 updateStatusToggle: false,
+                modified: false,
                 feedbackData: {
                     id: null,
                     title: '',
@@ -153,6 +154,7 @@
                 if (this.feedbackData.title) {
                     this.titleEmpty = false;
                 }
+                this.modified = true;
                 const input = e.target.value;
                 this.feedbackData.title = input;
             },
@@ -160,6 +162,7 @@
                 if (this.feedbackData.description) {
                     this.descriptionEmpty = false;
                 }
+                this.modified = true;
                 const input = e.target.value;
                 this.feedbackData.description = input;
             },
@@ -168,12 +171,14 @@
                 if (this.updateStatusToggle) {
                     this.updateStatusToggle = !this.updateStatusToggle;
                 }
+                this.modified = true;
             },
             toggleUpdateStatusDropdown() {
                 this.updateStatusToggle = !this.updateStatusToggle;
                 if (this.categoryToggle) {
                     this.categoryToggle = !this.categoryToggle;
-                } 
+                }
+                this.modified = true; 
             },
             categorySelected(type) {
                 this.feedbackData.category = type;
@@ -195,8 +200,8 @@
                     }
                 }
             },
-            returnHome() {
-                this.$router.push('/');
+            goBack() {
+                this.$router.go(-1);
             },
             createFeedback() {
                 if (!this.feedbackData.title && !this.feedbackData.description) {
@@ -216,7 +221,7 @@
                 data.productRequests.push(this.feedbackData);
                 this.$store.commit('setData', data);
                 this.$store.commit('setList');
-                this.returnHome();
+                this.goBack();
             },
             changeFeedback(type) {
                 const data = {...this.$store.state.data};
@@ -229,7 +234,11 @@
                 this.$store.commit('setFeedbackSelect', this.feedbackData);
                 this.$store.commit('setData', data);
                 this.$store.commit('setList');
-                this.returnHome();
+                if (type === 'update') {
+                    this.goBack();
+                } else {
+                    this.$router.push('/');
+                }
             },
         },
         created() {
@@ -240,9 +249,10 @@
                     idTally++;
                 });
                 this.feedbackData.id = idTally + 1;
-                this.categorySelected('Feature');  
+                this.categorySelected('feature');  
             } else {
                 this.feedbackData = this.feedbackSelect;
+                this.updateStatusSelected(this.feedbackData.status);
             }
         }
     }
