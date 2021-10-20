@@ -12,17 +12,18 @@ import { Url } from './Store'
 export default {
   name: 'App',
   async created() { // Data Fetch Request
-    let storedList = JSON.parse(localStorage.getItem("FeedbackList"));
+    const storedList = JSON.parse(localStorage.getItem("FeedbackList"));
     let data;
     const res = await fetch(Url)
     .catch((err) => console.log(err));
-    if (!res) {
+    console.log(storedList);
+    if (!res || res.url.includes(undefined)) {
       this.$store.commit('setData', ['error']);
     } else {
       data = await res.json();
     } 
     setTimeout(() => {
-      this.$store.commit('setData', storedList ? storedList : data);
+      this.$store.commit('setData', storedList ? storedList : data ? data : ['error']);
     }, 2000)
   }
   
@@ -139,7 +140,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 1rem 0;
+    padding: 1rem;
     height: 2.5rem;
     border-radius: 0.625rem;
     cursor: pointer;

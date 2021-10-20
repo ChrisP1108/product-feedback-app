@@ -5,7 +5,7 @@
                 <h1>Frontend Mentor</h1>
                 <h2>Feedback Board</h2>
             </div>
-            <div @click="mobileMenuToggle()"
+            <div v-if="!error" @click="mobileMenuToggle()"
                 :class="[this.$store.state.toggleMobileMenu ? 
                 'mobile-menu-active' : 'mobile-menu-inactive', 'pointer mobile-trans']">
             </div>
@@ -28,6 +28,11 @@ export default {
         },
         reload() {
             window.location.reload();
+        }
+    },
+    computed: {
+        error() {
+            return this.$store.state.data[0] === 'error' ? true : false
         }
     }
 }

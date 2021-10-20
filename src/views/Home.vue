@@ -8,7 +8,7 @@
     <div v-if="toggleMobileMenu" 
       @click="this.$store.commit('toggleMobileMenu')" class="mobile-touch-off">
     </div>
-    <MenuSortByAddFeedback />
+    <MenuSortByAddFeedback v-if="!error" />
     <div class="suggestion-list-container">
       <div v-if="loading" class="page-loading-container">
         <PageLoader />
