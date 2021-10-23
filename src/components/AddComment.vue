@@ -88,7 +88,12 @@
                 update.comments.push(this.commentData);
                 this.$store.commit('setFeedbackSelect', update);
                 const output = {...this.listData};
-                output.productRequests.push(update);
+                for(let i = 0; i < output.productRequests.length; i++) {
+                    if (output.productRequests[i].id === update.id) {
+                        output.productRequests.splice(i, 1, update);
+                    }
+                }
+                console.log(output);
                 this.$store.commit('setData', output);
                 this.text = '';
             }

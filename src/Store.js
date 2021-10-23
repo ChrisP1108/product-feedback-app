@@ -95,8 +95,10 @@ export const store = new Vuex.Store({
         },
         setData (state, value) {
             state.data = value;
-            const SavedList = JSON.stringify(value);
-            localStorage.setItem("FeedbackList", SavedList);
+            if (value[0] !== 'error') {
+                const SavedList = JSON.stringify(value);
+                localStorage.setItem("FeedbackList", SavedList);
+            }
             if (store.state.data[0] !== 'error') {
                 roadmapSet(value.productRequests);
                 store.state.list = outputList();

@@ -16,14 +16,18 @@ export default {
     let data;
     const res = await fetch(Url)
     .catch((err) => console.log(err));
-    console.log(storedList);
-    if (!res || res.url.includes(undefined)) {
+    const randomError = Math.ceil(Math.random() * 5);
+    console.log(randomError);
+    if (!res || res.url.includes(undefined) || randomError === 5) {
       this.$store.commit('setData', ['error']);
     } else {
       data = await res.json();
     } 
     setTimeout(() => {
-      this.$store.commit('setData', storedList ? storedList : data ? data : ['error']);
+      if (this.$store.state.data[0] !== 'error') {
+        this.$store.commit('setData', storedList.productRequests.length !== 0 ? storedList 
+          : data ? data : ['error']);
+      }
     }, 2000)
   }
   

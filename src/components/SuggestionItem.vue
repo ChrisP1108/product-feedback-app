@@ -70,14 +70,19 @@
                 let item = {...this.item};
                 if ('upvotes' in data.currentUser) {
                     if (data.currentUser.upvotes.includes(item.id)) {
-                        return;
+                        item.upvotes = item.upvotes - 1;
+                        const i = data.currentUser.upvotes.findIndex(i => i.id === item.id);
+                        data.currentUser.upvotes.splice(i, 1);
+                        this.voteClicked = false;
+                    } else {
+                        item.upvotes = item.upvotes + 1;
+                        data.currentUser.upvotes.push(item.id);
                     }
-                    data.currentUser.upvotes.push(item.id);
                 } else {
                     data.currentUser.upvotes = [];
                     data.currentUser.upvotes.push(item.id);
+                    item.upvotes = item.upvotes + 1;
                 }
-                item.upvotes = item.upvotes + 1;
                 const index = data.productRequests.findIndex(i => i.id === item.id);
                 data.productRequests.splice(index, 1, item);
                 this.$store.commit('setFeedbackSelect', item);
@@ -191,6 +196,7 @@
         height: 2rem;
         transition: 0.25s;
         width: 4.3125rem;
+        cursor: pointer;
     }
     .votes-amount-no-click {
         cursor: pointer;
