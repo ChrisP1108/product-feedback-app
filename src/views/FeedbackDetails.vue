@@ -4,9 +4,9 @@
     <div class="section-container">
       <SuggestionItem :item="selectedFeedback" isRoadmap='false' />
     </div>
-    <div class="section-container">
+    <div class="section-container trans-fade">
       <h1>{{commentCounter(selectedFeedback.comments)}} Comments</h1>
-      <div :key="comment.id" v-for="comment in selectedFeedback.comments">
+      <div class="trans-fade" :key="comment.id" v-for="comment in selectedFeedback.comments">
         <Comment :comment="comment"/>
         <div v-if="('replies' in comment)" class="position-relative">
           <div class="reply-border"></div>
@@ -23,7 +23,7 @@
         <div :class="[lastComment(comment) && 'comment-bottom-border']"></div>
       </div>
     </div>
-    <div class="section-container">
+    <div class="section-container trans-fade">
       <AddComment />
     </div>
   </div>

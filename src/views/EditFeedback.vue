@@ -1,7 +1,9 @@
 <template>
     <div class="feedback-container">
         <GoBack />
-        <CreateOrEditFeedback />
+        <div class="trans-fade">
+            <CreateOrEditFeedback />
+        </div>
     </div>
 </template>
 

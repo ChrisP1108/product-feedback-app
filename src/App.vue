@@ -156,4 +156,13 @@ export default {
   .add-feedback-button:hover {
     background: var(--q);
   }
+  .trans-fade {
+    animation-name: trans-in;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes trans-in {
+      from {transform: translateY(25%); opacity: 0}
+      to {transform: translateY(0%); opacity: 1}
+  }
 </style>

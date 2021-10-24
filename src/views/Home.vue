@@ -22,7 +22,7 @@
       <div v-if="!empty">
         <div :key="item.id" v-for="item in this.$store.state.list" 
         class="relative">
-          <div class="suggestion-item-container">
+          <div class="suggestion-item-container trans-fade">
             <SuggestionItem :item="item" isRoadmap='false' />
             <div @click="selectFeedback(item)" 
               class="suggestion-click-area-1">
