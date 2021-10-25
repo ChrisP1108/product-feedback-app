@@ -51,27 +51,39 @@
             <h4 v-if="descriptionEmpty">Can't be empty</h4>
         </div>
         <div v-if="modified" @click="isNew ? createFeedback() : changeFeedback('update')"
-            class="button-format add-feedback-button button-margin-top">
-                <h3>{{isNew ? 'Add Feedback' : 'Save Changes'}}</h3>
+            class="button-format add-feedback-button button-margin-top position-relative">
+                <div v-if="loadingSave" class="position-absolute">
+                    <ButtonSpinner />
+                </div>
+                <h3 :class="[loadingSave ? 'invisible' : 'visible']">
+                    {{isNew ? 'Add Feedback' : 'Save Changes'}}
+                </h3>
         </div>
         <div @click="goBack()"
             class="button-format cancel-button">
                 <h3>Cancel</h3>
         </div>
         <div v-if="!isNew" @click="changeFeedback('delete')"
-            class="button-format delete-button">
-                <h3>Delete</h3>
+            class="button-format delete-button position-relative">
+                <div v-if="loadingDelete" class="position-absolute">
+                    <ButtonSpinner />
+                </div>
+                <h3 :class="[loadingDelete ? 'invisible' : 'visible']">
+                    Delete
+                </h3>
         </div>
     </div> 
 </template>
 
 <script>
     import DropdownSelect from './DropdownSelect';
+    import ButtonSpinner from './ButtonSpinner';
 
     export default {
         name: 'CreateOrEditFeedback',
         components: {
-            DropdownSelect
+            DropdownSelect,
+            ButtonSpinner
         },
         computed: {
             route() {
@@ -87,6 +99,8 @@
         data() {
             return {
                 isNew: false,
+                loadingSave: false,
+                loadingDelete: false,
                 titleEmpty: false,
                 descriptionEmpty: false,
                 categoryToggle: false,
@@ -155,16 +169,14 @@
                     this.titleEmpty = false;
                 }
                 this.modified = true;
-                const input = e.target.value;
-                this.feedbackData.title = input;
+                this.feedbackData.title = e.target.value;
             },
             descriptionTyping(e) {
                 if (this.feedbackData.description) {
                     this.descriptionEmpty = false;
                 }
                 this.modified = true;
-                const input = e.target.value;
-                this.feedbackData.description = input;
+                this.feedbackData.description = e.target.value;
             },
             toggleCategoryDropdown() {
                 this.categoryToggle = !this.categoryToggle;
@@ -217,29 +229,45 @@
                     this.descriptionEmpty = true;
                     return
                 }
-                const data = {...this.$store.state.data}
-                data.productRequests.push(this.feedbackData);
-                this.$store.commit('setData', data);
-                this.$store.commit('setList');
-                this.goBack();
+                this.loadingSave = true;
+                setTimeout(() => {
+                    const data = {...this.$store.state.data}
+                    data.productRequests.push(this.feedbackData);
+                    this.$store.commit('setData', data);
+                    this.$store.commit('setList');
+                    this.goBack();
+                    this.loadingSave = false;
+                }, 2000);
             },
             changeFeedback(type) {
-                const data = {...this.$store.state.data};
-                const index = data.productRequests.findIndex(i => i.id === this.feedbackData.id);
                 if (type === 'update') {
-                    data.productRequests.splice(index, 1, this.feedbackData);
+                    this.loadingSave = true;
                 } else {
-                    data.productRequests.splice(index, 1);
+                    this.loadingDelete = true;
                 }
-                this.$store.commit('setFeedbackSelect', this.feedbackData);
-                this.$store.commit('setData', data);
-                this.$store.commit('setList');
-                if (type === 'update') {
-                    this.goBack();
-                } else {
-                    this.$router.push('/');
-                }
-            },
+                setTimeout(() => {
+                    const data = {...this.$store.state.data};
+                    const index = data.productRequests.findIndex(i => i.id === this.feedbackData.id);
+                    if (type === 'update') {
+                        data.productRequests.splice(index, 1, this.feedbackData);
+                    } else {
+                        data.productRequests.splice(index, 1);
+                    }
+                    this.$store.commit('setFeedbackSelect', this.feedbackData);
+                    this.$store.commit('setData', data);
+                    this.$store.commit('setList');
+                    if (type === 'update') {
+                        this.goBack();
+                    } else {
+                        this.$router.push('/');
+                    }
+                    if (type === 'update') {
+                        this.loadingSave = false;
+                    } else {
+                        this.loadingDelete = false;
+                    }
+                }, 2000);
+            }
         },
         created() {
             if (this.route === '/feedback/new') {
@@ -251,7 +279,7 @@
                 this.feedbackData.id = idTally + 1;
                 this.categorySelected('feature');  
             } else {
-                this.feedbackData = this.feedbackSelect;
+                this.feedbackData = {...this.feedbackSelect};
                 this.updateStatusSelected(this.feedbackData.status);
             }
         }

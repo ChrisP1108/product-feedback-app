@@ -9,21 +9,30 @@
             {{empty ? "Can't Be Empty" : `${limit} Character Left`}}
         </p>
         <div @click="postComment()"
-            class="post-comment-button">
-                <h2>Post Comment</h2>
+            class="post-comment-button position-relative">
+                <div v-if="loading" class="position-absolute">
+                    <ButtonSpinner />
+                </div>
+                <h2 :class="[loading ? 'invisible' : 'visible']">Post Comment</h2>
         </div>
     </div>
 </template>
 
 <script>
+    import ButtonSpinner from './ButtonSpinner';
+
     export default {
         name: 'AddComment',
+        components: {
+            ButtonSpinner
+        },
         data() {
             return {
                 limit: 250,
                 characters: 0,
                 text: '',
                 empty: false,
+                loading: false,
                 commentData: {
                     id: null,
                     content: '',
@@ -64,38 +73,42 @@
                     this.empty = true;
                     return
                 }
-                let idTally = 0;
-                this.productData.forEach(request => {
-                    if ('comments' in request) {
-                        request.comments.forEach(() => {
-                            idTally += 1;
-                        });
+                this.loading = true;
+                setTimeout(() => {
+                    let idTally = 0;
+                    this.productData.forEach(request => {
+                        if ('comments' in request) {
+                            request.comments.forEach(() => {
+                                idTally += 1;
+                            });
+                        }
+                    });
+                    this.commentData = {
+                        id: idTally + 1,
+                        content: this.text,
+                        user: {
+                            image: this.userData.image,
+                            name: this.userData.name,
+                            username: this.userData.username
+                        }
                     }
-                });
-                this.commentData = {
-                    id: idTally + 1,
-                    content: this.text,
-                    user: {
-                        image: this.userData.image,
-                        name: this.userData.name,
-                        username: this.userData.username
+                    let update = {...this.selectedFeedback};
+                    if (!update.comments) {
+                        update = {...this.selectedFeedback, comments: []};
                     }
-                }
-                let update = {...this.selectedFeedback};
-                if (!update.comments) {
-                    update = {...this.selectedFeedback, comments: []};
-                }
-                update.comments.push(this.commentData);
-                this.$store.commit('setFeedbackSelect', update);
-                const output = {...this.listData};
-                for(let i = 0; i < output.productRequests.length; i++) {
-                    if (output.productRequests[i].id === update.id) {
-                        output.productRequests.splice(i, 1, update);
+                    update.comments.push(this.commentData);
+                    this.$store.commit('setFeedbackSelect', update);
+                    const output = {...this.listData};
+                    for(let i = 0; i < output.productRequests.length; i++) {
+                        if (output.productRequests[i].id === update.id) {
+                            output.productRequests.splice(i, 1, update);
+                        }
                     }
-                }
-                console.log(output);
-                this.$store.commit('setData', output);
-                this.text = '';
+                    console.log(output);
+                    this.$store.commit('setData', output);
+                    this.text = '';
+                    this.loading = false;
+                }, 2000);
             }
         }
     }

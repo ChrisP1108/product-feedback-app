@@ -17,7 +17,6 @@ export default {
     const res = await fetch(Url)
     .catch((err) => console.log(err));
     const randomError = Math.ceil(Math.random() * 5);
-    console.log(randomError);
     if (!res || res.url.includes(undefined) || randomError === 5) {
       this.$store.commit('setData', ['error']);
     } else {
@@ -156,13 +155,19 @@ export default {
   .add-feedback-button:hover {
     background: var(--q);
   }
+  .visible {
+    visibility: visible;
+  }
+  .invisible {
+    visibility: hidden;
+  }
   .trans-fade {
     animation-name: trans-in;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
   }
   @keyframes trans-in {
-      from {transform: translateY(25%); opacity: 0}
-      to {transform: translateY(0%); opacity: 1}
+      from {transform: translateY(4rem); opacity: 0}
+      to {transform: translateY(0rem); opacity: 1}
   }
 </style>

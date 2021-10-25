@@ -31,7 +31,7 @@
         <h5>Feature currently being developed</h5>
         <div class="roadmap-list-container">
             <div :key="item.id" v-for="item in outputList">
-                <div :class="[`roadmap-top-border roadmap-${selected}-border`]"></div>
+                <div :class="[`roadmap-top-border roadmap-${selected}-border`, 'trans-fade']"></div>
                 <div class="roadmap-item-container trans-fade">
                     <SuggestionItem :item="item" isRoadmap='true' />
                 </div>

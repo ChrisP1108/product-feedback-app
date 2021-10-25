@@ -1,29 +1,43 @@
 <template>
-    <div class="reply-container">
+    <div class="reply-container trans-fade">
         <textarea @keyup="(e) => textTyping(e)" 
             maxlength="250"  :value="text" placeholder="Type your reply here" 
             :class="[!limit && 'red-border']">
         </textarea>
         <div v-if="!currentUser" @click="postReply()"
-            class="button reply-button">
-                <h2>Post Reply</h2>
+            class="button reply-button position-relative">
+                <div v-if="loadingPost" class="position-absolute">
+                    <ButtonSpinner />
+                </div>
+                <h2 :class="[loadingPost ? 'invisible' : 'visible']">Post Reply</h2>  
         </div>
         <div v-if="currentUser" class="edit-container">
             <div @click="replyChange('delete')"
-                class="button delete-button">
-                    <h2>Delete</h2>
+                class="button delete-button position-relative">
+                    <div v-if="loadingDelete" class="position-absolute">
+                        <ButtonSpinner />
+                    </div>
+                <h2 :class="[loadingDelete ? 'invisible' : 'visible']">Delete</h2> 
             </div>
             <div v-if="this.text" @click="replyChange('update')"
                 class="button reply-button">
-                    <h2>Update Reply</h2>
+                    <div v-if="loadingUpdate" class="position-absolute">
+                        <ButtonSpinner />
+                    </div>
+                    <h2 :class="[loadingUpdate ? 'invisible' : 'visible']">Update Reply</h2>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import ButtonSpinner from './ButtonSpinner';
+
     export default {
         name: 'Reply',
+        components: {
+            ButtonSpinner
+        },
         props: {
             comment: Object
         },
@@ -38,6 +52,9 @@
                 limit: 250,
                 characters: 0,
                 text: '',
+                loadingPost: false,
+                loadingDelete: false,
+                loadingUpdate: false,
                 currentUser: false,
                 replyData: {
                     content: '',
@@ -83,83 +100,100 @@
                     this.$emit('reply-off');
                     return 
                 }
-                this.replyData = {
-                    content: this.text,
-                    replyingTo: this.comment.user.username,
-                    user: {
-                        image: this.userData.image, 
-                        name: this.userData.name, 
-                        username: this.userData.username
-                    }
-                }
-                let replyAdd = {...this.comment}
-                if (!this.comment.replies) {
-                        replyAdd = {...this.comment, replies: []}
-                }
-                replyAdd.replies.push(this.replyData);
-                if ('replyingTo' in this.comment) {
-                    let commentRoot;
-                    this.selectedFeedback.comments.forEach(comment => {
-                        if ('replies' in comment) {
-                            comment.replies.forEach(reply => {
-                                if(reply.content === replyAdd.content) {
-                                    commentRoot = comment
-                                }
-                            });
+                this.loadingPost = true;
+                setTimeout(() => {
+                    this.replyData = {
+                        content: this.text,
+                        replyingTo: this.comment.user.username,
+                        user: {
+                            image: this.userData.image, 
+                            name: this.userData.name, 
+                            username: this.userData.username
                         }
-                    });
-                    const index = commentRoot.replies.findIndex(i => i.content === replyAdd.content);
-                    commentRoot.replies[index] = replyAdd;
-                    replyAdd = commentRoot;
-                }
-                const commentsUpdate = [] 
-                this.selectedFeedback.comments.forEach(comment => {
-                        comment.content === replyAdd.content ? commentsUpdate.push(replyAdd)
-                        : commentsUpdate.push(comment)
-                }); 
-                const feedbackUpdate = {...this.selectedFeedback, comments: commentsUpdate}
-                this.$store.commit('setFeedbackSelect', feedbackUpdate);
-                this.dataUpdate(feedbackUpdate);
+                    }
+                    let replyAdd = {...this.comment}
+                    if (!this.comment.replies) {
+                            replyAdd = {...this.comment, replies: []}
+                    }
+                    replyAdd.replies.push(this.replyData);
+                    if ('replyingTo' in this.comment) {
+                        let commentRoot;
+                        this.selectedFeedback.comments.forEach(comment => {
+                            if ('replies' in comment) {
+                                comment.replies.forEach(reply => {
+                                    if(reply.content === replyAdd.content) {
+                                        commentRoot = comment
+                                    }
+                                });
+                            }
+                        });
+                        const index = commentRoot.replies.findIndex(i => i.content === replyAdd.content);
+                        commentRoot.replies[index] = replyAdd;
+                        replyAdd = commentRoot;
+                    }
+                    const commentsUpdate = [] 
+                    this.selectedFeedback.comments.forEach(comment => {
+                            comment.content === replyAdd.content ? commentsUpdate.push(replyAdd)
+                            : commentsUpdate.push(comment)
+                    }); 
+                    const feedbackUpdate = {...this.selectedFeedback, comments: commentsUpdate}
+                    this.$store.commit('setFeedbackSelect', feedbackUpdate);
+                    this.dataUpdate(feedbackUpdate);
+                    this.loadingPost = false;
+                }, 2000);
             },
             replyChange(type) {
-                let data = {...this.selectedFeedback};
-                for (let i = 0; i < data.comments.length; i++) {
-                    if (data.comments[i] === this.comment) {
-                        if (type === 'update') {
-                            data.comments[i].content = this.text;
-                        } else {
-                            data.comments.splice(i, 1);
-                        }
-                        break;
-                    }
-                    if ('replies' in data.comments[i]) {
-                        for (let j = 0; j < data.comments[i].replies.length; j++) {
-                            if (data.comments[i].replies[j].content === this.comment.content) {
-                                if (type === 'update') {
-                                    data.comments[i].replies[j].content = this.text;
-                                } else {
-                                    data.comments[i].replies.splice(j, 1);
-                                }
-                                
-                                break;
+                if (type === 'update') {
+                    this.loadingUpdate = true;
+                } else {
+                    this.loadingDelete = true;
+                }
+                setTimeout(() => {
+                    let data = {...this.selectedFeedback};
+                    for (let i = 0; i < data.comments.length; i++) {
+                        if (data.comments[i] === this.comment) {
+                            if (type === 'update') {
+                                data.comments[i].content = this.text;
+                            } else {
+                                data.comments.splice(i, 1);
                             }
-                            if ('replies' in data.comments[i].replies[j]) {
-                                for (let k = 0; k < data.comments[i].replies[j].replies.length; k++) {
-                                    if (data.comments[i].replies[j].replies[k].content === this.comment.content) {
-                                        if (type === 'update') {
-                                            data.comments[i].replies[j].replies[k].content = this.text;
-                                        } else {
-                                            data.comments[i].replies[j].replies.splice(k, 1); 
+                            break;
+                        }
+                        if ('replies' in data.comments[i]) {
+                            for (let j = 0; j < data.comments[i].replies.length; j++) {
+                                if (data.comments[i].replies[j].content === this.comment.content) {
+                                    if (type === 'update') {
+                                        data.comments[i].replies[j].content = this.text;
+                                    } else {
+                                        data.comments[i].replies.splice(j, 1);
+                                    }
+                                    
+                                    break;
+                                }
+                                if ('replies' in data.comments[i].replies[j]) {
+                                    for (let k = 0; k < data.comments[i].replies[j].replies.length; k++) {
+                                        if (data.comments[i].replies[j].replies[k].content === this.comment.content) {
+                                            if (type === 'update') {
+                                                data.comments[i].replies[j].replies[k].content = this.text;
+                                            } else {
+                                                data.comments[i].replies[j].replies.splice(k, 1); 
+                                            }
+                                            break;
                                         }
-                                        break;
                                     }
                                 }
                             }
                         }
                     }
-                }
-                this.$store.commit('setFeedbackSelect', data);
-                this.dataUpdate(data);
+                    this.$store.commit('setFeedbackSelect', data);
+                    this.dataUpdate(data);
+                    if (type === 'update') {
+                        this.loadingUpdate = false;
+                    } else {
+                        this.loadingDelete = false;
+                    }
+                }, 2000);
+                
             }
         }
     }

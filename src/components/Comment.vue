@@ -20,7 +20,9 @@
     <div class="comment-content">
         <h3><span>{{ replyGenerator(comment) }}</span> {{ comment.content }}</h3>
     </div>
-    <Reply @reply-off="toggleReply()" v-if="reply" :comment="comment" />
+    <div :class="[reply ? 'reply-fade-in' : '', 'trans-fade']">
+        <Reply @reply-off="toggleReply()" v-if="reply" :comment="comment" />
+    </div>
 </template>
 
 <script>
@@ -133,5 +135,23 @@
     }
     .comment-content {
         margin-top: 1.125rem;
+    }
+    .reply-fade-in {
+        animation-name: reply-in;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+    @keyframes reply-in {
+        from {transform: translateY(-3rem); display: block; opacity: 0}
+        to {transform: translateY(0rem); opacity: 1}
+    }
+    .reply-fade-out {
+        animation-name: reply-in;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+    @keyframes reply-out {
+        from {transform: translateY(0rem); opacity: 1}
+        to {transform: translateY(-3rem); opacity: 0}
     }
 </style>
