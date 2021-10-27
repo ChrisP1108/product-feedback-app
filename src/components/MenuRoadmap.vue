@@ -41,7 +41,7 @@ export default {
     name: 'MenuRoadmap',
     methods: {
         toggleRoadmap() {
-            this.$store.commit('toggleMobileMenu');
+            this.$store.commit('toggleMobileMenu', false);
             this.$router.push('/roadmap');
         }
     },
@@ -127,5 +127,20 @@ export default {
     }
     .container-padding {
         padding: 1.5rem 1.5rem 1.875rem;
+    }
+
+    @media(min-width: 768px) {
+        .menu-section-container {
+            background: var(--d);
+            border-radius: 0.625rem;
+            margin-left: 0.625rem;
+            width: 33%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .margin-md-top {
+            margin-top: 0.875rem;
+        }
     }
 </style>

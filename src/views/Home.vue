@@ -1,12 +1,20 @@
 <template>
   <div class="home">
-    <Header />
+    <div class="mobile">
+      <Header />
+    </div>
+    <div class="tablet">
+      <Header />
+      <MenuCategorySort />
+      <MenuRoadmap />
+    </div>
     <div :class="[toggleMobileMenu 
       ? 'trans-background' : 'reg-background'
       , 'background']"> 
     </div>
     <div v-if="toggleMobileMenu" 
-      @click="this.$store.commit('toggleMobileMenu')" class="mobile-touch-off">
+      @click="this.$store.commit('toggleMobileMenu', !this.$store.state.toggleMobileMenu)" 
+      class="mobile-touch-off">
     </div>
     <MenuSortByAddFeedback v-if="!error" />
     <div class="suggestion-list-container">
@@ -45,6 +53,8 @@
   import SuggestionItem from '../components/SuggestionItem';
   import PageLoader from '../components/PageLoader';
   import NoFeedbackOrError from '../components/NoFeedbackOrError';
+  import MenuCategorySort from '../components/MenuCategorySort';
+  import MenuRoadmap from '../components/MenuRoadmap';
 
   export default {
     name: 'Home',
@@ -54,7 +64,9 @@
       MenuSortByAddFeedback,
       SuggestionItem,
       PageLoader,
-      NoFeedbackOrError
+      NoFeedbackOrError,
+      MenuCategorySort,
+      MenuRoadmap
     },
     computed: {
       loading() {
@@ -153,5 +165,21 @@
   }
   .relative {
     position: relative;
+  }
+  .tablet {
+    display: none;
+  }
+
+  @media(min-width: 768px) {
+    .mobile {
+      display: none;
+    }
+    .tablet {
+      display: flex;
+    }
+    .home {
+      padding: 3.5rem 2.5rem 7.0625rem;
+      background: var(--f);
+    }
   }
 </style>

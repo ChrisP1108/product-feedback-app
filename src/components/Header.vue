@@ -5,7 +5,7 @@
                 <h1>Frontend Mentor</h1>
                 <h2>Feedback Board</h2>
             </div>
-            <div v-if="!error" @click="mobileMenuToggle()"
+            <div v-if="!error" @click="mobileMenuToggle()" id="mobileToggle"
                 :class="[this.$store.state.toggleMobileMenu ? 
                 'mobile-menu-active' : 'mobile-menu-inactive', 'pointer mobile-trans']">
             </div>
@@ -18,7 +18,7 @@ export default {
     name: 'Header',
     methods: {
         mobileMenuToggle() {
-            this.$store.commit('toggleMobileMenu');
+            this.$store.commit('toggleMobileMenu', !this.$store.state.toggleMobileMenu);
             window.scroll({
                 top: 0,
                 left: 0,
@@ -84,4 +84,32 @@ export default {
         width: 1.125rem;
         height: 1.0625rem;
     }
+    @media(min-width: 768px) {
+        #mobileToggle {
+            display: none;
+        }
+        #header {
+            background-image: linear-gradient(60deg, var(--m), var(--l), var(--k));
+            position: relative;
+            border-radius: 0.625rem;
+            width: 33%;
+        }
+        .header-container {
+            background-image: linear-gradient(130deg, var(--n) 10%, transparent, var(--aa) 115%);
+            height: 11.125rem;
+            border-radius: 0.625rem;
+            align-items: flex-end;
+            padding-bottom: 1.75rem;
+        }
+        .headings {
+            height: 3rem;
+        }
+        h1 {
+            font-size: 1.25rem;
+        }
+        h2 {
+            font-size: 0.9375rem;
+        }
+    }
+    
 </style>

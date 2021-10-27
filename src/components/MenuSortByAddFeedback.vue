@@ -135,4 +135,12 @@
         position: absolute;
         top: 0rem;
     }
+    @media(min-width: 768px) {
+        .sortby-feedback-container {
+            border-radius: 0.625rem;
+            height: 4.5rem;
+            margin-top: 2.5rem;
+        }
+
+    }
 </style>

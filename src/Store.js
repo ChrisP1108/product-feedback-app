@@ -74,6 +74,7 @@ export const store = new Vuex.Store({
         data: ['loading'],
         list: [],
         feedbackSelect: [],
+        response: '',
         roadmap: {
             planned: [],
             inProgress: [],
@@ -81,8 +82,8 @@ export const store = new Vuex.Store({
         }
     },
     mutations: {
-        toggleMobileMenu (state) {
-            state.toggleMobileMenu = !state.toggleMobileMenu
+        toggleMobileMenu (state, value) {
+            state.toggleMobileMenu = value
         },
         toggleSortByDropdown (state, value) {
             state.toggleSortByDropdown = value
@@ -113,3 +114,21 @@ export const store = new Vuex.Store({
         }
     }
 });
+
+if (window.innerWidth > 768) {
+    store.state.toggleMobileMenu = false;
+}
+
+const responseCheck = () => {
+    if (window.innerWidth < 768) {
+        store.state.response = 'mobile';
+    } else if (window.innerWidth < 1024) {
+        store.state.response = 'tablet';
+    } else {
+        store.state.response = 'desktop';
+    }
+}
+
+responseCheck();
+
+window.addEventListener('resize', responseCheck);

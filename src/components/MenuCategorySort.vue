@@ -18,7 +18,7 @@
             </div> 
             <div class="w-25"></div>
         </div>
-        <div class="menu-sort-row">
+        <div class="menu-sort-row margin-md-top">
             <div @click="setSortCategory('enhancement')" 
                 :class="[sortEval('enhancement') ? 'active' : 'inactive', 
                 'button w-100']">
@@ -30,7 +30,7 @@
                 <h1>Bug</h1>
             </div>    
         </div>
-        <div class="menu-sort-row">
+        <div class="menu-sort-row margin-md-top">
             <div @click="setSortCategory('feature')" 
                 :class="[sortEval('feature') ? 'active' : 'inactive', 
                 'button w-50']">
@@ -51,7 +51,9 @@ export default {
         setSortCategory(value) {
             this.$store.commit('setSortCategory', value);
             this.$store.commit('setList');
-            this.$store.commit('toggleMobileMenu')
+            if (this.$store.state.response === 'mobile') {
+                this.$store.commit('toggleMobileMenu', !this.$store.state.toggleMobileMenu);
+            }   
         }
     }
 }
@@ -93,5 +95,17 @@ export default {
     }
     .container-padding {
         padding: 1.5rem 1.5rem 2.25rem;
+    }
+
+    @media(min-width: 768px) {
+        .menu-section-container {
+            background: var(--d);
+            border-radius: 0.625rem;
+            margin-left: 0.625rem;
+            width: 33%;
+        }
+        .margin-md-top {
+            margin-top: 0.875rem;
+        }
     }
 </style>
