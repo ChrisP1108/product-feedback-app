@@ -59,6 +59,7 @@ const roadmapSet = (list) => {
         return data;
     }
     store.state.roadmap = {
+        suggestion: tallyUp('suggestion'),
         planned: tallyUp('planned'),
         inProgress: tallyUp('in-progress'),
         live: tallyUp('live')
@@ -76,6 +77,7 @@ export const store = new Vuex.Store({
         feedbackSelect: [],
         response: '',
         roadmap: {
+            suggestion: [],
             planned: [],
             inProgress: [],
             live: []

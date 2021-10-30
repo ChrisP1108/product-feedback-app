@@ -1,17 +1,21 @@
 <template>
     <div class="sortby-feedback-container">
-        <div @click="toggleSortByDropdown()"
-            class="sortby-select-container">
-            <h1>Sort by : <span>{{sortBySelected}}</span></h1>
-            <div :class="[sortByDropdown && 'sortby-arrow-icon-active'
-                , 'sortby-arrow-icon']"></div>
-            <div class="sortby-dropdown">
-                <DropdownSelect @loaded="setSortBy" v-if="sortByDropdown" :list="sortByList" />
+        <div class="suggestion-sort-container">
+            <div class="suggestion-icon"></div>
+            <h3 class="tablet">{{`${roadmapList.suggestion.length} Suggestions`}}</h3>
+            <div @click="toggleSortByDropdown()"
+                class="sortby-select-container">
+                <h1>Sort by : <span>{{sortBySelected}}</span></h1>
+                <div :class="[sortByDropdown && 'sortby-arrow-icon-active'
+                    , 'sortby-arrow-icon']"></div>
+                <div class="sortby-dropdown">
+                    <DropdownSelect @loaded="setSortBy" v-if="sortByDropdown" :list="sortByList" />
+                </div>
             </div>
         </div>
         <div @click="toggleAddFeedback()"
             class="button-format add-feedback-button">
-                <h2>+ Add Feedback</h2>
+                <h2 class="button-text">+ Add Feedback</h2>
         </div>
     </div>
 </template>
@@ -52,6 +56,9 @@
             },
             sortBySelected() {
                 return (this.$store.state.sortBy)
+            },
+            roadmapList() {
+                return this.$store.state.roadmap;
             }
         },
         methods: {
@@ -125,21 +132,52 @@
     h1 span {
         font-weight: 700;
     }
-    h2 {
-        font-size: 0.8125rem;
-        color: var(--p);
+    h3 {
+        color: var(--d);
         font-weight: 700;
+        font-size: 1.125rem;
+        letter-spacing: -0.0156rem;
+        margin: 0 2.375rem 0 1rem;
     }
     .sortby-dropdown {
         width: 72%;
         position: absolute;
         top: 0rem;
     }
+    .suggestion-icon {
+        display: none;
+    }
+    .suggestion-sort-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .tablet {
+        display: none;
+    }
     @media(min-width: 768px) {
         .sortby-feedback-container {
             border-radius: 0.625rem;
             height: 4.5rem;
             margin-top: 2.5rem;
+            padding: 0 0.75rem 0 1.5rem;
+        }
+        h1 {
+            font-size: 0.875rem;
+        }
+        .suggestion-icon {
+            display: block;
+            background-image: url('../assets/suggestions/icon-suggestions.svg');
+            width: 1.4375rem;
+            height: 1.5rem;
+        }
+        .tablet {
+            display: block;
+        }
+        .sortby-dropdown {
+            width: 50%;
+            position: absolute;
+            top: 1rem;
         }
 
     }

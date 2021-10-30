@@ -154,4 +154,13 @@
         from {transform: translateY(0rem); opacity: 1}
         to {transform: translateY(-3rem); opacity: 0}
     }
+    @media(min-width: 768px) {
+        h2 {
+            font-size: 0.875rem;
+        }
+        p {
+            font-size: 0.875rem;
+            margin-top: 0.125rem;
+        }
+    }
 </style>

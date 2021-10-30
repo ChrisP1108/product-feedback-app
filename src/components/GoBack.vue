@@ -6,7 +6,7 @@
         </div>
         <div v-if="route.includes('details')" @click="toggleFeedbackEdit()"
             class="button-format edit-feedback-button">
-                <h2>Edit Feedback</h2>
+                <h2 class="button-text">Edit Feedback</h2>
         </div>
     </div>
 </template>
@@ -76,5 +76,14 @@
     }
     .edit-feedback-button:hover {
         background: var(--u);
+    }
+    @media(min-width: 768px) {
+        p {
+            font-size: 0.875rem;
+        }
+        .edit-feedback-button {
+            padding: 0 1.0625rem 0;
+            width: 8.875rem;
+        }
     }
 </style>

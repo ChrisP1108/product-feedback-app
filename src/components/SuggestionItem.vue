@@ -3,20 +3,35 @@
         <div :class="[`status-dot status-${item.status}`]"></div>
         <h4>{{ statusType() }}</h4>
     </div>
-    <h1>
-        {{item.title}}
-    </h1>
-    <p>{{item.description}}</p>
-    <h2>
-        {{ capitalizeCategory() }}
-    </h2>
-    <div class="votes-comments-container">
-        <div :class="[voteClicked ? 'votes-amount-clicked' : 'votes-amount-no-click', 
-            'votes-amount-container']" @click="upvoteClick()">
-                <div :class="[voteClicked ? 'up-arrow-icon-clicked' : 'up-arrow-icon']"></div>
-                <h3>{{item.upvotes}}</h3>
+    <div class="tablet-main-container">
+        <div class="tablet-comment-spacer">
+            <div :class="[voteClicked ? 'votes-amount-clicked' : 'votes-amount-no-click', 
+                'votes-amount-container tablet']" @click="upvoteClick()">
+                    <div :class="[voteClicked ? 'up-arrow-icon-clicked' : 'up-arrow-icon']"></div>
+                    <h3 class="upvote-size">{{item.upvotes}}</h3>
+            </div>
+            <div class="tablet-center-container">
+                <h1>
+                    {{item.title}}
+                </h1>
+                <p>{{item.description}}</p>
+                <h2>
+                    {{ capitalizeCategory() }}
+                </h2>
+                <div class="votes-comments-container mobile">
+                    <div :class="[voteClicked ? 'votes-amount-clicked' : 'votes-amount-no-click', 
+                        'votes-amount-container']" @click="upvoteClick()">
+                            <div :class="[voteClicked ? 'up-arrow-icon-clicked' : 'up-arrow-icon']"></div>
+                            <h3>{{item.upvotes}}</h3>
+                    </div>
+                    <div class="comments-container">
+                        <div class="comments-icon"></div>
+                        <h3>{{commentCounter(item.comments)}}</h3>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="comments-container">
+        <div class="comments-container tablet">
             <div class="comments-icon"></div>
             <h3>{{commentCounter(item.comments)}}</h3>
         </div>
@@ -238,5 +253,50 @@
         transform: rotate(180deg);
         width: 0.625rem;
         height: 0.4375rem;
+    }
+    .tablet {
+        display: none;
+    }
+    @media(min-width: 768px) {
+        .mobile {
+            display: none;
+        }
+        .tablet {
+            display: flex;
+        }
+        .tablet-main-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .tablet-center-container {
+            margin-left: 2.5rem;
+        }
+        .tablet-comment-spacer {
+            display: flex;
+        }
+        .votes-amount-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.75rem 0 0.75rem 0;
+            justify-content: space-between;
+            height: 3.3125rem;
+            width: 2.5rem;
+        }
+        h1 {
+            font-size: 1.125rem;
+        }
+        h3 {
+            font-size: 1rem;
+        }
+        p {
+            font-size: 1rem;
+            margin: 0.5rem 0 1rem;
+        }
+        .comments-icon {
+            margin-right: 0.75rem;
+        }
+        .upvote-size {
+            font-size: 0.8125rem!important;
+        }
     }
 </style>

@@ -101,6 +101,7 @@ export default {
     z-index: 1;
     background: var(--f);
     padding-top: 1.5rem;
+    padding-bottom: 5.5rem;
     height: 100%;
     min-height: 41.6875rem!important;
   }
@@ -150,6 +151,11 @@ export default {
     cursor: pointer;
     transition: 0.25s;
   }
+  .button-text {
+    font-size: 0.8125rem;
+    color: var(--p);
+    font-weight: 700;
+  }
   .add-feedback-button {
     background: var(--a);
   }
@@ -170,5 +176,25 @@ export default {
   @keyframes trans-in {
       from {transform: translateY(4rem); opacity: 0}
       to {transform: translateY(0rem); opacity: 1}
+  }
+  @media(min-width: 768px) {
+    .button-format {
+      height: 2.75rem;
+      width: 9.875rem;
+    }
+    .button-text {
+      font-size: 0.875rem!important;
+    }
+    .suggestion-item-container {
+      padding: 1.75rem 2rem 0;
+      height: 9.4375rem;
+    }
+    .feedback-container {
+      padding-top: 3.5rem;
+      padding-bottom: 7.5rem;
+    }
+    .text-field {
+      font-size: 0.9375rem;
+    }
   }
 </style>

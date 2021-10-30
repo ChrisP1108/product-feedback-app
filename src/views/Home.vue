@@ -24,6 +24,9 @@
       <div v-if="empty">
         <NoFeedbackOrError status="nothing" />
       </div>
+      <div v-if="noneOfCategory">
+        <NoFeedbackOrError status="noneOfCategory" />
+      </div>
       <div v-if="error">
         <NoFeedbackOrError status="error" />
       </div>
@@ -80,6 +83,14 @@
         } else if (this.$store.state.data.productRequests.length === 0) {
           return true
         } else return false;
+      },
+      noneOfCategory() {
+        if (this.$store.state.list.length && 
+          this.$store.state.data.productRequests) {
+          return false;
+        } else {
+          return true;
+        }
       },
       error() {
         return this.$store.state.data[0] === 'error' ? true : false
@@ -180,6 +191,18 @@
     .home {
       padding: 3.5rem 2.5rem 7.0625rem;
       background: var(--f);
+    }
+    .suggestion-list-container {
+      margin: 1.5rem 0 0 0;
+    }
+    .suggestion-click-area-1 {
+      height: 100%;
+      top: 0rem;
+      left: 11%;
+      width: 89%;
+    }
+    .suggestion-click-area-2 {
+      display: none;
     }
   }
 </style>

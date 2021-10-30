@@ -151,4 +151,16 @@
         cursor: pointer;
         transition: 0.25s;
     }
+    @media(min-width: 768px) {
+        .post-comment-button {
+            height: 2.75rem;
+            width: 8.875rem;
+        }
+        h2 {
+            font-size: 0.875rem;
+        }
+        p {
+            font-size: 0.9375rem;
+        }
+    }
 </style>

@@ -111,4 +111,9 @@ import GoBack from '../components/GoBack';
     height: 59%;
     left: 0rem;
   }
+  @media(min-width: 768px) {
+    .comment-bottom-border {
+      margin: 2rem 0 2rem;
+    }
+  }
 </style>
