@@ -7,13 +7,11 @@
     <div class="section-container trans-fade">
       <h1>{{commentCounter(selectedFeedback.comments)}} Comments</h1>
       <div class="trans-fade" :key="comment.id" v-for="comment in selectedFeedback.comments">
-        <Comment :comment="comment"/>
-        <div v-if="('replies' in comment)" class="position-relative">
-          <div class="reply-border"></div>
-          <div :key="reply" v-for="reply in comment.replies" class="replies-container">
-            <Comment :comment="reply"/>
+        <Comment :comment="comment" type="comment" />
+        <div v-if="('replies' in comment)" class="position-relative reply-top-gap">
+          <div :key="index" v-for="(reply, index) in comment.replies" class="replies-container">
+            <Comment :comment="reply" :type="index !== comment.replies.length - 1 ? 'reply' : 'last'" />
             <div v-if="('replies' in reply)" class="position-relative">
-              <div class="reply-border"></div>
               <div :key="subReply" v-for="subReply in reply.replies" class="replies-container">
                 <Comment :comment="subReply" />
               </div>
@@ -99,21 +97,22 @@ import GoBack from '../components/GoBack';
   }
   .comment-bottom-border {
     margin: 1.5rem 0 1.5rem;
-    border-bottom: 0.0625rem var(--v) solid;
+    border-bottom: 0.0625rem var(--bb) solid;
   }
   .replies-container {
     margin-top: 1.5rem!important;
     padding-left: 1.5rem!important;
-  }
-  .reply-border {
-    position: absolute;
-    border-left: 0.0625rem var(--h) solid;
-    height: 59%;
-    left: 0rem;
+    height: 100%;
   }
   @media(min-width: 768px) {
     .comment-bottom-border {
       margin: 2rem 0 2rem;
+    }
+    .reply-top-gap {
+      margin-top: 2rem!important
+    }
+    .replies-container {
+      padding-left: 2.8125rem!important;
     }
   }
 </style>

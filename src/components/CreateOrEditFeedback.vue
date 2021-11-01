@@ -397,4 +397,21 @@
         z-index: -1;
         transition: 1s;
     }
+    @media(min-width: 768px) {
+        .new-icon {
+            transform: scale(1.0);
+            left: 2.625rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+        }
+        h2 {
+            font-size: 0.875rem;
+            margin-top: 3rem!important;
+        }
+        .createoredit-container {
+            margin-top: 4rem;
+            padding: 3.5rem 2.625rem 2.5rem;        
+        }
+    }
 </style>

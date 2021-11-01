@@ -75,6 +75,7 @@ export default {
       --y: #E98888;
       --z: #3A437435;
       --aa: #FBB57A;
+      --bb: #DEE6FF;
       --halfTrans: #00000083;
     }
   body {
@@ -105,6 +106,14 @@ export default {
     height: 100%;
     min-height: 41.6875rem!important;
   }
+  .createoredit-main-container {
+    z-index: 1;
+    background: var(--f);
+    padding-top: 1.5rem;
+    padding-bottom: 5.5rem;
+    height: 100%;
+    min-height: 41.6875rem!important;
+  }
   .section-container {
     padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
     margin: 1.5rem;
@@ -127,6 +136,7 @@ export default {
     font-size: 0.8125rem;
     font-weight: 400;
     color: var(--g);
+    height: 3rem;
   }
   .text-field:focus {
       outline: none!important;
@@ -136,10 +146,10 @@ export default {
     height: 5rem;
   }
   .red-highlight {
-        color: var(--w);
-    }
+    color: var(--w);
+  }
   .red-border {
-      border: 0.0625rem var(--w) solid;
+    border: 0.0625rem var(--w) solid;
   }
   .button-format {
     display: flex;
@@ -192,6 +202,9 @@ export default {
     .feedback-container {
       padding-top: 3.5rem;
       padding-bottom: 7.5rem;
+    }
+    .createoredit-main-container {
+      padding: 3.5rem 7.125rem 13.9375rem;
     }
     .text-field {
       font-size: 0.9375rem;

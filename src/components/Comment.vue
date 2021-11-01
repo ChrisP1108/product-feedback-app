@@ -1,27 +1,36 @@
 <template>
-    <div class="comment-container">
-        <div class="img-name">
-            <img :src="comment.user.image"  
-                :alt="comment.user.name" 
-                onerror="this.src='/icon-no-image.svg'"
-            >
-            <div class="name">
-                <h2>{{ comment.user.name }}</h2>
-                <p>@{{ comment.user.username }}</p>
+    <div class="comment-main-container">
+        <div v-if="type === 'reply'" class="reply-border"></div>
+        <div class="comment-container">
+            <div class="img-name">
+                <img :src="comment.user.image"  
+                    :alt="comment.user.name" 
+                    onerror="this.src='/icon-no-image.svg"
+                >
+                <div class="name">
+                    <h2>{{ comment.user.name }}</h2>
+                    <p>@{{ comment.user.username }}</p>
+                </div>
             </div>
+            <h1 v-if="userData.username !== comment.user.username"
+                @click="toggleReply()">{{ reply ? 'Close' : 'Reply' }}
+            </h1>
+            <h1 v-if="userData.username === comment.user.username"
+                @click="toggleReply()">{{ reply ? 'Close' : 'Edit' }}
+            </h1>
         </div>
-        <h1 v-if="userData.username !== comment.user.username"
-            @click="toggleReply()">{{ reply ? 'Close' : 'Reply' }}
-        </h1>
-        <h1 v-if="userData.username === comment.user.username"
-            @click="toggleReply()">{{ reply ? 'Close' : 'Edit' }}
-        </h1>
-    </div>
-    <div class="comment-content">
-        <h3><span>{{ replyGenerator(comment) }}</span> {{ comment.content }}</h3>
-    </div>
-    <div :class="[reply ? 'reply-fade-in' : '', 'trans-fade']">
-        <Reply @reply-off="toggleReply()" v-if="reply" :comment="comment" />
+        <div class="comment-content">
+            <div v-if="('replies' in comment) && comment.replies.length !== 0 && this.$store.state.response !== 'mobile'" 
+                class="reply-start-border">
+            </div>
+            <h3><span>{{ replyGenerator(comment) }}</span> {{ comment.content }}</h3>
+        </div>
+        <div :class="[reply ? 'reply-fade-in' : '', 'trans-fade']">
+            <Reply @reply-off="toggleReply()" v-if="reply" :comment="comment" />
+        </div>
+        <div v-if="type === 'reply' && ('replies' in comment) && comment.replies.length !== 0" 
+            class="reply-extension-border">
+        </div>
     </div>
 </template>
 
@@ -34,7 +43,8 @@
             Reply
         },
         props: {
-            comment: Object
+            comment: Object,
+            type: String
         },
         computed: {
             userData() {
@@ -110,6 +120,10 @@
         letter-spacing: -0.0112rem;
         margin: 0;
     }
+    .comment-main-container {
+        height: 100%!important;
+        position: relative;
+    }
     .comment-container {
         display: flex;
         justify-content: space-between;
@@ -136,6 +150,18 @@
     .comment-content {
         margin-top: 1.125rem;
     }
+    .reply-border {
+        position: absolute;
+        border-left: 0.0625rem var(--bb) solid;
+        height: calc(100% + 2.85rem);
+        left: -1.5rem;
+    }
+    .reply-extension-border {
+        position: absolute;
+        border-left: 0.0625rem var(--bb) solid;
+        height: calc(100%);
+        left: -1.5rem;
+    }
     .reply-fade-in {
         animation-name: reply-in;
         animation-duration: 0.5s;
@@ -161,6 +187,26 @@
         p {
             font-size: 0.875rem;
             margin-top: 0.125rem;
+        }
+        .comment-content {
+            margin-left: 4.5rem;
+        }
+        .name {
+            margin-left: 2rem!important;
+        }
+        .reply-border {
+            left: -1.8rem;
+        }
+        .reply-start-border {
+            position: absolute;
+            border-left: 0.0625rem var(--bb) solid;
+            height: calc(100% - 1rem);
+            left: 1.05rem;
+            margin-top: 0.25rem;
+        }
+        .reply-extension-border {
+            left: -1.8rem;
+            height: calc(125%);
         }
     }
 </style>

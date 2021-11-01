@@ -1,30 +1,31 @@
 <template>
     <div class="reply-container trans-fade">
+        <div v-if="currentUser" class="reply-active-border"></div>    
         <textarea @keyup="(e) => textTyping(e)" 
             maxlength="250"  :value="text" placeholder="Type your reply here" 
             :class="[!limit && 'red-border']">
         </textarea>
         <div v-if="!currentUser" @click="postReply()"
-            class="button reply-button position-relative">
+            class="button button-format reply-button position-relative">
                 <div v-if="loadingPost" class="position-absolute">
                     <ButtonSpinner />
                 </div>
-                <h2 :class="[loadingPost ? 'invisible' : 'visible']">Post Reply</h2>  
+                <h2 :class="[loadingPost ? 'invisible' : 'visible', 'button-text']">Post Reply</h2>  
         </div>
         <div v-if="currentUser" class="edit-container">
             <div @click="replyChange('delete')"
-                class="button delete-button position-relative">
+                class="button button-format delete-button position-relative">
                     <div v-if="loadingDelete" class="position-absolute">
                         <ButtonSpinner />
                     </div>
-                <h2 :class="[loadingDelete ? 'invisible' : 'visible']">Delete</h2> 
+                <h2 :class="[loadingDelete ? 'invisible' : 'visible', 'button-text']">Delete</h2> 
             </div>
-            <div v-if="this.text" @click="replyChange('update')"
-                class="button reply-button">
+            <div v-if="this.text && this.text !== comment.content" @click="replyChange('update')"
+                class="update-button button-format reply-button">
                     <div v-if="loadingUpdate" class="position-absolute">
                         <ButtonSpinner />
                     </div>
-                    <h2 :class="[loadingUpdate ? 'invisible' : 'visible']">Update Reply</h2>
+                    <h2 :class="[loadingUpdate ? 'invisible' : 'visible', 'button-text']">Update Reply</h2>
             </div>
         </div>
     </div>
@@ -204,6 +205,7 @@
         margin-top: 1.5rem;
         display: flex;
         flex-direction: column;
+        position: relative;
     }
     .button {
         margin-left: auto;
@@ -211,6 +213,17 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 0 1rem 0;
+        height: 2.5rem;
+        border-radius: 0.625rem;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+    .update-button {
+        margin-top: 1.25rem;
+        margin-left: 1rem;
+        display: flex;
+        align-items: center;
         padding: 0 1rem 0;
         height: 2.5rem;
         border-radius: 0.625rem;
@@ -225,6 +238,7 @@
     }
     .edit-container {
         display: flex;
+        justify-content: flex-end;
     }
     h2 {
         font-size: 0.8125rem;
@@ -247,5 +261,44 @@
     }
     .red-border {
         border: 2px red solid;
+    }
+    .reply-active-border {
+        position: absolute;
+        border-left: 0.0625rem var(--bb) solid;
+        height: calc(100% + 2.75rem);
+        left: -3rem;
+    }
+    @media(min-width: 768px) {
+        textarea {
+            font-size: 0.9375rem;
+            height: 6rem;
+        }
+        .reply-container {
+            margin-top: 2rem;
+            margin-left: 4.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+        }
+        .button {
+            margin-top: 0rem;
+            margin-left: 1rem;
+            width: 8rem;
+        }
+        .update-button {
+            margin-top: 0rem;
+            margin-left: 1rem;
+            width: 8rem;
+        }
+        .edit-container {
+            display: flex;
+            height: 6rem;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .reply-active-border {
+            height: calc(100% + 2.75rem);
+            left: -9.1rem;
+        }
     }
 </style>
