@@ -5,8 +5,8 @@
     </div>
     <div class="tablet">
       <Header />
-      <MenuCategorySort />
-      <MenuRoadmap />
+      <MenuCategorySort v-if="!error" />
+      <MenuRoadmap v-if="!error" />
     </div>
     <div :class="[toggleMobileMenu 
       ? 'trans-background' : 'reg-background'
@@ -84,16 +84,16 @@
           return true
         } else return false;
       },
+      error() {
+        return this.$store.state.data[0] === 'error' ? true : false
+      },
       noneOfCategory() {
         if (this.$store.state.list.length && 
-          this.$store.state.data.productRequests) {
+          this.$store.state.data.productRequests || this.loading || this.error) {
           return false;
         } else {
           return true;
         }
-      },
-      error() {
-        return this.$store.state.data[0] === 'error' ? true : false
       },
       toggleMobileMenu() {
         return this.$store.state.toggleMobileMenu 

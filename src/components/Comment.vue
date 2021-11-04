@@ -195,7 +195,7 @@
             margin-left: 2rem!important;
         }
         .reply-border {
-            left: -1.8rem;
+            left: -1.75rem;
         }
         .reply-start-border {
             position: absolute;
@@ -205,7 +205,7 @@
             margin-top: 0.25rem;
         }
         .reply-extension-border {
-            left: -1.8rem;
+            left: -1.75rem;
             height: calc(125%);
         }
     }

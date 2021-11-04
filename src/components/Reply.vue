@@ -298,7 +298,7 @@
         }
         .reply-active-border {
             height: calc(100% + 2.75rem);
-            left: -9.1rem;
+            left: -9.05rem;
         }
     }
 </style>

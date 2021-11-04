@@ -1,8 +1,8 @@
 <template>
-    <div class="createoredit-container">
+    <div :class="[isNew && 'create-bottom-margin', 'createoredit-container']">
         <div :class="[isNew ? 'new-icon' : 'edit-icon']"></div>
-        <h1>{{isNew ? 'Create New Feedback' : 'Edit Feedback'}}</h1>
-        <h2>Feedback Title</h2>
+        <h1>{{isNew ? 'Create New Feedback' : `Editing '${feedbackSelect.title}'`}}</h1>
+        <h2 :class="[isNew ? 'new-margin' : 'edit-margin']">Feedback Title</h2>
         <p>Add a short, descriptive headline</p>
         <div>
             <input type="text" @keyup="(e) => titleTyping(e)" maxlength="50"
@@ -50,27 +50,29 @@
             </textarea>
             <h4 v-if="descriptionEmpty">Can't be empty</h4>
         </div>
-        <div v-if="modified" @click="isNew ? createFeedback() : changeFeedback('update')"
-            class="button-format add-feedback-button button-margin-top position-relative">
-                <div v-if="loadingSave" class="position-absolute">
-                    <ButtonSpinner />
-                </div>
-                <h3 :class="[loadingSave ? 'invisible' : 'visible']">
-                    {{isNew ? 'Add Feedback' : 'Save Changes'}}
-                </h3>
-        </div>
-        <div @click="goBack()"
-            class="button-format cancel-button">
-                <h3>Cancel</h3>
-        </div>
-        <div v-if="!isNew" @click="changeFeedback('delete')"
-            class="button-format delete-button position-relative">
-                <div v-if="loadingDelete" class="position-absolute">
-                    <ButtonSpinner />
-                </div>
-                <h3 :class="[loadingDelete ? 'invisible' : 'visible']">
-                    Delete
-                </h3>
+        <div class="buttons-container">
+            <div v-if="modified" @click="isNew ? createFeedback() : changeFeedback('update')"
+                class="button-format add-feedback-button position-relative order-md-3">
+                    <div v-if="loadingSave" class="position-absolute">
+                        <ButtonSpinner />
+                    </div>
+                    <h3 :class="[loadingSave ? 'invisible' : 'visible', 'button-text']">
+                        {{isNew ? 'Add Feedback' : 'Save Changes'}}
+                    </h3>
+            </div>
+            <div @click="goBack()"
+                class="button-format cancel-button order-md-2">
+                    <h3 class="button-text">Cancel</h3>
+            </div>
+            <div v-if="!isNew" @click="changeFeedback('delete')"
+                class="button-format delete-button position-relative order-md-1">
+                    <div v-if="loadingDelete" class="position-absolute">
+                        <ButtonSpinner />
+                    </div>
+                    <h3 :class="[loadingDelete ? 'invisible' : 'visible', 'button-text']">
+                        Delete
+                    </h3>
+            </div>
         </div>
     </div> 
 </template>
@@ -373,7 +375,7 @@
     .category-arrow-icon-active {
         transform: rotateX(-180deg);
     }
-    .button-margin-top {
+    .add-feedback-button {
         margin-top: 2.5rem!important;
     }
     .cancel-button {
@@ -392,26 +394,67 @@
     }
     textarea {
         margin-bottom: -7px;
+        height: 7.5rem;
     }
     .hidden {
         z-index: -1;
         transition: 1s;
+    }
+    .buttons-container {
+        display: flex;
+        flex-direction: column;
     }
     @media(min-width: 768px) {
         .new-icon {
             transform: scale(1.0);
             left: 2.625rem;
         }
+        .edit-icon {
+            transform: scale(1.4);
+            left: 3rem;
+        }
         h1 {
             font-size: 1.5rem;
         }
         h2 {
             font-size: 0.875rem;
-            margin-top: 3rem!important;
+        }
+        p {
+            font-size: 0.875rem;
         }
         .createoredit-container {
-            margin-top: 4rem;
+            margin: 4rem 0 0!important;
             padding: 3.5rem 2.625rem 2.5rem;        
+        }
+        textarea {
+            height: 6rem;
+        }
+        .buttons-container {
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+        .add-feedback-button {
+            margin-top: 2rem!important;
+            margin-left: 1rem;
+            width: 9rem;
+        }
+        .cancel-button {
+            margin-top: 2rem!important;
+            width: 5.8125rem;
+        }
+        .delete-button {
+            margin-top: 2rem!important;
+            width: 5.8125rem;
+            margin-right: auto;
+        }
+        .new-margin {
+            margin-top: 3rem!important;
+        }
+        .edit-margin {
+            margin-top: 5rem!important;
+        }
+        .create-bottom-margin {
+            margin-bottom: 6.3125rem!important;
         }
     }
 </style>

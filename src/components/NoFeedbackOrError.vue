@@ -6,7 +6,7 @@
     </div>
     <div v-if="!error" class="nofeedback-container trans-fade">
         <img src="illustration-empty.svg" alt="No Feedback Items" />
-        <h1>{{ status === 'noneOfCategory' ? `No feedback of category "${capitalizer()}"` 
+        <h1 :class="[selected && 'fade-text']">{{ status === 'noneOfCategory' ? `No feedback of category "${capitalizer()}"` 
             : 'There is no feedback yet.'}}</h1>
         <p>Got a suggestion? Found a bug that needs to be squashed? 
             We love hearing about new ideas to improve our app.
@@ -66,6 +66,7 @@
         margin-top: 6.5rem;
         display: flex;
         justify-content: center;
+        align-items: center;
         flex-direction: column;
     }
     h1 {

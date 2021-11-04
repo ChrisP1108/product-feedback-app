@@ -1,39 +1,41 @@
 <template>
-    <div class="roadmap-header-container">
-        <div class="back-roadmap-container">
-            <div @click="goBackHome()" class="back-arrow-container">
-                <div class="back-arrow-icon"></div>
-                <p>Go Back</p>
+    <div class="roadmap-main-container">
+        <div class="roadmap-header-container">
+            <div class="back-roadmap-container">
+                <div @click="goBackHome()" class="back-arrow-container">
+                    <div class="back-arrow-icon"></div>
+                    <p>Go Back</p>
+                </div>
+                <h1>Roadmap</h1>
             </div>
-            <h1>Roadmap</h1>
+            <div @click="toggleAddFeedback()"
+                class=" button-text button-format add-feedback-button">
+                    <h2>+ Add Feedback</h2>
+            </div>
         </div>
-        <div @click="toggleAddFeedback()"
-            class="button-format add-feedback-button">
-                <h2>+ Add Feedback</h2>
+        <div class="roadmap-headings-container mobile">
+            <div :class="[headingSelect[0].selected && 
+                'heading-active heading-planned', 'heading']" @click="toggleHeading('planned')">
+                <h3>{{ `Planned (${roadmapList.planned.length})` }}</h3>
+            </div>
+            <div :class="[headingSelect[1].selected && 
+                'heading-active heading-in-progress', 'heading']" @click="toggleHeading('inProgress')">
+                <h3>{{ `In-Progress (${roadmapList.inProgress.length})` }}</h3>
+            </div>
+            <div :class="[headingSelect[2].selected && 
+                'heading-active heading-live', 'heading']" @click="toggleHeading('live')">
+                <h3>{{ `Live (${roadmapList.live.length})` }}</h3>
+            </div>
         </div>
-    </div>
-    <div class="roadmap-headings-container">
-        <div :class="[headingSelect[0].selected && 
-            'heading-active heading-planned', 'heading']" @click="toggleHeading('planned')">
-            <h3>{{ `Planned (${roadmapList.planned.length})` }}</h3>
-        </div>
-        <div :class="[headingSelect[1].selected && 
-            'heading-active heading-in-progress', 'heading']" @click="toggleHeading('inProgress')">
-            <h3>{{ `In-Progress (${roadmapList.inProgress.length})` }}</h3>
-        </div>
-        <div :class="[headingSelect[2].selected && 
-            'heading-active heading-live', 'heading']" @click="toggleHeading('live')">
-            <h3>{{ `Live (${roadmapList.live.length})` }}</h3>
-        </div>
-    </div>
-    <div class="roadmap-body-container">
-        <h4>{{ titleGenerator() }}</h4>
-        <h5>Feature currently being developed</h5>
-        <div class="roadmap-list-container">
-            <div :key="item.id" v-for="item in outputList">
-                <div :class="[`roadmap-top-border roadmap-${selected}-border`, 'trans-fade']"></div>
-                <div class="roadmap-item-container trans-fade">
-                    <SuggestionItem :item="item" isRoadmap='true' />
+        <div class="roadmap-body-container">
+            <h4>{{ titleGenerator() }}</h4>
+            <h5>{{ description }}</h5>
+            <div class="roadmap-list-container mobile">
+                <div :key="item.id" v-for="item in outputList">
+                    <div :class="[`roadmap-top-border roadmap-${selected}-border`, 'trans-fade']"></div>
+                    <div class="roadmap-item-container trans-fade">
+                        <SuggestionItem :item="item" isRoadmap='true' />
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,18 +53,22 @@
             return {
                 outputList: [],
                 selected: 'planned',
+                description: 'Ideas prioritized for research',
                 headingSelect: [
                     {
                         type: 'planned',
-                        selected: true
+                        selected: true,
+                        description: 'Ideas prioritized for research'
                     },
                     {
                         type: 'inProgress',
-                        selected: false
+                        selected: false,
+                        description: 'Currently being developed'
                     },
                     {
                         type: 'live',
-                        selected: false
+                        selected: false,
+                        description: 'Released features'
                     },
                 ]
             }
@@ -83,6 +89,7 @@
                 for (let i = 0; i < this.headingSelect.length; i++) {
                     if (this.headingSelect[i].type === type) {
                         this.headingSelect[i].selected = true;
+                        this.description = this.headingSelect[i].description;
                     } else {
                         this.headingSelect[i].selected = false;
                     }
@@ -259,5 +266,38 @@
         width: 0.625rem;
         height: 0.4375rem;
         transform: rotate(90deg);
+    }
+    @media(min-width: 768px) {
+        .roadmap-main-container {
+            background: var(--f);
+            padding: 3.5rem 2.4375rem 5.9375rem;     
+        }
+        .roadmap-header-container {
+            border-radius: 0.625rem;
+            height: 7.0625rem;
+            padding: 0 2rem 0;
+        }
+        .roadmap-body-container {
+            padding: 2.25rem 0rem 0rem;
+        }
+        .back-roadmap-container {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+        .mobile {
+            display: none;
+        }
+        h2 {
+            font-size: 0.875rem;
+        }
+        p {
+            font-size: 0.875rem;
+            margin: 0 0 0 0.8125rem!important;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin: 3!important;
+        }
     }
 </style>

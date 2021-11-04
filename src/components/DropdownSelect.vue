@@ -90,4 +90,12 @@
         height: 0.6875rem;
         background-image: url('../assets/shared/icon-check.svg');
     }
+    @media(min-width: 768px) {
+        h1 {
+            font-size: 1rem;
+        }
+        .dropdown-item {
+            height: 3rem;
+        }
+    }
 </style>

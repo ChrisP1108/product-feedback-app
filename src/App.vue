@@ -109,10 +109,10 @@ export default {
   .createoredit-main-container {
     z-index: 1;
     background: var(--f);
-    padding-top: 1.5rem;
-    padding-bottom: 5.5rem;
     height: 100%;
     min-height: 41.6875rem!important;
+    padding-top: 1.5rem;
+    padding-bottom: 4.8125rem;
   }
   .section-container {
     padding: 1.6875rem 1.75rem 1.5rem 1.5rem;
@@ -187,6 +187,15 @@ export default {
       from {transform: translateY(4rem); opacity: 0}
       to {transform: translateY(0rem); opacity: 1}
   }
+  .fade-text {
+    animation-name: text-in;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes text-in {
+      from {opacity: 0}
+      to {opacity: 1}
+  }
   @media(min-width: 768px) {
     .button-format {
       height: 2.75rem;
@@ -199,12 +208,15 @@ export default {
       padding: 1.75rem 2rem 0;
       height: 9.4375rem;
     }
+    .section-container {
+      padding: 1.75rem 2rem;
+    }
     .feedback-container {
       padding-top: 3.5rem;
       padding-bottom: 7.5rem;
     }
     .createoredit-main-container {
-      padding: 3.5rem 7.125rem 13.9375rem;
+      padding: 3.5rem 7.125rem 7.625rem;
     }
     .text-field {
       font-size: 0.9375rem;

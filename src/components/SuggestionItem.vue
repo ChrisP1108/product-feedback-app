@@ -3,14 +3,14 @@
         <div :class="[`status-dot status-${item.status}`]"></div>
         <h4>{{ statusType() }}</h4>
     </div>
-    <div class="tablet-main-container">
-        <div class="tablet-comment-spacer">
+    <div :class="[!roadmap && 'tablet-main-container']">
+        <div :class="[!roadmap && 'tablet-comment-spacer']">
             <div :class="[voteClicked ? 'votes-amount-clicked' : 'votes-amount-no-click', 
-                'votes-amount-container tablet']" @click="upvoteClick()">
+                'votes-amount-container tablet']" @click="upvoteClick()" v-if="!roadmap">
                     <div :class="[voteClicked ? 'up-arrow-icon-clicked' : 'up-arrow-icon']"></div>
                     <h3 class="upvote-size">{{item.upvotes}}</h3>
             </div>
-            <div class="tablet-center-container">
+            <div :class="[!roadmap && 'tablet-center-container']">
                 <h1>
                     {{item.title}}
                 </h1>
@@ -18,11 +18,11 @@
                 <h2>
                     {{ capitalizeCategory() }}
                 </h2>
-                <div class="votes-comments-container mobile">
+                <div :class="[!roadmap && 'mobile', 'votes-comments-container']">
                     <div :class="[voteClicked ? 'votes-amount-clicked' : 'votes-amount-no-click', 
-                        'votes-amount-container']" @click="upvoteClick()">
+                        'votes-amount-container-roadmap']" @click="upvoteClick()">
                             <div :class="[voteClicked ? 'up-arrow-icon-clicked' : 'up-arrow-icon']"></div>
-                            <h3>{{item.upvotes}}</h3>
+                            <span>{{item.upvotes}}</span>
                     </div>
                     <div class="comments-container">
                         <div class="comments-icon"></div>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="comments-container tablet">
+        <div class="tablet comments-container" v-if="!roadmap">
             <div class="comments-icon"></div>
             <h3>{{commentCounter(item.comments)}}</h3>
         </div>
@@ -213,6 +213,17 @@
         width: 4.3125rem;
         cursor: pointer;
     }
+    .votes-amount-container-roadmap {
+        display: flex;
+        justify-content: space-between;
+        border-radius: 0.625rem;
+        align-items: center;
+        padding: 0 1rem 0;
+        height: 2rem;
+        transition: 0.25s;
+        width: 4.3125rem;
+        cursor: pointer;
+    }
     .votes-amount-no-click {
         cursor: pointer;
         color: var(--g);
@@ -256,6 +267,12 @@
     }
     .tablet {
         display: none;
+    }
+    span {
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: -0.0119rem;
+        margin: 0;
     }
     @media(min-width: 768px) {
         .mobile {
