@@ -11,10 +11,10 @@
                     <h3 class="upvote-size">{{item.upvotes}}</h3>
             </div>
             <div :class="[!roadmap && 'tablet-center-container']">
-                <h1>
+                <h1 :class="[roadmap ? 'roadmap-title' : 'title-size']">
                     {{item.title}}
                 </h1>
-                <p>{{item.description}}</p>
+                <p :class="[roadmap ? 'roadmap-description' : 'description']">{{item.description}}</p>
                 <h2>
                     {{ capitalizeCategory() }}
                 </h2>
@@ -25,15 +25,17 @@
                             <span>{{item.upvotes}}</span>
                     </div>
                     <div class="comments-container">
-                        <div class="comments-icon"></div>
-                        <h3>{{commentCounter(item.comments)}}</h3>
+                        <div :class="[roadmap && 'roadmap-icon', 'comments-icon']"></div>
+                        <h3 :class="[roadmap ? 'roadmap-comment-count' : 'comment-count']">
+                            {{ commentCounter(item.comments) }}
+                        </h3>
                     </div>
                 </div>
             </div>
         </div>
         <div class="tablet comments-container" v-if="!roadmap">
             <div class="comments-icon"></div>
-            <h3>{{commentCounter(item.comments)}}</h3>
+            <h3 :class="[roadmap ? 'roadmap-comment-count' : 'comment-count']">{{commentCounter(item.comments)}}</h3>
         </div>
     </div>
 </template>
@@ -145,8 +147,10 @@
     .suggestion-item-container:hover h1 {
         color: var(--b)!important;
     }
+    .roadmap-item-container:hover h1 {
+        color: var(--b)!important;
+    }
     h1 {
-        font-size: 0.8125rem;
         color: var(--g);
         font-weight: 700;
         letter-spacing: -0.0112rem;
@@ -167,7 +171,6 @@
         align-items: center;
     }
     h3 {
-        font-size: 0.8125rem;
         font-weight: 700;
         letter-spacing: -0.0119rem;
         margin: 0;
@@ -179,7 +182,6 @@
         margin: 0 0 0 0.5rem;
     }
     p {
-        font-size: 0.8125rem;
         margin: 1rem 0 0.75rem 0;
         color: var(--h);
     }
@@ -268,6 +270,24 @@
     .tablet {
         display: none;
     }
+    .title-size {
+        font-size: 0.8125rem;
+    }
+    .roadmap-title {
+        font-size: 0.8125rem;
+    }
+    .description {
+        font-size: 0.8125rem;
+    }
+    .roadmap-description {
+        font-size: 0.8125rem;
+    }
+    .roadmap-comment-count {
+        font-size: 0.8125rem;
+    }
+    .comment-count {
+        font-size: 0.8125rem;
+    }
     span {
         font-size: 0.8125rem;
         font-weight: 700;
@@ -299,14 +319,10 @@
             height: 3.3125rem;
             width: 2.5rem;
         }
-        h1 {
-            font-size: 1.125rem;
-        }
-        h3 {
-            font-size: 1rem;
+        h4 {
+            margin: 0 0 0 1rem;
         }
         p {
-            font-size: 1rem;
             margin: 0.5rem 0 1rem;
         }
         .comments-icon {
@@ -314,6 +330,21 @@
         }
         .upvote-size {
             font-size: 0.8125rem!important;
+        }
+        .title-size {
+            font-size: 1.125rem;
+        }
+        .description {
+            font-size: 1rem;
+        }
+        .comment-count {
+            font-size: 1rem;
+        }
+        .roadmap-icon {
+            margin-right: 0.5rem!important;
+        }
+        .roadmap-description {
+            margin-bottom: 1.75rem;
         }
     }
 </style>

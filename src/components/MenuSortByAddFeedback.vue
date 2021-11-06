@@ -9,7 +9,7 @@
                 <div :class="[sortByDropdown && 'sortby-arrow-icon-active'
                     , 'sortby-arrow-icon']"></div>
                 <div class="sortby-dropdown">
-                    <DropdownSelect @loaded="setSortBy" v-if="sortByDropdown" :list="sortByList" />
+                    <DropdownSelect @loaded="setSortBy" on="true" v-if="sortByDropdown" :list="sortByList" />
                 </div>
             </div>
         </div>

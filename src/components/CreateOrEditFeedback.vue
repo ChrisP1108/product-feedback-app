@@ -20,7 +20,7 @@
                     'category-arrow-icon']"></div>
                 </div>
                 <div class="category-dropdown">
-                    <DropdownSelect @loaded="categorySelected" v-if="categoryToggle" :list="categoryChoices" />
+                    <DropdownSelect @loaded="categorySelected" v-if="categoryToggle" on="true" :list="categoryChoices" />
                 </div>
         </div>
         <div v-if="!isNew">
@@ -34,7 +34,7 @@
                         'category-arrow-icon']"></div>
                     </div>
                     <div class="category-dropdown">
-                        <DropdownSelect @loaded="updateStatusSelected" v-if="updateStatusToggle" :list="updateStatusChoices" />
+                        <DropdownSelect @loaded="updateStatusSelected" v-if="updateStatusToggle" on="true" :list="updateStatusChoices" />
                     </div>
             </div>
         </div>

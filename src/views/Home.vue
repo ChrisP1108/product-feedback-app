@@ -156,28 +156,13 @@
   h1 {
     background: red;
   }
-  .suggestion-click-area-1 {
-    position: absolute;
-    height: 70%;
-    top: 0rem;
-    left: 0rem;
-    width: 100%;
-    z-index: 0;
-    cursor: pointer;
-  }
-  .suggestion-click-area-2 {
-    position: absolute;
-    height: 67%;
-    top: 4rem;
-    left: 5.75rem;
-    width: 87%;
-    z-index: 0;
-    cursor: pointer;
-  }
   .relative {
     position: relative;
   }
   .tablet {
+    display: none;
+  }
+  .desktop {
     display: none;
   }
 
@@ -195,13 +180,10 @@
     .suggestion-list-container {
       margin: 1.5rem 0 0 0;
     }
-    .suggestion-click-area-1 {
-      height: 100%;
-      top: 0rem;
-      left: 11%;
-      width: 89%;
-    }
-    .suggestion-click-area-2 {
+  }
+
+  @media(min-width: 1024px) {
+    .tablet {
       display: none;
     }
   }

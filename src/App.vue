@@ -21,10 +21,10 @@ export default {
       this.$store.commit('setData', ['error']);
     } else {
       data = await res.json();
-    } 
+    }
     setTimeout(() => {
       if (this.$store.state.data[0] !== 'error') {
-        this.$store.commit('setData', storedList.productRequests.length !== 0 ? storedList 
+        this.$store.commit('setData', storedList ? storedList 
           : data ? data : ['error']);
       }
     }, 2000)
@@ -178,6 +178,24 @@ export default {
   .invisible {
     visibility: hidden;
   }
+  .suggestion-click-area-1 {
+    position: absolute;
+    height: 70%;
+    top: 0rem;
+    left: 0rem;
+    width: 100%;
+    z-index: 0;
+    cursor: pointer;
+  }
+  .suggestion-click-area-2 {
+    position: absolute;
+    height: 67%;
+    top: 4rem;
+    left: 5.75rem;
+    width: 87%;
+    z-index: 0;
+    cursor: pointer;
+  }
   .trans-fade {
     animation-name: trans-in;
     animation-duration: 0.5s;
@@ -220,6 +238,15 @@ export default {
     }
     .text-field {
       font-size: 0.9375rem;
+    }
+    .suggestion-click-area-1 {
+      height: 100%;
+      top: 0rem;
+      left: 11%;
+      width: 89%;
+    }
+    .suggestion-click-area-2 {
+      display: none;
     }
   }
 </style>

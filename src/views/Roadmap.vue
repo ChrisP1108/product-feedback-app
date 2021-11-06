@@ -28,13 +28,69 @@
             </div>
         </div>
         <div class="roadmap-body-container">
-            <h4>{{ titleGenerator() }}</h4>
-            <h5>{{ description }}</h5>
-            <div class="roadmap-list-container mobile">
-                <div :key="item.id" v-for="item in outputList">
+            <div class="mobile">
+                <h4>{{ titleGenerator() }}</h4>
+                <h5>{{ description }}</h5>
+            </div>
+            <div class="roadmap-list-container">
+                <div :key="item.id" v-for="item in outputList" class="mobile">
                     <div :class="[`roadmap-top-border roadmap-${selected}-border`, 'trans-fade']"></div>
                     <div class="roadmap-item-container trans-fade">
                         <SuggestionItem :item="item" isRoadmap='true' />
+                        <div @click="selectFeedback(item)" 
+                            class="suggestion-click-area-1">
+                        </div>
+                        <div @click="selectFeedback(item)" 
+                            class="suggestion-click-area-2">
+                        </div>
+                    </div>
+                </div>
+                <div class="tablet-list-column">
+                    <h4>{{ `Planned (${roadmapList.planned.length})` }}</h4>
+                    <h5>{{ headingSelect[0].description }}</h5>
+                    <div :key="item.id" v-for="item in roadmapList.planned" class="tablet position-relative">
+                        <div :class="[`roadmap-top-border roadmap-planned-border`, 'trans-fade']"></div>
+                        <div class="roadmap-item-container trans-fade">
+                            <SuggestionItem :item="item" isRoadmap='true' />
+                            <div @click="selectFeedback(item)" 
+                                class="roadmap-click-area-1">
+                            </div>
+                            <div @click="selectFeedback(item)" 
+                                class="roadmap-click-area-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tablet-list-column roadmap-tablet-gap">
+                    <h4>{{ `In-Progress (${roadmapList.inProgress.length})` }}</h4>
+                    <h5>{{ headingSelect[1].description }}</h5>
+                    <div :key="item.id" v-for="item in roadmapList.inProgress" class="tablet position-relative">
+                        <div :class="[`roadmap-top-border roadmap-inProgress-border`, 'trans-fade']"></div>
+                        <div class="roadmap-item-container trans-fade">
+                            <SuggestionItem :item="item" isRoadmap='true' />
+                            <div @click="selectFeedback(item)" 
+                                class="roadmap-click-area-1">
+                            </div>
+                            <div @click="selectFeedback(item)" 
+                                class="roadmap-click-area-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tablet-list-column roadmap-tablet-gap">
+                    <h4>{{ `Live (${roadmapList.live.length})` }}</h4>
+                    <h5>{{ headingSelect[2].description }}</h5>
+                    <div :key="item.id" v-for="item in roadmapList.live" class="tablet position-relative">
+                        <div :class="[`roadmap-top-border roadmap-live-border`, 'trans-fade']"></div>
+                        <div class="roadmap-item-container trans-fade">
+                            <SuggestionItem :item="item" isRoadmap='true' />
+                            <div @click="selectFeedback(item)" 
+                                class="roadmap-click-area-1">
+                            </div>
+                            <div @click="selectFeedback(item)" 
+                                class="roadmap-click-area-2">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,6 +176,11 @@
                     this.outputList = this.roadmapList.live;
                 }
                 return `${type} (${quantity})`
+            },
+            selectFeedback(feedback) {
+                this.$store.commit('setFeedbackSelect', feedback);
+                this.$store.commit('toggleSortByDropdown', false);
+                this.$router.push(`/feedback/details/${this.$store.state.feedbackSelect.id}`);
             }
         }
     }
@@ -267,6 +328,30 @@
         height: 0.4375rem;
         transform: rotate(90deg);
     }
+    .tablet {
+        display: none;
+    }
+    .tablet-list-column {
+        display: none;
+    }
+    .roadmap-click-area-1 {
+        position: absolute;
+        height: 70%;
+        top: 0rem;
+        left: 0rem;
+        width: 100%;
+        z-index: 0;
+        cursor: pointer;
+    }
+    .roadmap-click-area-2 {
+        position: absolute;
+        height: 67%;
+        top: 4rem;
+        left: 5.75rem;
+        width: 87%;
+        z-index: 0;
+        cursor: pointer;
+    }
     @media(min-width: 768px) {
         .roadmap-main-container {
             background: var(--f);
@@ -278,7 +363,18 @@
             padding: 0 2rem 0;
         }
         .roadmap-body-container {
-            padding: 2.25rem 0rem 0rem;
+            padding: 0rem 0rem 0rem;
+        }
+        .roadmap-list-container {
+            display: flex;
+            margin-top: 2rem;
+        }
+        .roadmap-item-container {
+            padding: 1.5rem 1.25rem 1.5rem;
+        }
+        .tablet-list-column {
+            display: flex;
+            flex-direction: column;
         }
         .back-roadmap-container {
             display: flex;
@@ -288,16 +384,29 @@
         .mobile {
             display: none;
         }
+        h1 {
+            font-size: 1.5rem;
+            margin: 3!important;
+        }
         h2 {
+            font-size: 0.875rem;
+        }
+        h4 {
+            font-size: 0.875rem;
+        }
+        h5 {
+            margin-bottom: 1.5rem!important;
             font-size: 0.875rem;
         }
         p {
             font-size: 0.875rem;
             margin: 0 0 0 0.8125rem!important;
         }
-        h1 {
-            font-size: 1.5rem;
-            margin: 3!important;
+        .tablet {
+            display: flex;
+        }
+        .roadmap-tablet-gap {
+            margin-left: 0.625rem;
         }
     }
 </style>
