@@ -22,9 +22,15 @@ export default {
     } else {
       data = await res.json();
     }
+    let dataPresent = false;
+    if ('productRequests' in storedList) {
+      if (storedList.productRequests.length !== 0) {
+        dataPresent = true;
+      }
+    }
     setTimeout(() => {
       if (this.$store.state.data[0] !== 'error') {
-        this.$store.commit('setData', storedList ? storedList 
+        this.$store.commit('setData', dataPresent ? storedList 
           : data ? data : ['error']);
       }
     }, 2000)

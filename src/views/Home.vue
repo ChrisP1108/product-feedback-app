@@ -31,7 +31,7 @@
           <div v-if="empty">
             <NoFeedbackOrError status="nothing" />
           </div>
-          <div v-if="noneOfCategory">
+          <div v-if="noneOfCategory && !empty">
             <NoFeedbackOrError status="noneOfCategory" />
           </div>
           <div v-if="error">
