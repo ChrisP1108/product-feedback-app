@@ -106,7 +106,15 @@ export default {
     height: 100%;
     min-height: 41.6875rem!important;
   }
-  .createoredit-main-container {
+  .create-main-container {
+    z-index: 1;
+    background: var(--f);
+    height: 100%;
+    min-height: 41.6875rem!important;
+    padding-top: 1.5rem;
+    padding-bottom: 4.8125rem;
+  }
+  .edit-main-container {
     z-index: 1;
     background: var(--f);
     height: 100%;
@@ -233,7 +241,10 @@ export default {
       padding-top: 3.5rem;
       padding-bottom: 7.5rem;
     }
-    .createoredit-main-container {
+    .create-main-container {
+      padding: 3.5rem 7.125rem 13.9375rem;
+    }
+    .edit-main-container {
       padding: 3.5rem 7.125rem 7.625rem;
     }
     .text-field {
@@ -247,6 +258,14 @@ export default {
     }
     .suggestion-click-area-2 {
       display: none;
+    }
+  }
+  @media(min-width: 1200px) {
+    .create-main-container {
+      padding: 5.75rem 31.25% 11.6875rem;
+    }
+    .edit-main-container {
+      padding: 5.75rem 31.25% 8.0625rem;
     }
   }
 </style>

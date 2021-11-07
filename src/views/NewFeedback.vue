@@ -1,5 +1,5 @@
 <template>
-    <div class="createoredit-main-container">
+    <div class="create-main-container">
         <GoBack />
         <div class="trans-fade">
             <CreateOrEditFeedback />

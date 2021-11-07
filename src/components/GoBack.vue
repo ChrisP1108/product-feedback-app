@@ -85,5 +85,8 @@
             padding: 0 1.0625rem 0;
             width: 8.875rem;
         }
+        .go-back-feedback-container {
+            margin: 0rem 1.5rem 0;
+        }
     }
 </style>

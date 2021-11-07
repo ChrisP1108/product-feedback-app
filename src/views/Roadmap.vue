@@ -370,7 +370,7 @@
             margin-top: 2rem;
         }
         .roadmap-item-container {
-            padding: 1.5rem 1.25rem 1.5rem;
+            padding: 1.875rem 1.25rem 1.5rem;
         }
         .tablet-list-column {
             display: flex;
@@ -407,6 +407,31 @@
         }
         .roadmap-tablet-gap {
             margin-left: 0.625rem;
+        }
+        @media(min-width: 1200px) {
+            .roadmap-main-container {
+                padding: 4.875rem 11.459% 11.1875rem;
+            }
+            .roadmap-item-container {
+                padding: 2.125rem 2rem 2rem;
+                margin-bottom: 1.5rem;
+            }
+            .roadmap-tablet-gap {
+                margin-left: 0.625rem;
+            }
+            .roadmap-tablet-gap {
+                margin-left: 1.875rem;
+            }
+            h4 {
+                font-size: 1.125rem;
+            }
+            h5 {
+                font-size: 1rem;
+                margin-bottom: 2rem!important;
+            }
+            .roadmap-list-container {
+                justify-content: space-between;
+            }
         }
     }
 </style>

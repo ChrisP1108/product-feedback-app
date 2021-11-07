@@ -108,4 +108,13 @@ export default {
             margin-top: 0.875rem;
         }
     }
+
+    @media(min-width: 1200px) {
+        .menu-section-container {
+            width: 100%;
+            margin: 0;
+            height: 10.375rem;
+            margin-bottom: 1.5rem;
+        }
+    }
 </style>

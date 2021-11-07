@@ -115,4 +115,9 @@ import GoBack from '../components/GoBack';
       padding-left: 2.8125rem!important;
     }
   }
+  @media(min-width: 1200px) {
+    .feedback-container {
+      padding: 5rem 23% 4.5625rem;
+    }
+  }
 </style>

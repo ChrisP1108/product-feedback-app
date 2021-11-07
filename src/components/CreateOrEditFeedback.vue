@@ -1,5 +1,5 @@
 <template>
-    <div :class="[isNew && 'create-bottom-margin', 'createoredit-container']">
+    <div class="createoredit-container">
         <div :class="[isNew ? 'new-icon' : 'edit-icon']"></div>
         <h1>{{isNew ? 'Create New Feedback' : `Editing '${feedbackSelect.title}'`}}</h1>
         <h2 :class="[isNew ? 'new-margin' : 'edit-margin']">Feedback Title</h2>
@@ -453,8 +453,10 @@
         .edit-margin {
             margin-top: 5rem!important;
         }
-        .create-bottom-margin {
-            margin-bottom: 6.3125rem!important;
+    }
+    @media(min-width: 1200px) {
+        .edit-bottom-margin {
+            height: 6.6875rem;
         }
     }
 </style>

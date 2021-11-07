@@ -124,7 +124,7 @@ if (window.innerWidth > 768) {
 const responseCheck = () => {
     if (window.innerWidth < 768) {
         store.state.response = 'mobile';
-    } else if (window.innerWidth < 1024) {
+    } else if (window.innerWidth < 1200) {
         store.state.response = 'tablet';
     } else {
         store.state.response = 'desktop';

@@ -347,4 +347,26 @@
             margin-bottom: 1.75rem;
         }
     }
+    @media(min-width: 1200px) {
+        .roadmap-title {
+            font-size: 1.125rem;
+        }
+        .roadmap-description {
+            font-size: 1rem;
+        }
+        .roadmap-comment-count {
+            font-size: 1rem;
+            margin-left: 0.25rem;
+        }
+        h4 {
+            font-size: 1rem;
+        }
+        .votes-amount-container-roadmap {
+            width: 4.3125rem;
+            height: 2.5rem;
+        }
+        .roadmap-description {
+            margin-bottom: 1.25rem!important;
+        }
+    }
 </style>

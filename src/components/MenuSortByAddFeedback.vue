@@ -179,6 +179,11 @@
             position: absolute;
             top: 1rem;
         }
+    }
 
+    @media(min-width: 1200px) {
+        .sortby-feedback-container {
+            margin-top: 0;
+        }
     }
 </style>

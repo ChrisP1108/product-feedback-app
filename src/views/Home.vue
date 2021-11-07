@@ -16,30 +16,39 @@
       @click="this.$store.commit('toggleMobileMenu', !this.$store.state.toggleMobileMenu)" 
       class="mobile-touch-off">
     </div>
-    <MenuSortByAddFeedback v-if="!error" />
-    <div class="suggestion-list-container">
-      <div v-if="loading" class="page-loading-container">
-        <PageLoader />
+    <div class="desktop-container">
+      <div class="desktop">
+        <Header />
+        <MenuCategorySort v-if="!error" />
+        <MenuRoadmap v-if="!error" />
       </div>
-      <div v-if="empty">
-        <NoFeedbackOrError status="nothing" />
-      </div>
-      <div v-if="noneOfCategory">
-        <NoFeedbackOrError status="noneOfCategory" />
-      </div>
-      <div v-if="error">
-        <NoFeedbackOrError status="error" />
-      </div>
-      <div v-if="!empty">
-        <div :key="item.id" v-for="item in this.$store.state.list" 
-        class="relative">
-          <div class="suggestion-item-container trans-fade">
-            <SuggestionItem :item="item" isRoadmap='false' />
-            <div @click="selectFeedback(item)" 
-              class="suggestion-click-area-1">
-            </div>
-            <div @click="selectFeedback(item)" 
-              class="suggestion-click-area-2">
+      <div class="desktop-list">
+        <MenuSortByAddFeedback v-if="!error" />
+        <div class="suggestion-list-container">
+          <div v-if="loading" class="page-loading-container">
+            <PageLoader />
+          </div>
+          <div v-if="empty">
+            <NoFeedbackOrError status="nothing" />
+          </div>
+          <div v-if="noneOfCategory">
+            <NoFeedbackOrError status="noneOfCategory" />
+          </div>
+          <div v-if="error">
+            <NoFeedbackOrError status="error" />
+          </div>
+          <div v-if="!empty">
+            <div :key="item.id" v-for="item in this.$store.state.list" 
+            class="relative">
+              <div class="suggestion-item-container trans-fade">
+                <SuggestionItem :item="item" isRoadmap='false' />
+                <div @click="selectFeedback(item)" 
+                  class="suggestion-click-area-1">
+                </div>
+                <div @click="selectFeedback(item)" 
+                  class="suggestion-click-area-2">
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -182,9 +191,24 @@
     }
   }
 
-  @media(min-width: 1024px) {
+  @media(min-width: 1200px) {
     .tablet {
       display: none;
+    }
+    .desktop {
+      display: flex;
+      flex-direction: column;
+      margin-right: 1.875rem;
+      width: 23.722%;
+    }
+    .desktop-container {
+      display: flex;
+    }
+    .desktop-list {
+      width: 100%;
+    }
+    .home {
+      padding: 5.875rem 11.459% 8.0625rem   
     }
   }
 </style>

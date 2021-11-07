@@ -111,5 +111,14 @@ export default {
             font-size: 0.9375rem;
         }
     }
-    
+    @media(min-width: 1200px) {
+        #header {
+            width: 100%;
+            height: 8.5625rem;
+            margin-bottom: 1.5rem;
+        }
+        .header-container {
+            height: 8.5625rem;
+        }
+    }
 </style>
