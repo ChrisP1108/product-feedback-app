@@ -1,13 +1,5 @@
 module.exports = {
-    css: {
-        loaderOptions: {
-            scss: {
-                prependData : `
-                    @import "@/scss/variables.scss";
-                    @import "@/scss/mixins.scss";
-                    @import "@/scss/functions.scss";
-                `
-            },
-        },
-    }
-};
+    publicPath: process.env.NODE_ENV === 'production'
+      ? '/product-feedback-app/'
+      : '/'
+  }

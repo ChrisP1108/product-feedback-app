@@ -23,9 +23,11 @@ export default {
       data = await res.json();
     }
     let dataPresent = false;
-    if ('productRequests' in storedList) {
-      if (storedList.productRequests.length !== 0) {
-        dataPresent = true;
+    if (storedList) {
+      if ('productRequests' in storedList) {
+        if (storedList.productRequests.length !== 0) {
+          dataPresent = true;
+        }
       }
     }
     setTimeout(() => {
