@@ -4,20 +4,6 @@ This is a solution to the [Product feedback app challenge on Frontend Mentor](ht
 
 ## Table of contents
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
 
 ### The challenge
@@ -55,8 +41,6 @@ Users should be able to:
 - [Vue.js](https://vuejs.org/) - JS library
 - [Vuex](https://vuex.vuejs.org/) - Central Store State Management
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
-
 ### What I learned
 
 One of the big things that I learned in tackling this project was the use of the Vue.JS framework.  After doing several coding project with React.JS, I decided to try my next coding challenge with a different framework for the first time and I will say...I'm liking Vue better than React.  It's Vuex state management is much easier than React Redux and it forces you to keep your code more organized without being overly strict and keeping things simple at the same time.
@@ -72,14 +56,7 @@ I also learned more about JSON data management, especially given that the JSON d
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Website - [Chris Paschall](https://chrisp1108.github.io/product-feedback-app/)
+- Frontend Mentor - [@ChrisP1108](https://www.frontendmentor.io/profile/ChrisP1108)
+- LinkedIn - [Christopher Paschall](https://www.linkedin.com/in/christopher-paschall/)
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
