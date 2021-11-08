@@ -1,14 +1,8 @@
 import Vuex from 'vuex'
 
-// Normal List
+// Starting List
 
     export const Url = 'https://raw.githubusercontent.com/ChrisP1108/product-feedback-app/main/app.json';
-
-// Empty List
-
-    // export const Url = 'https://raw.githubusercontent.com/ChrisP1108/product-feedback-app/main/empty.json';
-    // export const Url = 'https://www.google.com';
-
 
 const commentCounter = (comment) => {
     let tally = 0;
