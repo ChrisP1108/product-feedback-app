@@ -14,15 +14,15 @@
             </div>
         </div>
         <div class="roadmap-headings-container mobile">
-            <div :class="[headingSelect[0].selected && 
+            <div v-if="roadmapList.planned.length > 0" :class="[headingSelect[0].selected && 
                 'heading-active heading-planned', 'heading']" @click="toggleHeading('planned')">
                 <h3>{{ `Planned (${roadmapList.planned.length})` }}</h3>
             </div>
-            <div :class="[headingSelect[1].selected && 
+            <div v-if="roadmapList.inProgress.length > 0" :class="[headingSelect[1].selected && 
                 'heading-active heading-in-progress', 'heading']" @click="toggleHeading('inProgress')">
                 <h3>{{ `In-Progress (${roadmapList.inProgress.length})` }}</h3>
             </div>
-            <div :class="[headingSelect[2].selected && 
+            <div v-if="roadmapList.live.length > 0" :class="[headingSelect[2].selected && 
                 'heading-active heading-live', 'heading']" @click="toggleHeading('live')">
                 <h3>{{ `Live (${roadmapList.live.length})` }}</h3>
             </div>
@@ -45,10 +45,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="tablet-list-column">
+                <div v-if="roadmapList.planned.length > 0" class="tablet-list-column">
                     <h4>{{ `Planned (${roadmapList.planned.length})` }}</h4>
                     <h5>{{ headingSelect[0].description }}</h5>
-                    <div :key="item.id" v-for="item in roadmapList.planned" class="tablet position-relative">
+                    <div :key="item.id" v-for="item in roadmapList.planned" 
+                            class="tablet position-relative">
                         <div :class="[`roadmap-top-border roadmap-planned-border`, 'trans-fade']"></div>
                         <div class="roadmap-item-container trans-fade">
                             <SuggestionItem :item="item" isRoadmap='true' />
@@ -61,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tablet-list-column roadmap-tablet-gap">
+                <div v-if="roadmapList.inProgress.length > 0" class="tablet-list-column roadmap-tablet-gap">
                     <h4>{{ `In-Progress (${roadmapList.inProgress.length})` }}</h4>
                     <h5>{{ headingSelect[1].description }}</h5>
                     <div :key="item.id" v-for="item in roadmapList.inProgress" class="tablet position-relative">
@@ -77,7 +78,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tablet-list-column roadmap-tablet-gap">
+                <div v-if="roadmapList.live.length > 0" class="tablet-list-column roadmap-tablet-gap">
                     <h4>{{ `Live (${roadmapList.live.length})` }}</h4>
                     <h5>{{ headingSelect[2].description }}</h5>
                     <div :key="item.id" v-for="item in roadmapList.live" class="tablet position-relative">
@@ -206,6 +207,7 @@
         display: flex;
         justify-content: space-between;
         border-bottom: 0.0625rem var(--z) solid;
+        flex: 1;
     }
     .roadmap-body-container {
         min-height: 100vh;
@@ -221,6 +223,7 @@
         background: var(--d);
         border-radius: 0.625rem;
         margin-bottom: 1rem;
+        width: 100%;
     }
     .roadmap-top-border {
         width: 100%;
@@ -333,6 +336,7 @@
     }
     .tablet-list-column {
         display: none;
+        flex: 1;
     }
     .roadmap-click-area-1 {
         position: absolute;
