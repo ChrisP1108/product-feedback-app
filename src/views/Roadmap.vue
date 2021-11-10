@@ -13,7 +13,7 @@
                     <h2>+ Add Feedback</h2>
             </div>
         </div>
-        <div class="roadmap-headings-container mobile">
+        <div id="roadmapMobileHeading" class="roadmap-headings-container mobile">
             <div v-if="roadmapList.planned.length > 0" :class="[headingSelect[0].selected && 
                 'heading-active heading-planned', 'heading']" @click="toggleHeading('planned')">
                 <h3>{{ `Planned (${roadmapList.planned.length})` }}</h3>
@@ -133,6 +133,9 @@
         computed: {
             roadmapList() {
                 return this.$store.state.roadmap;
+            },
+            soloMobileHeading() {
+                return true;
             }
         },
         methods: {
@@ -183,7 +186,7 @@
                 this.$store.commit('toggleSortByDropdown', false);
                 this.$router.push(`/feedback/details/${this.$store.state.feedbackSelect.id}`);
             }
-        }
+        },
     }
 </script>
 
@@ -205,7 +208,7 @@
         padding: 0 0rem 0;
         background: var(--f);
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         border-bottom: 0.0625rem var(--z) solid;
         flex: 1;
     }
@@ -293,7 +296,7 @@
         align-items: center;
         justify-content: center;
         opacity: 0.35;
-        width: 33%;
+        width: 100%;
         border-bottom: 0.25rem transparent solid;
         cursor: pointer;
         transition: 0.25s;
@@ -356,6 +359,9 @@
         z-index: 0;
         cursor: pointer;
     }
+    .jc {
+        justify-content: center!important
+    }
     @media(min-width: 768px) {
         .roadmap-main-container {
             background: var(--f);
@@ -372,6 +378,7 @@
         .roadmap-list-container {
             display: flex;
             margin-top: 2rem;
+            justify-content: center!important;
         }
         .roadmap-item-container {
             padding: 1.875rem 1.25rem 1.5rem;
