@@ -7,7 +7,7 @@
     <div v-if="!error" class="nofeedback-container trans-fade">
         <img src="illustration-empty.svg" alt="No Feedback Items" />
         <h1 :class="[selected && 'fade-text']">{{ status === 'noneOfCategory' ? `No feedback of category "${capitalizer()}"` 
-            : status === 'noRoadmaps' ? 'No feedback with status of "Planned", "In-Progress", or "Live" Exists.' 
+            : status === 'noRoadmaps' ? 'No feedback with status of "Planned", "In-Progress", or "Live" exists.' 
             : 'There is no feedback yet.'}}</h1>
         <p>Got a suggestion? Found a bug that needs to be squashed? 
             We love hearing about new ideas to improve our app.
