@@ -13,7 +13,7 @@
                     <h2>+ Add Feedback</h2>
             </div>
         </div>
-        <div id="roadmapMobileHeading" class="roadmap-headings-container mobile">
+        <div v-if="!emptyList" class="roadmap-headings-container mobile">
             <div v-if="roadmapList.planned.length > 0" :class="[headingSelect[0].selected && 
                 'heading-active heading-planned', 'heading']" @click="toggleHeading('planned')">
                 <h3>{{ `Planned (${roadmapList.planned.length})` }}</h3>
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="roadmap-body-container">
-            <div class="mobile">
+            <div v-if="!emptyList" class="mobile">
                 <h4>{{ titleGenerator() }}</h4>
                 <h5>{{ description }}</h5>
             </div>
@@ -95,22 +95,28 @@
                     </div>
                 </div>
             </div>
+            <div v-if="emptyList">
+                <NoFeedbackOrError status="noRoadmaps" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import SuggestionItem from '../components/SuggestionItem';
+    import NoFeedbackOrError from '../components/NoFeedbackOrError';
     export default {
         name: 'Roadmap',
         components: {
-            SuggestionItem
+            SuggestionItem,
+            NoFeedbackOrError
         },
         data() {
             return {
                 outputList: [],
                 selected: 'planned',
                 description: 'Ideas prioritized for research',
+                emptyList: false,
                 headingSelect: [
                     {
                         type: 'planned',
@@ -187,6 +193,20 @@
                 this.$router.push(`/feedback/details/${this.$store.state.feedbackSelect.id}`);
             }
         },
+        created() {
+            if (this.roadmapList.planned.length < 1 && this.roadmapList.inProgress.length < 1 
+                && this.roadmapList.live.length < 1) {
+                    this.emptyList = true;
+                    return;
+            }
+            if (this.roadmapList.planned.length < 1) {
+                if (this.roadmapList.inProgress < 1) {
+                    this.toggleHeading('live');
+                } else {
+                    this.toggleHeading('inProgress');
+                }
+            }
+        }
     }
 </script>
 

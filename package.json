@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "bash deploy.sh",
     "open": "start http://localhost:8080",
     "serve": "start http://localhost:8080 && vue-cli-service serve",
     "build": "vue-cli-service build",
