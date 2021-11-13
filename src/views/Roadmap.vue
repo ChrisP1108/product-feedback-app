@@ -62,9 +62,10 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="roadmapList.inProgress.length > 0" class="tablet-list-column roadmap-tablet-gap">
-                    <h4>{{ `In-Progress (${roadmapList.inProgress.length})` }}</h4>
-                    <h5>{{ headingSelect[1].description }}</h5>
+                <div v-if="roadmapList.inProgress.length > 0" :class="[roadmapList.planned.length !== 0 
+                    && 'roadmap-tablet-gap', 'tablet-list-column']">
+                        <h4>{{ `In-Progress (${roadmapList.inProgress.length})` }}</h4>
+                        <h5>{{ headingSelect[1].description }}</h5>
                     <div :key="item.id" v-for="item in roadmapList.inProgress" class="tablet position-relative">
                         <div :class="[`roadmap-top-border roadmap-inProgress-border`, 'trans-fade']"></div>
                         <div class="roadmap-item-container trans-fade">
@@ -78,7 +79,8 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="roadmapList.live.length > 0" class="tablet-list-column roadmap-tablet-gap">
+                <div v-if="roadmapList.live.length > 0" :class="[roadmapList.inProgress.length !== 0 
+                    && 'roadmap-tablet-gap', 'tablet-list-column']">
                     <h4>{{ `Live (${roadmapList.live.length})` }}</h4>
                     <h5>{{ headingSelect[2].description }}</h5>
                     <div :key="item.id" v-for="item in roadmapList.live" class="tablet position-relative">
@@ -446,9 +448,6 @@
             .roadmap-item-container {
                 padding: 2.125rem 2rem 2rem;
                 margin-bottom: 1.5rem;
-            }
-            .roadmap-tablet-gap {
-                margin-left: 0.625rem;
             }
             .roadmap-tablet-gap {
                 margin-left: 1.875rem;

@@ -44,6 +44,9 @@ import GoBack from '../components/GoBack';
     computed: {
       selectedFeedback() {
         return (this.$store.state.feedbackSelect)
+      },
+      dataFeedback() {
+        return (this.$store.state.data.productRequests)
       }
     },
     methods: {
@@ -73,7 +76,12 @@ import GoBack from '../components/GoBack';
         } else {
           return true
         }
-      },
+      }
+    },
+    created() {
+      if (!this.dataFeedback.includes(this.selectedFeedback)) {
+        this.$router.go(-1);
+      }
     }
   }
 </script>

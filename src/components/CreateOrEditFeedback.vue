@@ -258,11 +258,7 @@
                     this.$store.commit('setFeedbackSelect', this.feedbackData);
                     this.$store.commit('setData', data);
                     this.$store.commit('setList');
-                    if (type === 'update') {
-                        this.goBack();
-                    } else {
-                        this.$router.push('/');
-                    }
+                    this.goBack();
                     if (type === 'update') {
                         this.loadingSave = false;
                     } else {

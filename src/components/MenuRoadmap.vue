@@ -2,7 +2,7 @@
     <div class="menu-section-container container-padding">
         <div class="roadmap-header">
             <h1>Roadmap</h1>
-            <h2 @click="toggleRoadmap">View</h2>
+            <h2 v-if="!emptyRoadmap" @click="toggleRoadmap">View</h2>
         </div>
         <div class="roadmap-list">
             <div class="roadmap-item-row">
@@ -48,6 +48,12 @@ export default {
     computed: {
         roadmap() {
             return (this.$store.state.roadmap);
+        },
+        emptyRoadmap() {
+            if (this.roadmap.planned.length < 1 && this.roadmap.inProgress.length < 1
+                && this.roadmap.live.length < 1) {
+                    return true
+            } else return false
         }
     }
 }
