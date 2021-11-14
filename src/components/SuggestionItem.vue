@@ -100,8 +100,8 @@
                     data.currentUser.upvotes.push(item.id);
                     item.upvotes = item.upvotes + 1;
                 }
-                const index = data.productRequests.findIndex(i => i.id === item.id);
-                data.productRequests.splice(index, 1, item);
+                const indexNum = data.productRequests.findIndex(i => i.id === item.id);
+                data.productRequests.splice(indexNum, 1, item);
                 this.$store.commit('setFeedbackSelect', item);
                 this.$store.commit('setData', data);
                 this.voteClickCheck();

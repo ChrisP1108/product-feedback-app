@@ -231,7 +231,7 @@
                 } else return false
             },
             createFeedback() {
-                if(this.emptyFieldCheck()) {
+                if (this.emptyFieldCheck()) {
                     return;
                 }
                 this.loadingSave = true;
