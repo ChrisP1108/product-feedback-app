@@ -245,10 +245,10 @@
                 }, 2000);
             },
             changeFeedback(type) {
-                if(this.emptyFieldCheck()) {
-                    return;
-                }
                 if (type === 'update') {
+                    if (this.emptyFieldCheck()) {
+                        return
+                    }
                     this.loadingSave = true;
                 } else {
                     this.loadingDelete = true;
