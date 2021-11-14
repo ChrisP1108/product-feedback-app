@@ -217,19 +217,22 @@
             goBack() {
                 this.$router.go(-1);
             },
-            createFeedback() {
+            emptyFieldCheck() {
                 if (!this.feedbackData.title && !this.feedbackData.description) {
                     this.titleEmpty = true;
                     this.descriptionEmpty = true;
-                    return
-                }
-                if (!this.feedbackData.title) {
+                    return true;
+                } else if (!this.feedbackData.title) {
                     this.titleEmpty = true;
-                    return
-                }
-                if (!this.feedbackData.description) {
+                    return true;
+                } else if (!this.feedbackData.description) {
                     this.descriptionEmpty = true;
-                    return
+                    return true;
+                } else return false
+            },
+            createFeedback() {
+                if(this.emptyFieldCheck()) {
+                    return;
                 }
                 this.loadingSave = true;
                 setTimeout(() => {
@@ -242,6 +245,9 @@
                 }, 2000);
             },
             changeFeedback(type) {
+                if(this.emptyFieldCheck()) {
+                    return;
+                }
                 if (type === 'update') {
                     this.loadingSave = true;
                 } else {

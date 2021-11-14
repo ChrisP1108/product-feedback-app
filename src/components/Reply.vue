@@ -6,7 +6,7 @@
             :class="[!limit && 'red-border']">
         </textarea>
         <div v-if="!currentUser" @click="postReply()"
-            class="button button-format reply-button position-relative">
+            :class="[!text && 'invisible', 'button button-format reply-button position-relative']">
                 <div v-if="loadingPost" class="position-absolute">
                     <ButtonSpinner />
                 </div>
@@ -41,12 +41,6 @@
         },
         props: {
             comment: Object
-        },
-        created() {
-            if (this.userData.username === this.comment.user.username) {
-                this.currentUser = true;
-                this.text = this.comment.content
-            }
         },
         data() {
             return {
@@ -168,7 +162,6 @@
                                     } else {
                                         data.comments[i].replies.splice(j, 1);
                                     }
-                                    
                                     break;
                                 }
                                 if ('replies' in data.comments[i].replies[j]) {
@@ -195,6 +188,12 @@
                     }
                 }, 2000);
                 
+            }
+        },
+        created() {
+            if (this.userData.username === this.comment.user.username) {
+                this.currentUser = true;
+                this.text = this.comment.content
             }
         }
     }
